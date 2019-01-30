@@ -1,10 +1,10 @@
 ﻿@model nptk.Models.Tour
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Új túra létrehozása";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Tour</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -64,7 +63,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Vissza a túrákhoz", "Index")
 </div>
 
 @section Scripts {
