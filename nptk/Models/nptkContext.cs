@@ -6,7 +6,7 @@ using System.Web;
 
 namespace nptk.Models
 {
-    public class nptkContext : DbContext
+    public class NptkContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -15,10 +15,12 @@ namespace nptk.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public nptkContext() : base("name=nptkContext")
+        public NptkContext() : base("name=nptkContext")
         {
         }
 
         public System.Data.Entity.DbSet<nptk.Models.Tour> Tours { get; set; }
+        public System.Data.Entity.DbSet<nptk.Models.Hiker> Hikers { get; set; }
+        public System.Data.Entity.DbSet<nptk.Models.SignUp> SignUps { get; set; }
     }
 }

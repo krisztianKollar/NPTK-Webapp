@@ -9,7 +9,7 @@ namespace nptk.Models
     public class Tour
     {
 
-        public int Id { get; set; }
+        public int TourId { get; set; }
         [Display(Name = "Túra")]
         public string Title { get; set; }
 
@@ -22,6 +22,9 @@ namespace nptk.Models
         public decimal Distance { get; set; }
         [Display(Name = "Szintemelkedés (m)")]
         public int Climb { get; set; }
+        public virtual ICollection<SignUp> SignUps { get; set; }
+    
+
 
     }
 }

@@ -12,7 +12,7 @@ namespace nptk.Controllers
 {
     public class ToursController : Controller
     {
-        private nptkContext db = new nptkContext();
+        private NptkContext db = new NptkContext();
 
         // GET: Tours
         public ActionResult Index()

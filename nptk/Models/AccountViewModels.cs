@@ -29,7 +29,7 @@ namespace nptk.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "Kód")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
