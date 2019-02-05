@@ -28,43 +28,46 @@
         </th>
         <th></th>
     </tr>
-   
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Track)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Climb)
-        </td>
-        <td>
-            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-            {
-                @Html.ActionLink("Szerkesztés ", "Edit", new { id = item.Id })
-                @Html.ActionLink("Törlés ", "Delete", new { id = item.Id })
-            }
 
-            @*<div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    @Html.CheckBoxFor(m => m.Apply)
-                    @Html.LabelFor(m => m.Apply)
-                </div>
-            </div>
-        </div>*@
-            @Html.ActionLink("Részletek ", "Details", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Track)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Climb)
+            </td>
+            <td>
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <p>
+                        @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) |
+                        @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) |
+                    </p>
+                }
+
+                @*<div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.Apply)
+                                @Html.LabelFor(m => m.Apply)
+                            </div>
+                        </div>
+                    </div>*@
+                @Html.ActionLink("Részletek ", "Details", new { id = item.TourId })
+            </td>
+        </tr>
+    }
 
 </table>

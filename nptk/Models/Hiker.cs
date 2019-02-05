@@ -8,7 +8,7 @@ namespace nptk.Models
 {
     public class Hiker
     {
-        public int ID { get; set; }
+        public int HikerID { get; set; }
         [Display(Name = "Felhasználónév")]
         public string UserName { get; set; }
         [Display(Name = "Vezetéknév")]
