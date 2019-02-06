@@ -48,6 +48,24 @@
         <dd>
             @Html.DisplayFor(model => model.Climb)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SignUps)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Jelentkezők</th>
+                </tr>
+                @foreach (var item in Model.SignUps)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
 
     </dl>
 </div>

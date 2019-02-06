@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,14 +14,14 @@ namespace nptk.Models
         public DateTime BirthDate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public virtual ICollection<SignUp> SignUps { get; set; }
 
         /*
         [Display(Name = "Vezetéknév")]
         [Display(Name = "Keresztnév")]
         [Display(Name = "Születési dátum")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date)]*/
 
-        public virtual ICollection<SignUp> SignUps { get; set; }*/
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -44,5 +45,7 @@ namespace nptk.Models
         }
 
         public System.Data.Entity.DbSet<nptk.Models.Tour> Tours { get; set; }
+
+        public System.Data.Entity.DbSet<nptk.Models.SignUp> SignUps { get; set; }
     }
 }

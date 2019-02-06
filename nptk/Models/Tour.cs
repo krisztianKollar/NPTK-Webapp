@@ -22,6 +22,7 @@ namespace nptk.Models
         public decimal Distance { get; set; }
         [Display(Name = "Szintemelkedés (m)")]
         public int Climb { get; set; }
+        [Display(Name = "Jelentkezések")]
         public virtual ICollection<SignUp> SignUps { get; set; }
     
 
