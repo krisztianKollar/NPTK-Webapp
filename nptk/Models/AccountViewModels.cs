@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace nptk.Models
@@ -71,6 +72,18 @@ namespace nptk.Models
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Vezetéknév")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Keresztnév")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Születési dátum")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "A {0} legalább {2} karakternyi legyen!", MinimumLength = 6)]

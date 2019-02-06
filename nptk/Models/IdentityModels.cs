@@ -11,14 +11,12 @@ namespace nptk.Models
     public class ApplicationUser : IdentityUser
     {
         public DateTime BirthDate { get; set; }
-
-        /*public int HikerID { get; set; }
-        [Display(Name = "Felhasználónév")]
-        public string UserName { get; set; }
-        [Display(Name = "Vezetéknév")]
-        public string LastName { get; set; }
-        [Display(Name = "Keresztnév")]
         public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        /*
+        [Display(Name = "Vezetéknév")]
+        [Display(Name = "Keresztnév")]
         [Display(Name = "Születési dátum")]
         [DataType(DataType.Date)]
 
