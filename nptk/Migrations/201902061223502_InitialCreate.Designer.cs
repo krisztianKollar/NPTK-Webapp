@@ -13,7 +13,7 @@ namespace nptk.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201902051126481_InitialCreate"; }
+            get { return "201902061223502_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

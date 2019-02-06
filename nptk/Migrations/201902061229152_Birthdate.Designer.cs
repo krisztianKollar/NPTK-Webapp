@@ -7,13 +7,13 @@ namespace nptk.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class Birthdate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Birthdate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902051059522_InitialCreate"; }
+            get { return "201902061229152_Birthdate"; }
         }
         
         string IMigrationMetadata.Source

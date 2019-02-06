@@ -5,14 +5,14 @@ namespace nptk.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<nptk.Models.NptkContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<nptk.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(nptk.Models.NptkContext context)
+        protected override void Seed(nptk.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

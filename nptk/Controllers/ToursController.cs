@@ -12,7 +12,7 @@ namespace nptk.Controllers
 {
     public class ToursController : Controller
     {
-        private NptkContext db = new NptkContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tours
         public ActionResult Index()
@@ -46,7 +46,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Date,Track,Distance,Climb")] Tour tour)
+        public ActionResult Create([Bind(Include = "TourId,Title,Date,Track,Distance,Climb")] Tour tour)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Date,Track,Distance,Climb")] Tour tour)
+        public ActionResult Edit([Bind(Include = "TourId,Title,Date,Track,Distance,Climb")] Tour tour)
         {
             if (ModelState.IsValid)
             {

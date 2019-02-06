@@ -9,9 +9,9 @@ namespace nptk.Models
     {    
         public int SignUpID { get; set; }
         public int TourID { get; set; }
-        public int HikerID { get; set; }
+        public int UserID { get; set; }
         
         public virtual Tour Tour { get; set; }
-        public virtual Hiker Hiker { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }
