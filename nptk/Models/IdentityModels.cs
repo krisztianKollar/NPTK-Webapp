@@ -12,6 +12,12 @@ namespace nptk.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "E-mail")]
+        public override string Email { get; set; }
+
+        [Display(Name = "Felhasználónév")]
+        public override string UserName { get; set; }
+
         [Required]
         [Display(Name = "Vezetéknév")]
         public string LastName { get; set; }
@@ -24,6 +30,12 @@ namespace nptk.Models
         [Display(Name = "Születési idő")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
+
+        [Display(Name = "Név")]
+        public string FullName
+        {
+            get { return LastName + " " + FirstName; }
+        }
 
         public virtual ICollection<SignUp> SignUps { get; set; }
 
