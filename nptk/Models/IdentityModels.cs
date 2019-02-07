@@ -22,6 +22,7 @@ namespace nptk.Models
 
         [Required]
         [Display(Name = "Születési idő")]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         public virtual ICollection<SignUp> SignUps { get; set; }
