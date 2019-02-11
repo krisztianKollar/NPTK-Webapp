@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -40,6 +41,7 @@ namespace nptk.Controllers
         public ActionResult Create()
         {
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title");
+            ViewBag.Users = new SelectList(db.Users, "Id", "FullName");
             return View();
         }
 
@@ -53,11 +55,13 @@ namespace nptk.Controllers
             if (ModelState.IsValid)
             {
                 db.SignUps.Add(signUp);
+                Debug.WriteLine(signUp.ToString());
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", signUp.TourID);
+            ViewBag.Users = new SelectList(db.Users, "Id", "FullName", signUp.UserID);
             return View(signUp);
         }
 

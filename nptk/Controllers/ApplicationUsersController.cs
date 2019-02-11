@@ -21,7 +21,7 @@ namespace nptk.Controllers
         }
 
         // GET: ApplicationUsers/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -59,7 +59,7 @@ namespace nptk.Controllers
         }
 
         // GET: ApplicationUsers/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -90,7 +90,7 @@ namespace nptk.Controllers
         }
 
         // GET: ApplicationUsers/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace nptk.Controllers
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             ApplicationUser applicationUser = db.Users.Find(id);
             db.Users.Remove(applicationUser);

@@ -13,5 +13,12 @@ namespace nptk.Models
         
         public virtual Tour Tour { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        public override string ToString()
+        {
+            return ("SignUpID = " + SignUpID + " TourID = " + TourID + " UserID= " + UserID);
+        }
     }
+
+
 }

@@ -6,11 +6,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace nptk.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
         [Display(Name = "E-mail")]
         public override string Email { get; set; }
@@ -39,7 +41,7 @@ namespace nptk.Models
 
         public virtual ICollection<SignUp> SignUps { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -48,10 +50,11 @@ namespace nptk.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole,
+        int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
         public ApplicationDbContext()
-            : base("nptkContext", throwIfV1Schema: false)
+            : base("nptkContext")
         {
         }
 
@@ -64,6 +67,47 @@ namespace nptk.Models
 
         public System.Data.Entity.DbSet<nptk.Models.SignUp> SignUps { get; set; }
 
-        
+
     }
+
+    public class CustomUserRole : IdentityUserRole<int> { }
+    public class CustomUserClaim : IdentityUserClaim<int> { }
+    public class CustomUserLogin : IdentityUserLogin<int> { }
+
+    public class CustomRole : IdentityRole<int, CustomUserRole>
+    {
+        public CustomRole() { }
+        public CustomRole(string name) { Name = name; }
+        //public CustomRole(int id, string name) { Id = id;  Name = name; }
+    }
+
+    public class UserStore : UserStore<ApplicationUser, CustomRole, int,
+        CustomUserLogin, CustomUserRole, CustomUserClaim>
+    {
+        public UserStore(ApplicationDbContext context)
+            : base(context)
+        {
+        }
+    }
+
+    public class CustomRoleStore : RoleStore<CustomRole, int, CustomUserRole>
+    {
+        public CustomRoleStore(ApplicationDbContext context)
+            : base(context)
+        {
+        }
+    }
+
+    /*public class ApplicationRoleManager : RoleManager<CustomRole, int>
+    {
+        public ApplicationRoleManager(IRoleStore<CustomRole, int> roleStore)
+            : base(roleStore)
+        {
+        }
+
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+        {
+            return new ApplicationRoleManager(new RoleStore<CustomRole, int, CustomUserRole>(context.Get<ApplicationDbContext>()));
+        }
+    }*/
 }

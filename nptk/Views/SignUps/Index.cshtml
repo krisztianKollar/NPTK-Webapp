@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Tour.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.User.FullName)
         </th>
         <th></th>
     </tr>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.Tour.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
+            @Html.DisplayFor(modelItem => item.User.FullName)
         </td>
         <td>
             @Html.ActionLink("Szerkesztés", "Edit", new { id=item.SignUpID }) |
