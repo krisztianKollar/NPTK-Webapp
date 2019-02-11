@@ -1,13 +1,12 @@
 ﻿@model nptk.Models.SignUp
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Jelentkezés részletei";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>SignUp</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,16 +18,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.User.FullName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserID)
+            @Html.DisplayFor(model => model.User.FullName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SignUpID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Szerkesztés", "Edit", new { id = Model.SignUpID }) |
+    @Html.ActionLink("Vissza a jelentkezésekhez", "Index")
 </p>

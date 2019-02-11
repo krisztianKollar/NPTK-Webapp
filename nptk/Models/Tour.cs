@@ -24,8 +24,10 @@ namespace nptk.Models
         public int Climb { get; set; }
         [Display(Name = "Jelentkezések")]
         public virtual ICollection<SignUp> SignUps { get; set; }
-    
 
-
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

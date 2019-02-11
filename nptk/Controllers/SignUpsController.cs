@@ -41,7 +41,7 @@ namespace nptk.Controllers
         public ActionResult Create()
         {
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title");
-            ViewBag.Users = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.UserID = new SelectList(db.Users, "Id", "FullName");
             return View();
         }
 
@@ -50,18 +50,17 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SignUpID,TourID,UserID")] SignUp signUp)
+        public ActionResult Create([Bind(Include = "TourID,UserID")] SignUp signUp)
         {
             if (ModelState.IsValid)
             {
                 db.SignUps.Add(signUp);
-                Debug.WriteLine(signUp.ToString());
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", signUp.TourID);
-            ViewBag.Users = new SelectList(db.Users, "Id", "FullName", signUp.UserID);
+            ViewBag.UserID = new SelectList(db.Users, "Id", "FullName", signUp.UserID);
             return View(signUp);
         }
 
@@ -78,6 +77,7 @@ namespace nptk.Controllers
                 return HttpNotFound();
             }
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", signUp.TourID);
+            ViewBag.UserID = new SelectList(db.Users, "Id", "FullName", signUp.UserID);
             return View(signUp);
         }
 
