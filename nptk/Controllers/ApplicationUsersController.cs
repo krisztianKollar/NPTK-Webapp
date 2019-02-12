@@ -84,37 +84,12 @@ namespace nptk.Controllers
                 }
                 // If we got this far, something failed, redisplay form
                 return View(model);
-
             }
-            catch (DbEntityValidationException e)
+            catch (Exception e)
             {
-
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
                 throw;
             }
         }
-
-
-
-        /*{
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(applicationUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(applicationUser);
-        }*/
 
         // GET: ApplicationUsers/Edit/5
         public ActionResult Edit(int? id)
@@ -167,9 +142,17 @@ namespace nptk.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
         {
+            try
+            {
             ApplicationUser applicationUser = db.Users.Find(id);
             db.Users.Remove(applicationUser);
             db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 

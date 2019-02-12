@@ -1,13 +1,12 @@
 ﻿@model nptk.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "A túratárs adatai";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>ApplicationUser</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -120,6 +119,25 @@
 
         <dd>
             @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SignUps)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Túrák</th>
+                </tr>
+                @foreach (var item in Model.SignUps)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tour.Title)
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
 
     </dl>

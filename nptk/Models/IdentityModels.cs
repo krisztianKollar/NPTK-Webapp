@@ -39,6 +39,7 @@ namespace nptk.Models
             get { return LastName + " " + FirstName; }
         }
 
+        [Display(Name = "Jelentkezések")]
         public virtual ICollection<SignUp> SignUps { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager)
