@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.Owin;
 using nptk.Models;
 
 namespace nptk.Controllers
@@ -13,6 +17,20 @@ namespace nptk.Controllers
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
 
         // GET: ApplicationUsers
         public ActionResult Index()
@@ -46,8 +64,48 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstName,BirthDate,Email,EmailConfirmed,PhoneNumber,UserName")] ApplicationUser applicationUser)
+        public async Task<ActionResult> Create(CreateUserViewModel model)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = new ApplicationUser { UserName = model.UserName, LastName = model.LastName, FirstName = model.FirstName, BirthDate = model.BirthDate, Email = model.Email, EmailConfirmed = model.EmailConfirmed, PhoneNumber = model.PhoneNumber };
+
+                    var password = user.LastName.Substring(0, 1).ToUpper() + user.FirstName.Substring(0, 1).ToLower() + "-" + user.BirthDate.ToString().Substring(0, 4);
+                    var result = await UserManager.CreateAsync(user, password);
+                    Debug.WriteLine(password);
+                    if (result.Succeeded)
+                    {
+                        //db.Users.Add(user);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                // If we got this far, something failed, redisplay form
+                return View(model);
+
+            }
+            catch (DbEntityValidationException e)
+            {
+
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+        }
+
+
+
+        /*{
             if (ModelState.IsValid)
             {
                 db.Users.Add(applicationUser);
@@ -56,7 +114,7 @@ namespace nptk.Controllers
             }
 
             return View(applicationUser);
-        }
+        }*/
 
         // GET: ApplicationUsers/Edit/5
         public ActionResult Edit(int? id)

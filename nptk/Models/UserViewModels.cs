@@ -34,6 +34,6 @@ namespace nptk.Models
 
         [Phone]
         [Display(Name = "Telefonszám")]
-        public string Number { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }
