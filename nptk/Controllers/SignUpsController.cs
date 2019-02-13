@@ -11,6 +11,7 @@ using nptk.Models;
 
 namespace nptk.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SignUpsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

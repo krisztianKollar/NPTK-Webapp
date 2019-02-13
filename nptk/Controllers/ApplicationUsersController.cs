@@ -14,6 +14,7 @@ using nptk.Models;
 
 namespace nptk.Controllers
 {
+    [Authorize]
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

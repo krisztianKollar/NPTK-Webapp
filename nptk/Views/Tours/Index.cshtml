@@ -6,9 +6,12 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Új túra", "Create")
-</p>
+@if (@User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Új túra", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -49,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Climb)
             </td>
             <td>
-                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                @if (@User.IsInRole("Admin"))
                 {
                     <p>
                         @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) |
