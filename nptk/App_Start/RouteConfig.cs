@@ -24,6 +24,8 @@ namespace nptk
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute("CatchAllUrls", "{*url}", new { controller = "Error", action = "CatchAllUrls" });
         }
     }
 }
