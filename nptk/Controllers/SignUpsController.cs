@@ -38,6 +38,7 @@ namespace nptk.Controllers
         }
 
         // GET: SignUps/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title");
@@ -50,6 +51,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "TourID,UserID")] SignUp signUp)
         {
             if (ModelState.IsValid)
@@ -65,6 +67,7 @@ namespace nptk.Controllers
         }
 
         // GET: SignUps/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +89,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "SignUpID,TourID,UserID")] SignUp signUp)
         {
             if (ModelState.IsValid)
@@ -99,6 +103,7 @@ namespace nptk.Controllers
         }
 
         // GET: SignUps/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -116,6 +121,7 @@ namespace nptk.Controllers
         // POST: SignUps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             SignUp signUp = db.SignUps.Find(id);

@@ -36,6 +36,7 @@ namespace nptk.Controllers
         }
 
         // GET: Tours/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +47,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "TourId,Title,Date,Track,Distance,Climb")] Tour tour)
         {
             if (ModelState.IsValid)
@@ -59,6 +61,7 @@ namespace nptk.Controllers
         }
 
         // GET: Tours/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +81,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "TourId,Title,Date,Track,Distance,Climb")] Tour tour)
         {
             if (ModelState.IsValid)
@@ -90,6 +94,7 @@ namespace nptk.Controllers
         }
 
         // GET: Tours/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +112,7 @@ namespace nptk.Controllers
         // POST: Tours/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Tour tour = db.Tours.Find(id);
