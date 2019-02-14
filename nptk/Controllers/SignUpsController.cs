@@ -55,11 +55,19 @@ namespace nptk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "TourID,UserID")] SignUp signUp)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SignUps.Add(signUp);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SignUps.Add(signUp);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
             }
 
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", signUp.TourID);
@@ -113,7 +121,7 @@ namespace nptk.Controllers
                     ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
                 }
             }
-            return View(signupToUpdate);            
+            return View(signupToUpdate);
         }
 
         // GET: SignUps/Delete/5

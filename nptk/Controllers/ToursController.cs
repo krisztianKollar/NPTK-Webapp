@@ -49,15 +49,22 @@ namespace nptk.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "TourId,Title,Date,Track,Distance,Climb")] Tour tour)
+        public ActionResult Create([Bind(Include = "Title,Date,Track,Distance,Climb")] Tour tour)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Tours.Add(tour);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Tours.Add(tour);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
+            }
             return View(tour);
         }
 

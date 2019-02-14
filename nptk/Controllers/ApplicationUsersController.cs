@@ -89,10 +89,12 @@ namespace nptk.Controllers
                 // If we got this far, something failed, redisplay form
                 return View(model);
             }
-            catch (Exception e)
+            catch (DataException /* dex */)
             {
-                throw;
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
             }
+            return View(model);
         }
 
         // GET: ApplicationUsers/Edit/5
