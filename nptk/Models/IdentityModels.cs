@@ -34,10 +34,7 @@ namespace nptk.Models
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "Név")]
-        public string FullName
-        {
-            get { return LastName + " " + FirstName; }
-        }
+        public string FullName => LastName + " " + FirstName;
 
         [Display(Name = "Jelentkezések")]
         public virtual ICollection<SignUp> SignUps { get; set; }
@@ -79,7 +76,6 @@ namespace nptk.Models
     {
         public CustomRole() { }
         public CustomRole(string name) { Name = name; }
-        //public CustomRole(int id, string name) { Id = id;  Name = name; }
     }
 
     public class UserStore : UserStore<ApplicationUser, CustomRole, int,

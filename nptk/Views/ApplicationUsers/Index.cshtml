@@ -15,18 +15,18 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FullName)
+            @Html.ActionLink("Név", "Index", new { sortOrder = ViewBag.FullNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.ActionLink("Felhasználónév", "Index", new { sortOrder = ViewBag.UserNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         @if (@User.IsInRole("Admin"))
         {
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.ActionLink("E-mail", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                @Html.ActionLink("Születési idő", "Index", new { sortOrder = ViewBag.BirthDateSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
         }
         <th></th>

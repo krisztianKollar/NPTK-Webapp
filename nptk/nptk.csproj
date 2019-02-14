@@ -212,6 +212,10 @@
     <Compile Include="Migrations\201902111325589_AfterIntId.Designer.cs">
       <DependentUpon>201902111325589_AfterIntId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902141531080_Fullname.cs" />
+    <Compile Include="Migrations\201902141531080_Fullname.Designer.cs">
+      <DependentUpon>201902141531080_Fullname.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -340,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902111325589_AfterIntId.resx">
       <DependentUpon>201902111325589_AfterIntId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902141531080_Fullname.resx">
+      <DependentUpon>201902141531080_Fullname.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
