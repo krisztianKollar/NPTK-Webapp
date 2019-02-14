@@ -40,6 +40,7 @@ namespace nptk.Controllers
         }
 
         // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -113,18 +114,32 @@ namespace nptk.Controllers
         // POST: ApplicationUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "LastName,FirstName,BirthDate,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult EditPost(int? Id)
         {
-            if (ModelState.IsValid)
+            if (Id == null)
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(applicationUser);
+            var userToUpdate = db.Users.Find(Id);
+            if (TryUpdateModel(userToUpdate, "",
+               new string[] { "LastName", "FirstName", "BirthDate", "Email", "EmailConfirmed", "PhoneNumber", "PhoneNumberConfirmed", "UserName" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
+                }
+            }
+            return View(userToUpdate);
         }
 
         // GET: ApplicationUsers/Delete/5

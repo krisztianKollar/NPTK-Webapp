@@ -80,18 +80,33 @@ namespace nptk.Controllers
         // POST: Tours/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "TourId,Title,Date,Track,Distance,Climb")] Tour tour)
+        public ActionResult EditPost(int? TourId)
         {
-            if (ModelState.IsValid)
+            if (TourId == null)
             {
-                db.Entry(tour).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(tour);
+            var tourToUpdate = db.Tours.Find(TourId);
+            if (TryUpdateModel(tourToUpdate, "",
+               new string[] { "Title", "Date", "Track", "Distance", "Climb" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
+                }
+            }
+            return View(tourToUpdate);
+
         }
 
         // GET: Tours/Delete/5

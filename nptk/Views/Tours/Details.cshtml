@@ -48,6 +48,19 @@
         <dd>
             @Html.DisplayFor(model => model.Climb)
         </dd>
+
+        <dt>
+            Jelentkezés erre a túrára
+        </dt>
+
+        <dd>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.CheckBox("signup")
+                    </div>
+                </div>
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.SignUps)
         </dt>
@@ -70,6 +83,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Szerkesztés", "Edit", new { id = Model.TourId }) |
+    @if (@User.IsInRole("Admin"))
+    {@Html.ActionLink("Szerkesztés", "Edit", new { id = Model.TourId })<span> |</span>}
     @Html.ActionLink("Vissza a túrákhoz", "Index")
 </p>

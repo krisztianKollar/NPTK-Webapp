@@ -21,15 +21,11 @@
             @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Track)
-        </th>
-        <th>
             &rarr; (km)
         </th>
         <th>
             &nearr; (m)
         </th>
-        <th></th>
     </tr>
 
 
@@ -37,19 +33,21 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Distance)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Climb)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @if (@User.IsInRole("Admin"))
