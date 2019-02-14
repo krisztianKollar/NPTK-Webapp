@@ -118,11 +118,15 @@ namespace nptk.Controllers
 
         // GET: Tours/Delete/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Sikertelen a törlés! Próbáld újra, s ha továbbra is fennáll a probléma, keresd az adminisztrátort!";
             }
             Tour tour = db.Tours.Find(id);
             if (tour == null)
@@ -138,9 +142,17 @@ namespace nptk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tour tour = db.Tours.Find(id);
-            db.Tours.Remove(tour);
-            db.SaveChanges();
+            try
+            {
+                Tour tour = db.Tours.Find(id);
+                db.Tours.Remove(tour);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 

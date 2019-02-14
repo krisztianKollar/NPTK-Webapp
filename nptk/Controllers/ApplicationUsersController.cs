@@ -146,11 +146,15 @@ namespace nptk.Controllers
 
         // GET: ApplicationUsers/Delete/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Sikertelen a törlés! Próbáld újra, s ha továbbra is fennáll a probléma, keresd az adminisztrátort!";
             }
             ApplicationUser applicationUser = db.Users.Find(id);
             if (applicationUser == null)
@@ -168,9 +172,9 @@ namespace nptk.Controllers
         {
             try
             {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
+                ApplicationUser applicationUser = db.Users.Find(id);
+                db.Users.Remove(applicationUser);
+                db.SaveChanges();
             }
             catch (DataException/* dex */)
             {

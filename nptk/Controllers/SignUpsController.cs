@@ -126,11 +126,15 @@ namespace nptk.Controllers
 
         // GET: SignUps/Delete/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Sikertelen a törlés! Próbáld újra, s ha továbbra is fennáll a probléma, keresd az adminisztrátort!";
             }
             SignUp signUp = db.SignUps.Find(id);
             if (signUp == null)
@@ -146,9 +150,17 @@ namespace nptk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            SignUp signUp = db.SignUps.Find(id);
-            db.SignUps.Remove(signUp);
-            db.SaveChanges();
+            try
+            {
+                SignUp signUp = db.SignUps.Find(id);
+                db.SignUps.Remove(signUp);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 
