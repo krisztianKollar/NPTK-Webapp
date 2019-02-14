@@ -15,18 +15,18 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.ActionLink("Dátum", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            &rarr; (km)
+            @Html.ActionLink("&rarr; (km)", "Index", new { sortOrder = ViewBag.DistanceSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            &nearr; (m)
+            @Html.ActionLink("&nearr; (m)", "Index", new { sortOrder = ViewBag.ClimbSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
-    </tr>
+   </tr>
 
 
     @foreach (var item in Model)

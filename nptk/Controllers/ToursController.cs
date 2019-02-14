@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -16,9 +17,43 @@ namespace nptk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tours
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Tours.ToList());
+            ViewBag.TitleSortParm = sortOrder == "title" ? "title_desc" : "title";
+            ViewBag.DistanceSortParm = sortOrder == "distance" ? "distance_desc" : "distance";
+            ViewBag.ClimbSortParm = sortOrder == "climb" ? "climb_desc" : "climb";
+            ViewBag.DateSortParm = string.IsNullOrEmpty(sortOrder) ? "" : "date";
+            var tours = from t in db.Tours
+                           select t;
+            switch (sortOrder)
+            {
+                case "title":
+                    tours = tours.OrderBy(t => t.Title);
+                    break;
+                case "title_desc":
+                    tours = tours.OrderByDescending(t => t.Title);
+                    break;
+                case "distance":
+                    tours = tours.OrderBy(t => t.Distance);
+                    break;
+                case "distance_desc":
+                    tours = tours.OrderByDescending(t => t.Distance);
+                    break;
+                case "climb":
+                    tours = tours.OrderBy(t => t.Climb);
+                    break;
+                case "climb_desc":
+                    tours = tours.OrderByDescending(t => t.Climb);
+                    break;
+                case "date":
+                    tours = tours.OrderBy(t => t.Date);
+                    break;
+                default:
+                    tours = tours.OrderByDescending(t => t.Date);
+                    break;
+            }
+
+            return View(tours.ToList());
         }
 
         // GET: Tours/Details/5
