@@ -37,41 +37,41 @@ namespace nptk.Controllers
         public ActionResult Index(string sortOrder)
         {
             try
-            {            
-            ViewBag.FullNameSortParm = string.IsNullOrEmpty(sortOrder) ? "fullname_desc" : "";
-            ViewBag.UserNameSortParm = sortOrder == "username" ? "username_desc" : "username";
-            ViewBag.EmailSortParm = sortOrder == "email" ? "email_desc" : "email";
-            ViewBag.BirthDateSortParm = sortOrder == "birthdate" ? "birthdate_desc" : "birthdate";
-            var users = from u in db.Users
-                        select u;
-            switch (sortOrder)
             {
-                case "fullname_desc":
-                    users = users.OrderByDescending(u => u.LastName + " " + u.FirstName);
-                    break;
-                case "username":
-                    users = users.OrderBy(u => u.UserName);
-                    break;
-                case "username_desc":
-                    users = users.OrderByDescending(u => u.UserName);
-                    break;
-                case "email":
-                    users = users.OrderBy(u => u.Email);
-                    break;
-                case "email_desc":
-                    users = users.OrderByDescending(u => u.Email);
-                    break;
-                case "birthdate":
-                    users = users.OrderBy(u => u.BirthDate);
-                    break;
-                case "birthdate_desc":
-                    users = users.OrderByDescending(u => u.BirthDate);
-                    break;
-                default:
-                    users = users.OrderBy(u => u.LastName + " " + u.FirstName);
-                    break;
-            }
-            return View(users.ToList());
+                ViewBag.FullNameSortParm = string.IsNullOrEmpty(sortOrder) ? "fullname_desc" : "";
+                ViewBag.UserNameSortParm = sortOrder == "username" ? "username_desc" : "username";
+                ViewBag.EmailSortParm = sortOrder == "email" ? "email_desc" : "email";
+                ViewBag.BirthDateSortParm = sortOrder == "birthdate" ? "birthdate_desc" : "birthdate";
+                var users = from u in db.Users
+                            select u;
+                switch (sortOrder)
+                {
+                    case "fullname_desc":
+                        users = users.OrderByDescending(u => u.LastName + " " + u.FirstName);
+                        break;
+                    case "username":
+                        users = users.OrderBy(u => u.UserName);
+                        break;
+                    case "username_desc":
+                        users = users.OrderByDescending(u => u.UserName);
+                        break;
+                    case "email":
+                        users = users.OrderBy(u => u.Email);
+                        break;
+                    case "email_desc":
+                        users = users.OrderByDescending(u => u.Email);
+                        break;
+                    case "birthdate":
+                        users = users.OrderBy(u => u.BirthDate);
+                        break;
+                    case "birthdate_desc":
+                        users = users.OrderByDescending(u => u.BirthDate);
+                        break;
+                    default:
+                        users = users.OrderBy(u => u.LastName + " " + u.FirstName);
+                        break;
+                }
+                return View(users.ToList());
             }
             catch (Exception e)
             {
@@ -86,16 +86,32 @@ namespace nptk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ApplicationUser applicationUser = db.Users.Find(id);
+                if (applicationUser == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var DistanceCount = db.DistanceCount(id);
+                var ClimbCount = db.ClimbCount(id);
+                ViewBag.Distances = DistanceCount;
+                ViewBag.Climbs = ClimbCount;
+
+                return View(applicationUser);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+
+                Debug.WriteLine(e.ToString());
             }
-            return View(applicationUser);
+            return View();
         }
 
         // GET: ApplicationUsers/Create
@@ -226,6 +242,29 @@ namespace nptk.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult GetDistanceCount(int id)
+        {
+            try
+            {
+                var count = db.DistanceCount(id);
+                Debug.WriteLine("PÖCS: " + count);
+                ViewBag.Distances = count;
+                return View();
+            }
+            catch (Exception e)
+            {
+
+                Debug.WriteLine(e.ToString());
+            }
+            return View();
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

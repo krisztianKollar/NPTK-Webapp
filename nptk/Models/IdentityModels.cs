@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -54,6 +55,7 @@ namespace nptk.Models
         public ApplicationDbContext()
             : base("nptkContext")
         {
+            //this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public static ApplicationDbContext Create()
@@ -65,7 +67,28 @@ namespace nptk.Models
 
         public System.Data.Entity.DbSet<nptk.Models.SignUp> SignUps { get; set; }
 
-
+        public decimal DistanceCount(int? UserId)
+        {
+            decimal count = 0;
+            // linq query or something similar instead of the foreach???
+            foreach (SignUp signUp in SignUps)
+            {
+                if (signUp.UserID == UserId)
+                    count += signUp.Tour.Distance;
+            }
+            return count;
+        } 
+        
+        public int ClimbCount(int? UserId)
+        {
+            int count = 0;
+            foreach (SignUp signUp in SignUps)
+            {
+                if (signUp.UserID == UserId)
+                    count += signUp.Tour.Climb;
+            }
+            return count;
+        }        
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

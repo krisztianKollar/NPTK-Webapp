@@ -74,6 +74,14 @@
         </dd>
 
         <dt>
+            Eddig megtett:
+        </dt>
+
+        <dd>
+            Összesen @ViewBag.Distances km-t tettél meg a túrakörrel, @ViewBag.Climbs m szintemelkedés van mögötted!
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.SignUps)
         </dt>
         <dd>
@@ -85,7 +93,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Tour.Title)
+                            @{
+                                var tourAndDate = item.Tour.Title + " – " + item.Tour.Date.ToString("yyyy. MM. dd.");
+                                @Html.DisplayFor(m => tourAndDate)
+                            }
                         </td>
                     </tr>
                 }
