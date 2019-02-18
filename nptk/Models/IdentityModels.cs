@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using System.Linq;
 
 namespace nptk.Models
 {
@@ -16,6 +17,7 @@ namespace nptk.Models
     public class ApplicationUser : IdentityUser<int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
         [Display(Name = "E-mail")]
+        [DataType(DataType.EmailAddress)]
         public override string Email { get; set; }
 
         [Display(Name = "Felhasználónév")]
@@ -45,8 +47,11 @@ namespace nptk.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("FirstName", FirstName));
+
             return userIdentity;
         }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole,
@@ -67,27 +72,32 @@ namespace nptk.Models
 
         public System.Data.Entity.DbSet<nptk.Models.SignUp> SignUps { get; set; }
 
-        public decimal DistanceCount(int? UserId)
+        public decimal DistanceCount(int? Id)
         {
-            decimal count = 0;
-            // linq query or something similar instead of the foreach???
-            foreach (SignUp signUp in SignUps)
-            {
-                if (signUp.UserID == UserId)
-                    count += signUp.Tour.Distance;
-            }
-            return count;
+
+            decimal distanceCount = (from t in this.Tours
+                                    from s in t.SignUps
+                                    where s.UserID == Id
+                                    select t.Distance).Sum();            
+            return distanceCount;
         } 
         
-        public int ClimbCount(int? UserId)
+        public int ClimbCount(int? Id)
         {
-            int count = 0;
-            foreach (SignUp signUp in SignUps)
-            {
-                if (signUp.UserID == UserId)
-                    count += signUp.Tour.Climb;
-            }
-            return count;
+            int climbCount = (from t in this.Tours
+                                     from s in t.SignUps
+                                     where s.UserID == Id
+                                     select t.Climb).Sum();
+            return climbCount;
+        }
+        
+        public int TourCount(int? Id)
+        {
+            int tourCount = (from t in this.Tours
+                                     from s in t.SignUps
+                                     where s.UserID == Id
+                                     select t).Count();
+            return tourCount;
         }        
     }
 

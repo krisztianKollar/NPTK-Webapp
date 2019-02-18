@@ -101,8 +101,10 @@ namespace nptk.Controllers
 
                 var DistanceCount = db.DistanceCount(id);
                 var ClimbCount = db.ClimbCount(id);
+                var TourCount = db.TourCount(id);
                 ViewBag.Distances = DistanceCount;
-                ViewBag.Climbs = ClimbCount;
+                ViewBag.Climbs = db.ClimbCount(id);
+                ViewBag.Tours = db.TourCount(id);
 
                 return View(applicationUser);
             }
@@ -242,29 +244,6 @@ namespace nptk.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult GetDistanceCount(int id)
-        {
-            try
-            {
-                var count = db.DistanceCount(id);
-                Debug.WriteLine("PÖCS: " + count);
-                ViewBag.Distances = count;
-                return View();
-            }
-            catch (Exception e)
-            {
-
-                Debug.WriteLine(e.ToString());
-            }
-            return View();
-        }
-
-
-
 
         protected override void Dispose(bool disposing)
         {

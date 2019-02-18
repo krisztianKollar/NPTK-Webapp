@@ -180,6 +180,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Migrations\201902061223502_InitialCreate.cs" />
     <Compile Include="Migrations\201902061223502_InitialCreate.Designer.cs">
       <DependentUpon>201902061223502_InitialCreate.cs</DependentUpon>
@@ -303,6 +304,9 @@
     <Content Include="Views\Error\UnauthorisedRequest.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
     <Content Include="Views\Error\BadRequest.cshtml" />
+    <Content Include="Views\Manage\ChangeLastName.cshtml" />
+    <Content Include="Views\Manage\ChangeFirstName.cshtml" />
+    <Content Include="Views\Manage\ChangeEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +18,7 @@ namespace nptk.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -55,23 +59,33 @@ namespace nptk.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                message == ManageMessageId.ChangePasswordSuccess ? "Jelszavadat sikeresen megváltoztattuk."
+                : message == ManageMessageId.SetPasswordSuccess ? "Jelszavadat sikeresen beállítottuk."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.Error ? "Ejj, hiba történt!"
+                : message == ManageMessageId.AddPhoneSuccess ? "Sikerült rögzíteni a telefonszámodat."
+                : message == ManageMessageId.RemovePhoneSuccess ? "A telefonszámodat sikeresen eltávolítottuk."
                 : "";
 
-            var userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId<int>();
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(User.Identity.GetUserId<int>()),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(User.Identity.GetUserId<int>()),
                 Logins = await UserManager.GetLoginsAsync(User.Identity.GetUserId<int>()),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(User.Identity.GetUserId()),
+                LastName = user.LastName,
+                FirstName = user.FirstName,
+                Email = await UserManager.GetEmailAsync(User.Identity.GetUserId<int>())
             };
+
+            var DistanceCount = db.DistanceCount(userId);
+            var ClimbCount = db.ClimbCount(userId);
+            ViewBag.Distances = DistanceCount;
+            ViewBag.Climbs = ClimbCount;
+            ViewBag.Tours = db.TourCount(userId);
             return View(model);
         }
 
@@ -372,6 +386,120 @@ namespace nptk.Controllers
             }
             return false;
         }
+
+        // GET: /Manage/ChangeLastName
+        public ActionResult ChangeLastName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeLastName
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeLastName(ChangeLastNameViewModel model)
+        {
+            int? Id = User.Identity.GetUserId<int>();
+
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (TryUpdateModel(model, "", new string[] { "LastName" }))
+            {
+                try
+                {
+                    db.Users.Find(Id).LastName = model.NewLastName;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
+                }
+            }
+            return View(model);
+        }
+
+        // GET: /Manage/ChangeFirstName
+        public ActionResult ChangeFirstName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeFirstName
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeFirstName(ChangeFirstNameViewModel model)
+        {
+            int? Id = User.Identity.GetUserId<int>();
+
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (TryUpdateModel(model, "", new string[] { "FirstName" }))
+            {
+                try
+                {
+                    db.Users.Find(Id).FirstName = model.NewFirstName;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
+                }
+            }
+            return View(model);
+        }
+
+// GET: /Manage/ChangeFirstName
+        public ActionResult ChangeEmail()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeFirstName
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeEmail(ChangeEmailViewModel model)
+        {
+            int? Id = User.Identity.GetUserId<int>();
+
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (TryUpdateModel(model, "", new string[] { "FirstName" }))
+            {
+                try
+                {
+                    db.Users.Find(Id).Email = model.NewEmail;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
+                }
+            }
+            return View(model);
+        }
+
+
+
 
         public enum ManageMessageId
         {
