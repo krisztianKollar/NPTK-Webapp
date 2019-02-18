@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Security.Claims;
 using System.Security.Principal;
