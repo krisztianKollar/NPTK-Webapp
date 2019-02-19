@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<nptk.Models.Tour>
 
 @{
-    ViewBag.Title = "Eddigi túráink";
+    ViewBag.Title = "A Nagy Pele Túrakör túrái";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -12,7 +12,10 @@
         @Html.ActionLink("Új túra", "Create")
     </p>
 }
-<table class="table">
+
+<input id="searchInput" type="text" placeholder="Keresés">
+
+<table class="table" id="searchTable">
     <tr>
         <th>
             @Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -26,7 +29,7 @@
         <th>
             @Html.ActionLink("\u2197 (m)", "Index", new { sortOrder = ViewBag.ClimbSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
-   </tr>
+    </tr>
 
 
     @foreach (var item in Model)

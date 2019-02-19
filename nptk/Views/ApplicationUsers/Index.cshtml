@@ -14,8 +14,9 @@
 }
 <h4>Akik velünk túráznak</h4>
 
+<input id="searchInput" type="text" placeholder="Keresés">
 
-<table class="table">
+<table class="table" id="searchTable">
     <tr>
         <th>
             @Html.ActionLink("Név", "Index", new { sortOrder = ViewBag.FullNameSortParm, currentFilter = ViewBag.CurrentFilter })
