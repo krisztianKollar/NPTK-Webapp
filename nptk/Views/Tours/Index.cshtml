@@ -34,32 +34,27 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr colspan="2">
             <td>
-                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span>
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
+
                 @Html.DisplayFor(modelItem => item.Distance)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Climb)
             </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
-            </td>
             <td>
                 @if (@User.IsInRole("Admin"))
-                {
-                    <p>
-                        @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) |
-                        @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) |
-                    </p>
+                {                    
+                        @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) <span> |</span>
+                        @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) <span> |</span>                
                 }
+                @Html.ActionLink("Részletek ", "Details", new { id = item.TourId })
 
                 @*<div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
@@ -69,9 +64,9 @@
                             </div>
                         </div>
                     </div>*@
-                @Html.ActionLink("Részletek ", "Details", new { id = item.TourId })
             </td>
         </tr>
+
     }
 
 </table>

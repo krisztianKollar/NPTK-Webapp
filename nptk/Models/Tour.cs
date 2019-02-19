@@ -19,9 +19,9 @@ namespace nptk.Models
         public DateTime Date { get; set; }
         [Display(Name = "Útvonal")]
         public string Track { get; set; }
-        [Display(Name = "Távolság (km)")]
+        [Display(Name = "Távolság")]
         public decimal Distance { get; set; }
-        [Display(Name = "Szintemelkedés (m)")]
+        [Display(Name = "Szintemelkedés")]
         public int Climb { get; set; }
         [Display(Name = "Jelentkezések")]
         public virtual ICollection<SignUp> SignUps { get; set; }
