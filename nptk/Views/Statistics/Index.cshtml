@@ -1,0 +1,28 @@
+﻿@model nptk.Models.StatisticViewModels
+
+@{
+    ViewBag.Title = "Egy kis statisztika";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>Néhány adat az eddigiekből</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Ami a túrakör mögött van:</dt>
+        <dd>
+            <p>
+                Összesen <span style="font-weight:600">@ViewBag.DistanceTotal km</span>-t tettünk meg eddigi
+                <span style="font-weight:600">@ViewBag.TourTotal</span> túráink során, ebből XXX alkalommal
+                <span style="font-weight:600">@Model.UserTotalDistance km</span>-en keresztül te is velünk tartottál.
+            </p>
+            <p>
+                Mögöttünk van <span style="font-weight:600">@Model.ClimbTotal m</span> szintemelkedés is,
+                amiből neked <span style="font-weight:600">@Model.UserTotalClimb m</span> volt a részed.
+            </p>
+        </dd>
+    </dl>
+</div>
+
+

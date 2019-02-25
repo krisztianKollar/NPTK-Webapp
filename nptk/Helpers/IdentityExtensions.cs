@@ -19,5 +19,18 @@ namespace nptk.Helpers
             }
             return null;
         }
+
+        public static string GetFullName(this IIdentity identity)
+        {
+            if (identity == null)
+            {
+                throw new ArgumentNullException("identity");
+            }
+            if (identity is ClaimsIdentity ci)
+            {
+                return ci.FindFirstValue("FullName");
+            }
+            return null;
+        }
     }
 }

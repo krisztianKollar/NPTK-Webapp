@@ -48,6 +48,7 @@ namespace nptk.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("FirstName", FirstName));
+            userIdentity.AddClaim(new Claim("FullName", FullName));
 
             return userIdentity;
         }
@@ -74,31 +75,46 @@ namespace nptk.Models
 
         public decimal DistanceCount(int? Id)
         {
-
             decimal distanceCount = (from t in this.Tours
-                                    from s in t.SignUps
-                                    where s.UserID == Id
-                                    select t.Distance).Sum();            
+                                     from s in t.SignUps
+                                     where s.UserID == Id
+                                     select t.Distance).Sum();
             return distanceCount;
-        } 
-        
+        }
+
         public int ClimbCount(int? Id)
         {
             int climbCount = (from t in this.Tours
-                                     from s in t.SignUps
-                                     where s.UserID == Id
-                                     select t.Climb).Sum();
+                              from s in t.SignUps
+                              where s.UserID == Id
+                              select t.Climb).Sum();
             return climbCount;
         }
-        
+
         public int TourCount(int? Id)
         {
             int tourCount = (from t in this.Tours
-                                     from s in t.SignUps
-                                     where s.UserID == Id
-                                     select t).Count();
+                             from s in t.SignUps
+                             where s.UserID == Id
+                             select t).Count();
             return tourCount;
-        }        
+        }
+
+        public decimal DistanceTotal()
+        {
+            decimal distanceTotal = (from t in Tours select t.Distance).Sum();
+            return distanceTotal;
+        }
+
+        public int ClimbTotal()
+        {
+            return (from t in Tours select t.Climb).Sum();
+        }
+
+        public int TourTotal()
+        {
+            return (from t in Tours select t).Count();
+        }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

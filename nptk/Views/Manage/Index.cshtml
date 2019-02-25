@@ -27,86 +27,129 @@
         <dt>@Html.LabelFor(model => model.LastName)</dt>
         <dd>
             @Html.ActionLink(Model.LastName, "ChangeLastName")
-         </dd>
-         <dt>@Html.LabelFor(model => model.FirstName)</dt>
-         <dd>
-             @Html.ActionLink(Model.FirstName, "ChangeFirstName")
-         </dd>
-         <dt>@Html.LabelFor(model => model.Email)</dt>
-         <dd>
-             @Html.ActionLink(Model.Email, "ChangeEmail")
-         </dd>
-         <dt>Eddigi teljesítményed:</dt>
-         <dd>
-             <span style="font-weight:600">@ViewBag.Tours túrán </span>
-             jártál a túrakörrel, <span style="font-weight:600">@ViewBag.Distances km </span>
-             távolság és <span style="font-weight:600">@ViewBag.Climbs m </span>szintemelkedés van mögötted –
-             ezeken az értékeken a következő túrákon tudsz változtatni!
- </dd>
-
-
-         @*<dt>External Logins:</dt>
-    <dd>
-        @Model.Logins.Count [
-        @Html.ActionLink("Manage", "ManageLogins") ]
-    </dd>*@
-         @*
-    Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-     See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-     Uncomment the following block after you have set up two-factor authentication
-         *@
-         @*
-    <dt>Phone Number:</dt>
-    <dd>
-        @(Model.PhoneNumber ?? "None")
-        @if (Model.PhoneNumber != null)
+        </dd>
+        <dt>@Html.LabelFor(model => model.FirstName)</dt>
+        <dd>
+            @Html.ActionLink(Model.FirstName, "ChangeFirstName")
+        </dd>
+        <dt>@Html.LabelFor(model => model.Email)</dt>
+        <dd>
+            @Html.ActionLink(Model.Email, "ChangeEmail")
+        </dd>
+        @if (ViewBag.Tours > 0)
         {
-            <br />
-            <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            <dt>Jelenlegi rangod:</dt>
+            <dd>
+                @if (ViewBag.Tours > 0 && ViewBag.Tours < 1)
+                {
+                    <span>Az első rang 12 túra teljesítése után jár! Hajrá!</span>
+                }
+                else if (ViewBag.Tours >= 1 && ViewBag.Tours < 2)
+                {
+                    <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px"></span>
+                }
+                else if (ViewBag.Tours >= 2 && ViewBag.Tours < 3)
+                {
+                    <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px"></span>
+                }
+                else
+                {
+                    <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px"></span>;
+                }
+            </dd>
+        }
+
+        @*Final version of linking rank image with the correct numbers:*@
+        @*<dd>
+            @if (ViewBag.Tours > 0 && ViewBag.Tours < 12)
+            {
+                <span>Az első rang 12 túra teljesítése után jár! Hajrá!</span>
+            }
+            else if (ViewBag.Tours >= 12 && ViewBag.Tours < 24)
+            {
+                <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px"></span>
+            }
+            else if (ViewBag.Tours >= 24 && ViewBag.Tours < 36)
+            {
+                <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px"></span>
+            }
+            else
+            {
+                <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px"></span>;
+            }
+        </dd>*@
+
+        <dt>Eddigi teljesítményed:</dt>
+        <dd>
+            <span style="font-weight:600">@ViewBag.Tours túrán </span>
+            jártál a túrakörrel, <span style="font-weight:600">@ViewBag.Distances km </span>
+            távolság és <span style="font-weight:600">@ViewBag.Climbs m </span>szintemelkedés van mögötted –
+            ezeken az értékeken a következő túrákon tudsz változtatni!
+        </dd>
+
+
+        @*<dt>External Logins:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>*@
+        @*
+        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+         Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None")
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                }
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+            }
+        </dd>
+        *@
+        @*<dt>Two-Factor Authentication:</dt>
+        <dd>
+            <p>
+                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication.
+            </p>*@
+        @*@if (Model.TwoFactor)
+        {
+            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                <text>Enabled
+                <input type="submit" value="Disable" class="btn btn-link" />
+                </text>
             }
         }
         else
         {
-            <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-        }
-    </dd>
-         *@
-         @*<dt>Two-Factor Authentication:</dt>
-    <dd>
-        <p>
-            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-            for details on setting up this ASP.NET application to support two-factor authentication.
-        </p>*@
-         @*@if (Model.TwoFactor)
-    {
-        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <text>Enabled
-            <input type="submit" value="Disable" class="btn btn-link" />
-            </text>
-        }
-    }
-    else
-    {
-        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <text>Disabled
-            <input type="submit" value="Enable" class="btn btn-link" />
-            </text>
-        }
-    }*@
-         </dd>
+            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Disabled
+                <input type="submit" value="Enable" class="btn btn-link" />
+                </text>
+            }
+        }*@
+        <dd></dd>
     </dl>
-</div>
+    </div>
 
 
 
