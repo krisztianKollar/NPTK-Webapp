@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,28 +36,33 @@ namespace nptk.Controllers
         {
             var userId = User.Identity.GetUserId<int>();
             var user = UserManager.FindById(User.Identity.GetUserId<int>());
+            var users = from u in db.Users
+                        select u;
+            List<StatisticViewModel> models = new List<StatisticViewModel>();
 
 
-            var model = new StatisticViewModels
+            foreach (ApplicationUser u in users)
             {
-                UserName = user.UserName,
-                LastName = user.LastName,
-                FirstName = user.FirstName,
-                UserTotalDistance = db.DistanceCount(user.Id), //Id-s are not ok here!
-                UserTotalClimb = db.ClimbCount(user.Id),
-                DistanceTotal = db.DistanceTotal(),
-                ClimbTotal = db.ClimbTotal()
-            };
+                var model = new StatisticViewModel
+                {
+                    UserName = u.UserName,
+                    FullName = u.FullName,
+                    UserTotalDistance = db.DistanceCount(u.Id),
+                    UserTotalClimb = db.ClimbCount(u.Id),
+                    UserTourCount = db.TourCount(u.Id),
+                };
+                models.Add(model);
+            }
 
-
-            decimal DistanceTotal = db.DistanceTotal();
-            int ClimbTotal = db.ClimbTotal();
-            int TourTotal = db.TourTotal();
+            ViewBag.UserTotalDistance = db.DistanceCount(user.Id);
+            ViewBag.UserTotalClimb = db.ClimbCount(user.Id);
             ViewBag.DistanceTotal = db.DistanceTotal();
-            ViewBag.ClimbTotal = db.ClimbTotal(); 
+            ViewBag.ClimbTotal = db.ClimbTotal();
             ViewBag.TourTotal = db.TourTotal();
+            ViewBag.TourCount = db.TourCount(user.Id);
+            ViewBag.Models = models.OrderByDescending(x => x.UserTotalDistance).Take(12); 
 
-            return View(model);
+            return View();
         }
     }
 }

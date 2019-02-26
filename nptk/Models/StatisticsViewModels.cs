@@ -6,30 +6,30 @@ using System.Web;
 
 namespace nptk.Models
 {
-    public class StatisticViewModels
+    public class StatisticViewModel
     {
         [Display(Name = "Felhasználónév")]
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Vezetéknév")]
-        public string LastName { get; set; }
+        [Display(Name = "Név")]
+        public string FullName { get; set; }
 
         [Required]
-        [Display(Name = "Keresztnév")]
-        public string FirstName { get; set; }
-
-        [Required]
+        [Display(Name = "Megtett teljes táv")]
         public decimal UserTotalDistance { get; set; }
 
         [Required]
+        [Display(Name = "Megtett teljes szint")]
         public decimal UserTotalClimb { get; set; }
 
         [Required]
-        public decimal DistanceTotal { get; set; }
+        [Display(Name = "Teljesített túrák")]
+        public decimal UserTourCount { get; set; }
 
-        [Required]
-        public decimal ClimbTotal { get; set; }
-
+        public override string ToString()
+        {
+            return ("UTDist: " + UserTotalDistance + " UTClimb: " + UserTotalClimb + " Username: " + UserName + " Fullname: " + FullName + " UserTourCount: " + UserTourCount);
+        }
     }
 }

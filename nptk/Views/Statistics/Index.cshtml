@@ -1,6 +1,7 @@
-﻿@model nptk.Models.StatisticViewModels
+﻿@model nptk.Models.StatisticViewModel
 
 @{
+
     ViewBag.Title = "Egy kis statisztika";
 }
 
@@ -14,13 +15,73 @@
         <dd>
             <p>
                 Összesen <span style="font-weight:600">@ViewBag.DistanceTotal km</span>-t tettünk meg eddigi
-                <span style="font-weight:600">@ViewBag.TourTotal</span> túráink során, ebből XXX alkalommal
-                <span style="font-weight:600">@Model.UserTotalDistance km</span>-en keresztül te is velünk tartottál.
+                <span style="font-weight:600">@ViewBag.TourTotal</span> túráink során, ebből <span style="font-weight:600">@ViewBag.TourCount</span> alkalommal,
+                <span style="font-weight:600">@ViewBag.UserTotalDistance km</span>-en keresztül te is velünk tartottál.
             </p>
             <p>
-                Mögöttünk van <span style="font-weight:600">@Model.ClimbTotal m</span> szintemelkedés is,
-                amiből neked <span style="font-weight:600">@Model.UserTotalClimb m</span> volt a részed.
+                Mögöttünk van <span style="font-weight:600">@ViewBag.ClimbTotal m</span> szintemelkedés is,
+                amiből neked <span style="font-weight:600">@ViewBag.UserTotalClimb m</span> jutott.
             </p>
+        </dd>
+        <dt>Megtett távjuk alapján a legaktívabbak:</dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(Model => Model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(Model => Model.UserTotalDistance)
+                    </th>
+                </tr>
+                @{ int rowNo = 0; }
+                @foreach (var item in ViewBag.Models)
+                {
+                    <tr>
+                        <td>
+                            @(rowNo += 1).
+                        </td>
+                        <td>
+                            @item.FullName
+                        </td>
+                        <td>
+                            @item.UserTotalDistance km
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dt>A legtöbb túrán részt vevők:</dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(Model => Model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(Model => Model.UserTourCount)
+                    </th>
+                </tr>
+                @{ int rowNum = 0; }
+                @foreach (var item in ViewBag.Models)
+                {
+                    <tr>
+                        <td>
+                            @(rowNum += 1).
+                        </td>
+                        <td>
+                            @item.FullName
+                        </td>
+                        <td>
+                            @item.UserTourCount
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
     </dl>
 </div>
