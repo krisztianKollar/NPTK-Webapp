@@ -38,7 +38,7 @@
         </dd>
         @if (ViewBag.Tours > 0)
         {
-            <dt>Jelenlegi rangod:</dt>
+            <dt id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!">Jelenlegi rangod:</dt>
             <dd>
                 @if (ViewBag.Tours > 0 && ViewBag.Tours < 1)
                 {
@@ -46,38 +46,23 @@
                 }
                 else if (ViewBag.Tours >= 1 && ViewBag.Tours < 2)
                 {
-                    <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px"></span>
+                    <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px" id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
                 }
                 else if (ViewBag.Tours >= 2 && ViewBag.Tours < 3)
                 {
-                    <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px"></span>
+                    <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px" id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
                 }
                 else
                 {
-                    <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px"></span>;
+                    <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px" id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>;
                 }
+                @*Numbers for the final version of  rank image after implementing and testing:
+                    if (ViewBag.Tours > 0 && ViewBag.Tours < 12)
+                    else if (ViewBag.Tours >= 12 && ViewBag.Tours < 24)
+                    else if (ViewBag.Tours >= 24 && ViewBag.Tours < 36)*@
             </dd>
         }
 
-        @*Final version of linking rank image with the correct numbers:*@
-        @*<dd>
-            @if (ViewBag.Tours > 0 && ViewBag.Tours < 12)
-            {
-                <span>Az első rang 12 túra teljesítése után jár! Hajrá!</span>
-            }
-            else if (ViewBag.Tours >= 12 && ViewBag.Tours < 24)
-            {
-                <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px"></span>
-            }
-            else if (ViewBag.Tours >= 24 && ViewBag.Tours < 36)
-            {
-                <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px"></span>
-            }
-            else
-            {
-                <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px"></span>;
-            }
-        </dd>*@
 
         <dt>Eddigi teljesítményed:</dt>
         <dd>
@@ -89,67 +74,67 @@
 
 
         @*<dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>*@
+            <dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>*@
         @*
-        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 
-         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
-         Uncomment the following block after you have set up two-factor authentication
+             Uncomment the following block after you have set up two-factor authentication
         *@
         @*
-        <dt>Phone Number:</dt>
-        <dd>
-            @(Model.PhoneNumber ?? "None")
-            @if (Model.PhoneNumber != null)
+            <dt>Phone Number:</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None")
+                @if (Model.PhoneNumber != null)
+                {
+                    <br />
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                    }
+                }
+                else
+                {
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                }
+            </dd>
+        *@
+        @*<dt>Two-Factor Authentication:</dt>
+            <dd>
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>*@
+        @*@if (Model.TwoFactor)
             {
-                <br />
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                    <text>Enabled
+                    <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
                 }
             }
             else
             {
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-            }
-        </dd>
-        *@
-        @*<dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>*@
-        @*@if (Model.TwoFactor)
-        {
-            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <text>Enabled
-                <input type="submit" value="Disable" class="btn btn-link" />
-                </text>
-            }
-        }
-        else
-        {
-            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <text>Disabled
-                <input type="submit" value="Enable" class="btn btn-link" />
-                </text>
-            }
-        }*@
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                    <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }*@
         <dd></dd>
     </dl>
-    </div>
+</div>
 
 
 
