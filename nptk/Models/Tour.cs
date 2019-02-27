@@ -15,7 +15,7 @@ namespace nptk.Models
 
         [Display(Name = "Dátum")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy. MM. dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy. MM. dd.}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         [Display(Name = "Útvonal")]
         public string Track { get; set; }

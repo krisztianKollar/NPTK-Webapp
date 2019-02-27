@@ -15,16 +15,11 @@
     {
         <tr>
             <td>
-                <span style="font-weight:600">@group.Key</span>
+                <span style="font-weight:600">@group.Key – @group.ElementAt(0).Tour.Date.ToString("yyyy. MM. dd.");</span> @group.ElementAt(0).Tour.Track
             </td>
         </tr>
         foreach (var item in group)
         {
-            <tr>
-                <td>
-                    @item.Tour.Title – @item.Tour.Date., @item.Tour.Track
-                </td>
-            </tr>
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.User.FullName)
