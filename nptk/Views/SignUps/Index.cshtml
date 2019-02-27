@@ -10,30 +10,31 @@
     @Html.ActionLink("Jelentkezés hozzáadása", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tour.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FullName)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tour.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FullName)
-        </td>
-        <td>
-            @Html.ActionLink("Szerkesztés", "Edit", new { id=item.SignUpID }) |
-            @Html.ActionLink("Részletek", "Details", new { id=item.SignUpID }) |
-            @Html.ActionLink("Törlés", "Delete", new { id=item.SignUpID })
-        </td>
-    </tr>
-}
-
+    @foreach (var group in Model.OrderByDescending(m => m.Tour.Date).GroupBy(m => m.Tour.Title))
+    {
+        <tr>
+            <td>
+                <span style="font-weight:600">@group.Key</span>
+            </td>
+        </tr>
+        foreach (var item in group)
+        {
+            <tr>
+                <td>
+                    @item.Tour.Title – @item.Tour.Date., @item.Tour.Track
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FullName)
+                </td>
+                <td>
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.SignUpID }) |
+                    @Html.ActionLink("Részletek", "Details", new { id = item.SignUpID }) |
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.SignUpID })
+                </td>
+            </tr>
+        }
+    }
 </table>
