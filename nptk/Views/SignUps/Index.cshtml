@@ -25,11 +25,11 @@
                     @Html.DisplayFor(modelItem => item.User.FullName)
                 </td>
                 <td>
-                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.SignUpID }) |
-                    @Html.ActionLink("Részletek", "Details", new { id = item.SignUpID }) |
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.SignUpID }) <span> |</span>
                     @Html.ActionLink("Törlés", "Delete", new { id = item.SignUpID })
                 </td>
             </tr>
         }
     }
 </table>
+

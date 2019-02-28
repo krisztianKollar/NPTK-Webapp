@@ -38,7 +38,11 @@
         </dd>
         @if (ViewBag.Tours > 0)
         {
-            <dt id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!">Jelenlegi rangod:</dt>
+            @*Numbers for the final version of  rank image after implementing and testing:
+                if (ViewBag.Tours > 0 && ViewBag.Tours < 12)
+                else if (ViewBag.Tours >= 12 && ViewBag.Tours < 24)
+                else if (ViewBag.Tours >= 24 && ViewBag.Tours < 36)*@
+            <dt data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!">Jelenlegi rangod:</dt>
             <dd>
                 @if (ViewBag.Tours > 0 && ViewBag.Tours < 1)
                 {
@@ -46,20 +50,16 @@
                 }
                 else if (ViewBag.Tours >= 1 && ViewBag.Tours < 2)
                 {
-                    <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px" id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
+                    <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
                 }
                 else if (ViewBag.Tours >= 2 && ViewBag.Tours < 3)
                 {
-                    <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px" id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
+                    <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
                 }
                 else
                 {
-                    <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px" id="rank" runat="server" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>;
+                    <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>;
                 }
-                @*Numbers for the final version of  rank image after implementing and testing:
-                    if (ViewBag.Tours > 0 && ViewBag.Tours < 12)
-                    else if (ViewBag.Tours >= 12 && ViewBag.Tours < 24)
-                    else if (ViewBag.Tours >= 24 && ViewBag.Tours < 36)*@
             </dd>
         }
 

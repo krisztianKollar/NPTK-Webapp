@@ -54,36 +54,31 @@
         </dt>
 
         <dd>
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.CheckBox("signup")
-                    </div>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBox("signup")
                 </div>
+            </div>
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.SignUps)
         </dt>
         <dd>
-            <table class="table">
-                <tr>
-                    <th>Jelentkezők</th>
-                </tr>
+            <ul class="list-inline">
                 @foreach (var item in Model.SignUps)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.FullName)
-                        </td>
-                    </tr>
+                    <li>
+                        @Html.DisplayFor(modelItem => item.User.FullName)  
+                    </li>
                 }
-            </table>
+            </ul>
         </dd>
 
     </dl>
 </div>
 <p>
-    @if (@User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin"))
     {@Html.ActionLink("Szerkesztés", "Edit", new { id = Model.TourId })<span> |</span>}
     @Html.ActionLink("Vissza a túrákhoz", "Index")
 </p>

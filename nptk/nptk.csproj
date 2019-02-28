@@ -294,7 +294,6 @@
     <Content Include="Views\Tours\Edit.cshtml" />
     <Content Include="Views\SignUps\Create.cshtml" />
     <Content Include="Views\SignUps\Delete.cshtml" />
-    <Content Include="Views\SignUps\Details.cshtml" />
     <Content Include="Views\SignUps\Edit.cshtml" />
     <Content Include="Views\SignUps\Index.cshtml" />
     <Content Include="Views\ApplicationUsers\Create.cshtml" />

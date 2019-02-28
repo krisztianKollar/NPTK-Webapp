@@ -23,21 +23,6 @@ namespace nptk.Controllers
             return View(signUps.ToList());
         }
 
-        // GET: SignUps/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SignUp signUp = db.SignUps.Find(id);
-            if (signUp == null)
-            {
-                return HttpNotFound();
-            }
-            return View(signUp);
-        }
-
         // GET: SignUps/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
