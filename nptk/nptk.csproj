@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201902281924130_what.Designer.cs">
       <DependentUpon>201902281924130_what.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902282108220_Tour bools.cs" />
+    <Compile Include="Migrations\201902282108220_Tour bools.Designer.cs">
+      <DependentUpon>201902282108220_Tour bools.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -374,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902281924130_what.resx">
       <DependentUpon>201902281924130_what.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902282108220_Tour bools.resx">
+      <DependentUpon>201902282108220_Tour bools.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
