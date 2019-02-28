@@ -10,19 +10,13 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @{
-                    var source = "logo.png";
+                    var source = "none.png";
                     if (User.Identity.GetHikerRank() == "golden")
-                    {
-                        source = "arany.png";
-                    }
+                    { source = "arany.png"; }
                     if (User.Identity.GetHikerRank() == "silver")
-                    {
-                        source = "ezust.png";
-                    }
+                    { source = "ezust.png"; }
                     if (User.Identity.GetHikerRank() == "bronze")
-                    {
-                        source = "bronz.png";
-                    }
+                    { source = "bronz.png"; }
                     <a href='@Url.Action("Index", "Manage")'><img src='@Url.Content("/Content/Images/" + source)' style="vertical-align:middle" height="20px" /> @User.Identity.GetFullName()</a>
                 }
             </li>

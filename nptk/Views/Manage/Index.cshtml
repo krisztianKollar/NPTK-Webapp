@@ -1,4 +1,5 @@
 ﻿@model nptk.Models.IndexViewModel
+@using nptk.Helpers
 @{
     ViewBag.Title = "Profil";
 }
@@ -36,32 +37,26 @@
         <dd>
             @Html.ActionLink(Model.Email, "ChangeEmail")
         </dd>
-        @if (ViewBag.Tours > 0)
-        {
-            @*Numbers for the final version of  rank image after implementing and testing:
-                if (ViewBag.Tours > 0 && ViewBag.Tours < 12)
-                else if (ViewBag.Tours >= 12 && ViewBag.Tours < 24)
-                else if (ViewBag.Tours >= 24 && ViewBag.Tours < 36)*@
-            <dt data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!">Jelenlegi rangod:</dt>
-            <dd>
-                @if (ViewBag.Tours > 0 && ViewBag.Tours < 1)
+        <dt>Jelenlegi rangod:</dt>
+        <dd>
+            @{
+                var source = "none.png";
+                if (User.Identity.GetHikerRank() == "none")
                 {
                     <span>Az első rang 12 túra teljesítése után jár! Hajrá!</span>
                 }
-                else if (ViewBag.Tours >= 1 && ViewBag.Tours < 2)
-                {
-                    <span><img class="img-responsive" src="/Content/Images/bronz.png" alt="bronze rank" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
-                }
-                else if (ViewBag.Tours >= 2 && ViewBag.Tours < 3)
-                {
-                    <span><img class="img-responsive" src="/Content/Images/ezust.png" alt="silver rank" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
-                }
                 else
                 {
-                    <span><img class="img-responsive" src="/Content/Images/arany.png" alt="golden rank" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>;
+                    if (User.Identity.GetHikerRank() == "golden")
+                    { source = "arany.png"; }
+                    if (User.Identity.GetHikerRank() == "silver")
+                    { source = "ezust.png"; }
+                    if (User.Identity.GetHikerRank() == "bronze")
+                    { source = "bronz.png"; }
+                    <span><img class="img-responsive" src="/Content/Images/@(source)" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
                 }
-            </dd>
-        }
+            }
+        </dd>
 
 
         <dt>Eddigi teljesítményed:</dt>
