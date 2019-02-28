@@ -83,9 +83,10 @@ namespace nptk.Models
         public decimal DistanceCount(int? Id)
         {
             decimal distanceCount = (from t in this.Tours
-                                     from s in t.SignUps
-                                     where s.UserID == Id
-                                     select t.Distance).Sum();
+                             from s in t.SignUps
+                             where s.UserID == Id
+                             select (decimal?)t.Distance).Sum() ?? 0;
+            Debug.WriteLine("DistanceCount: " + distanceCount + " id: " + Id);
             return distanceCount;
         }
 
@@ -94,7 +95,8 @@ namespace nptk.Models
             int climbCount = (from t in this.Tours
                               from s in t.SignUps
                               where s.UserID == Id
-                              select t.Climb).Sum();
+                              select (int?)t.Climb).Sum() ?? 0;
+            Debug.WriteLine("ClimbCount: " + climbCount + " id: " + Id);
             return climbCount;
         }
 

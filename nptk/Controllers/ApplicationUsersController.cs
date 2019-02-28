@@ -88,7 +88,7 @@ namespace nptk.Controllers
         {
             try
             {
-
+                
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -99,10 +99,8 @@ namespace nptk.Controllers
                     return HttpNotFound();
                 }
 
-                var DistanceCount = db.DistanceCount(id);
-                var ClimbCount = db.ClimbCount(id);
-                var TourCount = db.TourCount(id);
-                ViewBag.Distances = DistanceCount;
+                
+                ViewBag.Distances = db.DistanceCount(id);
                 ViewBag.Climbs = db.ClimbCount(id);
                 ViewBag.Tours = db.TourCount(id);
 
