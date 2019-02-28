@@ -43,15 +43,18 @@ namespace nptk.Controllers
 
             foreach (ApplicationUser u in users)
             {
-                var model = new StatisticViewModel
+                if (!UserManager.GetRoles(u.Id).Contains("Admin"))
                 {
-                    UserName = u.UserName,
-                    FullName = u.FullName,
-                    UserTotalDistance = db.DistanceCount(u.Id),
-                    UserTotalClimb = db.ClimbCount(u.Id),
-                    UserTourCount = db.TourCount(u.Id),
-                };
-                models.Add(model);
+                    var model = new StatisticViewModel
+                    {
+                        UserName = u.UserName,
+                        FullName = u.FullName,
+                        UserTotalDistance = db.DistanceCount(u.Id),
+                        UserTotalClimb = db.ClimbCount(u.Id),
+                        UserTourCount = db.TourCount(u.Id),
+                    };
+                    models.Add(model);
+                }
             }
 
             ViewBag.UserTotalDistance = db.DistanceCount(user.Id);
@@ -60,7 +63,7 @@ namespace nptk.Controllers
             ViewBag.ClimbTotal = db.ClimbTotal();
             ViewBag.TourTotal = db.TourTotal();
             ViewBag.TourCount = db.TourCount(user.Id);
-            ViewBag.Models = models.OrderByDescending(x => x.UserTotalDistance).Take(12); 
+            ViewBag.Models = models.OrderByDescending(x => x.UserTotalDistance).Take(12);
 
             return View();
         }
