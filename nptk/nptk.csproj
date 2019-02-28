@@ -218,6 +218,14 @@
     <Compile Include="Migrations\201902141531080_Fullname.Designer.cs">
       <DependentUpon>201902141531080_Fullname.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902281335577_UserRank.cs" />
+    <Compile Include="Migrations\201902281335577_UserRank.Designer.cs">
+      <DependentUpon>201902281335577_UserRank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902281350415_Update Rank.cs" />
+    <Compile Include="Migrations\201902281350415_Update Rank.Designer.cs">
+      <DependentUpon>201902281350415_Update Rank.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -353,6 +361,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902141531080_Fullname.resx">
       <DependentUpon>201902141531080_Fullname.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902281335577_UserRank.resx">
+      <DependentUpon>201902281335577_UserRank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902281350415_Update Rank.resx">
+      <DependentUpon>201902281350415_Update Rank.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

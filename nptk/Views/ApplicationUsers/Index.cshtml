@@ -40,7 +40,23 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FullName)
+                @{
+                    var source = "logo.png";
+                    if (item.HikerRank == "golden")
+                    {
+                        source = "arany.png";
+                    }
+                    if (item.HikerRank == "silver")
+                    {
+                        source = "ezust.png";
+                    }
+                    if (item.HikerRank == "bronze")
+                    {
+                        source = "bronz.png";
+                    }
+                    <span style="float:left; display: inline-block; vertical-align: middle; padding-right: 5px">@item.FullName</span> <span style="display: inline-block; vertical-align: middle;"><img class="img-responsive" src="/Content/Images/@(source)" style="width:23px"></span>
+
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
@@ -54,12 +70,9 @@
                     @Html.DisplayFor(modelItem => item.BirthDate)
                 </td>
                 <td>
-                    <p>
-
                         @Html.ActionLink("Szerkesztés", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Törlés", "Delete", new { id = item.Id }) |
                         @Html.ActionLink("Részletek", "Details", new { id = item.Id })
-                    </p>
                 </td>
             }
         </tr>

@@ -16,6 +16,8 @@ namespace nptk.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser<int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
+        ApplicationDbContext context = new ApplicationDbContext();
+
         [Display(Name = "E-mail")]
         [DataType(DataType.EmailAddress)]
         public override string Email { get; set; }
@@ -39,6 +41,9 @@ namespace nptk.Models
         [Display(Name = "Név")]
         public string FullName => LastName + " " + FirstName;
 
+        [Display(Name = "Rang")]
+        public string HikerRank => context.GetTheHikerRank(Id);
+
         [Display(Name = "Jelentkezések")]
         public virtual ICollection<SignUp> SignUps { get; set; }
 
@@ -49,9 +54,11 @@ namespace nptk.Models
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("FirstName", FirstName));
             userIdentity.AddClaim(new Claim("FullName", FullName));
+            userIdentity.AddClaim(new Claim("HikerRank", HikerRank));
 
             return userIdentity;
         }
+
 
     }
 
@@ -69,9 +76,9 @@ namespace nptk.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<nptk.Models.Tour> Tours { get; set; }
+        public DbSet<Tour> Tours { get; set; }
 
-        public System.Data.Entity.DbSet<nptk.Models.SignUp> SignUps { get; set; }
+        public DbSet<SignUp> SignUps { get; set; }
 
         public decimal DistanceCount(int? Id)
         {
@@ -98,6 +105,18 @@ namespace nptk.Models
                              where s.UserID == Id
                              select t).Count();
             return tourCount;
+        }
+
+        public string GetTheHikerRank(int id)
+        {
+            int num = TourCount(id);
+            if (num >= 3)
+                return "golden";
+            else if (num >= 2 && num < 3)
+                return "silver";
+            else if (num >= 1 && num < 2)
+                return "bronze";
+            return "none";
         }
 
         public decimal DistanceTotal()

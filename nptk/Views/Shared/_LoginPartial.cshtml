@@ -9,8 +9,22 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-
-                <a href='@Url.Action("Index", "Manage")'><img src='@Url.Content("/Content/Images/ezust.png")' alt="silver rank" style="vertical-align:middle" height="20px"/> @User.Identity.GetFullName()</a>
+                @{
+                    var source = "logo.png";
+                    if (User.Identity.GetHikerRank() == "golden")
+                    {
+                        source = "arany.png";
+                    }
+                    if (User.Identity.GetHikerRank() == "silver")
+                    {
+                        source = "ezust.png";
+                    }
+                    if (User.Identity.GetHikerRank() == "bronze")
+                    {
+                        source = "bronz.png";
+                    }
+                    <a href='@Url.Action("Index", "Manage")'><img src='@Url.Content("/Content/Images/" + source)' style="vertical-align:middle" height="20px" /> @User.Identity.GetFullName()</a>
+                }
             </li>
             @*<li>
                     @Html.ActionLink(User.Identity.GetFirstName() + " profilja", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
