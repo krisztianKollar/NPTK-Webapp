@@ -84,7 +84,7 @@ namespace nptk.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Title,Date,Track,Distance,Climb")] Tour tour)
+        public ActionResult Create([Bind(Include = "Title,Date,Track,Distance,Climb,About,IsActive,IsActual")] Tour tour)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace nptk.Controllers
             }
             var tourToUpdate = db.Tours.Find(TourId);
             if (TryUpdateModel(tourToUpdate, "",
-               new string[] { "Title", "Date", "Track", "Distance", "Climb" }))
+               new string[] { "Title", "Date", "Track", "Distance", "Climb", "About", "IsActive", "IsActual" }))
             {
                 try
                 {

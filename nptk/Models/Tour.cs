@@ -28,8 +28,14 @@ namespace nptk.Models
         [Display(Name = "Szintemelkedés")]
         public int Climb { get; set; }
 
+        [Display(Name = "A túráról")]
+        [DataType(DataType.MultilineText)]
+        public string About { get; set; }
+
+        [Display(Name = "Aktív túra?")]
         public bool IsActive { get; set; }
 
+        [Display(Name = "Aktuális túra?")]
         public bool IsActual { get; set; }
 
         [Display(Name = "Jelentkezések")]

@@ -4,18 +4,11 @@
     ViewBag.Title = "A túra részletei";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@Html.DisplayFor(model => model.Title)</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Date)
@@ -25,19 +18,19 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
 
-        <dt>
+        <dt style="padding-top: 10px">
             @Html.DisplayNameFor(model => model.Track)
         </dt>
 
-        <dd>
+        <dd style="padding-top: 10px">
             @Html.DisplayFor(model => model.Track)
         </dd>
 
-        <dt>
+        <dt style="padding-top: 10px">
             @Html.DisplayNameFor(model => model.Distance)
         </dt>
 
-        <dd>
+        <dd style="padding-top: 10px">
             @Html.DisplayFor(model => model.Distance) km
         </dd>
 
@@ -49,6 +42,14 @@
             @Html.DisplayFor(model => model.Climb) m
         </dd>
 
+        <dt style="padding-top: 10px">
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+
+        <dd style="padding-top: 10px">
+            @Html.DisplayFor(model => model.About)
+        </ddstyle="padding-top:>
+        
         <dt>
             Jelentkezés erre a túrára
         </dt>
@@ -56,7 +57,7 @@
         <dd>
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.CheckBox("signup")
+                    <label><input type="checkbox" value="" id="signuptour">Jelentkezem a túrára</label>
                 </div>
             </div>
         </dd>
