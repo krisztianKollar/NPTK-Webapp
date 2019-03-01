@@ -42,25 +42,31 @@
             @Html.DisplayFor(model => model.Climb) m
         </dd>
 
-        <dt style="padding-top: 10px">
-            @Html.DisplayNameFor(model => model.About)
-        </dt>
+        @if (Html.DisplayFor(model => model.About).ToString() != "")
+        {
+            <dt style="padding-top: 10px">
+                @Html.DisplayNameFor(model => model.About)
+            </dt>
 
-        <dd style="padding-top: 10px">
-            @Html.DisplayFor(model => model.About)
-        </ddstyle="padding-top:>
-        
-        <dt>
-            Jelentkezés erre a túrára
-        </dt>
+            <dd style="padding-top: 10px">
+                @Html.DisplayFor(model => model.About)
+            </dd>
+        }
 
-        <dd>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    <label><input type="checkbox" value="" id="signuptour">Jelentkezem a túrára</label>
+        @if (Model.IsActive)
+        {
+            <dt style="padding-top: 10px">
+                Jelentkezés a túrára
+            </dt>
+
+            <dd>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="" id="signuptour">Jelentkezem a túrára</label>
+                    </div>
                 </div>
-            </div>
-        </dd>
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.SignUps)
@@ -70,7 +76,7 @@
                 @foreach (var item in Model.SignUps)
                 {
                     <li>
-                        @Html.DisplayFor(modelItem => item.User.FullName)  
+                        @Html.DisplayFor(modelItem => item.User.FullName)
                     </li>
                 }
             </ul>
