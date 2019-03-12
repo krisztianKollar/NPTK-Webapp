@@ -55,6 +55,7 @@ namespace nptk.Models
             userIdentity.AddClaim(new Claim("FirstName", FirstName));
             userIdentity.AddClaim(new Claim("FullName", FullName));
             userIdentity.AddClaim(new Claim("HikerRank", HikerRank));
+            userIdentity.AddClaim(new Claim("Id", Id.ToString()));
 
             return userIdentity;
         }

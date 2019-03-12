@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using nptk.Models;
+using Microsoft.AspNet.Identity;
 
 namespace nptk.Controllers
 {
@@ -57,6 +58,32 @@ namespace nptk.Controllers
 
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", signUp.TourID);
             ViewBag.UserID = new SelectList(db.Users, "Id", "FullName", signUp.UserID);
+            return View(signUp);
+        }
+
+        // POST: SignUps/CreateByUser THE WHOLE CONTROLLER HAS AN AUTHORIZATION SO DEFAULT USERS CAN NOT REACH CREATEBYUSER!!!
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult CreateByUser(FormCollection form)
+        {
+                    SignUp signUp = new SignUp();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    signUp.TourID = Convert.ToInt32(form["TourId"]);
+                    signUp.UserID = Convert.ToInt32(form["UserId"]);
+                    db.SignUps.Add(signUp);
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Tour");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
+            }
             return View(signUp);
         }
 

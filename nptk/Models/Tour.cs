@@ -38,7 +38,7 @@ namespace nptk.Models
         [Display(Name = "Aktuális túra?")]
         public bool IsActual { get; set; }
 
-        [Display(Name = "Jelentkezések")]
+        [Display(Name = "Jelentkezők")]
         public virtual ICollection<SignUp> SignUps { get; set; }
 
         public override string ToString()

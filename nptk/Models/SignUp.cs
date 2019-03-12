@@ -6,7 +6,11 @@ using System.Web;
 namespace nptk.Models
 {
     public class SignUp
-    {    
+    {
+        public SignUp()
+        {
+        }
+
         public int SignUpID { get; set; }
         public int TourID { get; set; }
         public int UserID { get; set; }
@@ -18,6 +22,8 @@ namespace nptk.Models
         {
             return ("SignUpID = " + SignUpID + " TourID = " + TourID + " UserID= " + UserID);
         }
+
+        
     }
 
 
