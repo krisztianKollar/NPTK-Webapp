@@ -72,9 +72,11 @@
                             <input data-val="true" id="TourId" name="TourId" type="hidden" value="@Model.TourId" />
                             @if (ViewBag.SignUp == 0)
                             {
-                            <p><input type="submit" class="btn btn-default" value="Jelentkezem a túrára"></p>
-                            }else{
-                            <p><input type="submit" class="btn btn-default" value="Törlöm a jelentkezésem"></p>
+                                <p><input type="submit" class="btn btn-default" value="Jelentkezem a túrára"></p>
+                            }
+                            else
+                            {
+                                <p><input type="submit" class="btn btn-default" value="Törlöm a jelentkezésem"></p>
                             }
                         </div>
                     </div>
@@ -83,7 +85,14 @@
         }
 
         <dt>
-            @Html.DisplayNameFor(model => model.SignUps)
+            @if (Model.Date < DateTime.Now)
+            {
+                <span>Résztvevők</span>
+            }
+            else
+            {
+                @Html.DisplayNameFor(model => model.SignUps)
+            }
         </dt>
         <dd>
             <ul class="list-inline">
