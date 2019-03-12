@@ -61,32 +61,6 @@ namespace nptk.Controllers
             return View(signUp);
         }
 
-        // POST: SignUps/CreateByUser THE WHOLE CONTROLLER HAS AN AUTHORIZATION SO DEFAULT USERS CAN NOT REACH CREATEBYUSER!!!
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult CreateByUser(FormCollection form)
-        {
-                    SignUp signUp = new SignUp();
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    signUp.TourID = Convert.ToInt32(form["TourId"]);
-                    signUp.UserID = Convert.ToInt32(form["UserId"]);
-                    db.SignUps.Add(signUp);
-                    db.SaveChanges();
-                    return RedirectToAction("Details", "Tour");
-                }
-            }
-            catch (DataException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
-            }
-            return View(signUp);
-        }
-
         // GET: SignUps/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)

@@ -57,7 +57,7 @@
 
         @if (Model.IsActive)
         {
-            using (Html.BeginForm("CreateByUser", "SignUps", FormMethod.Post))
+            using (Html.BeginForm("SignUpTour", "Tours", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 <dt style="padding-top: 20px">
