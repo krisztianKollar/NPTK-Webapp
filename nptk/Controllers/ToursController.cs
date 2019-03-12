@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using nptk.Models;
+using nptk.Helpers;
+using System.Diagnostics;
 
 namespace nptk.Controllers
 {
@@ -24,7 +26,7 @@ namespace nptk.Controllers
             ViewBag.ClimbSortParm = sortOrder == "climb" ? "climb_desc" : "climb";
             ViewBag.DateSortParm = string.IsNullOrEmpty(sortOrder) ? "" : "date";
             var tours = from t in db.Tours
-                           select t;
+                        select t;
             switch (sortOrder)
             {
                 case "title":
@@ -63,6 +65,13 @@ namespace nptk.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.SignUp = 0;
+            int UserId = Convert.ToInt32(User.Identity.GetUserId());
+            if (db.SignUps.Include(x => x.TourID).Where(x => x.TourID == id && x.UserID == UserId).Count() > 0)
+            {
+                ViewBag.SignUp = 1;
+            }
+
             Tour tour = db.Tours.Find(id);
             if (tour == null)
             {
@@ -202,19 +211,31 @@ namespace nptk.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    signUp.TourID = Convert.ToInt32(form["TourId"]);
-                    signUp.UserID = Convert.ToInt32(form["UserId"]);
-                    db.SignUps.Add(signUp);
-                    db.SaveChanges();
-                    return RedirectToAction("Details", "Tour");
+                    int TourId = Convert.ToInt32(form["TourId"]);
+                    int UserId = Convert.ToInt32(User.Identity.GetUserId());
+                    if (db.SignUps.Include(x => x.TourID).Where(x => x.TourID == TourId && x.UserID == UserId).Count() == 0)
+                    {
+                        signUp.TourID = TourId;
+                        signUp.UserID = Convert.ToInt32(form["UserId"]);
+                        db.SignUps.Add(signUp);
+                        db.SaveChanges();
+                        return Redirect(Request.UrlReferrer.PathAndQuery);
+                    }
+                    else
+                    {
+                        SignUp signUpToRemove = db.SignUps.SingleOrDefault(x => x.TourID == TourId && x.UserID == UserId);
+                        db.SignUps.Remove(signUpToRemove);
+                        db.SaveChanges();
+                        return Redirect(Request.UrlReferrer.PathAndQuery);
+                    }
                 }
             }
             catch (DataException /* dex */)
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
+                ModelState.AddModelError("", "Nem sikerült a jelentkezés. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
             }
-            return View(signUp);
+            return View();
         }
 
 
