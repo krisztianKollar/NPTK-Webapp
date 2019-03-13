@@ -17,6 +17,7 @@ namespace nptk.Controllers
         {
             GetActualTour();
             GetPreviousTour();
+            ClearActiveBeforeActual();
             return View();
         }
 
@@ -66,6 +67,15 @@ namespace nptk.Controllers
             ViewBag.PrevTourTitle = PreviousTour.Title;
             ViewBag.PrevTourAbout = PreviousTour.About;
             ViewBag.PrevId = PreviousTour.TourId;
+        }
+
+        public void ClearActiveBeforeActual()
+        {
+            Tour Actual = GetActualTour();
+
+            var activeTours = db.Tours.Where(t => t.Date < Actual.Date && t.IsActive == true).ToList();
+            activeTours.ForEach(a => a.IsActive = false);
+            db.SaveChanges();
         }
     }
 }

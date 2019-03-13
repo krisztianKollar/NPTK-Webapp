@@ -13,7 +13,7 @@
     </p>
 }
 
-<input id="searchInput" type="text" placeholder="Keresés">
+    <p><input id="searchInput" type="text" placeholder="Keresés" style="padding: 5px" data-toggle="tooltip" data-placement="right" title="Szűrhető a lista akár dátumra, akár helyre..."></p>
 
 <table class="table" id="searchTable">
     <tr>
@@ -55,15 +55,6 @@
                         @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) <span> |</span>                
                 }
                 @Html.ActionLink("Részletek ", "Details", new { id = item.TourId })
-
-                @*<div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.Apply)
-                                @Html.LabelFor(m => m.Apply)
-                            </div>
-                        </div>
-                    </div>*@
             </td>
         </tr>
 

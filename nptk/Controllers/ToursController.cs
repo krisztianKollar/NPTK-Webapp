@@ -19,14 +19,29 @@ namespace nptk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tours
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string filtTour)
         {
+            ViewBag.Next = filtTour == "next";
+            ViewBag.Prev = filtTour == "prev";
+                
+                var tours = from t in db.Tours select t;
+            if (filtTour == "next")
+            {
+                tours = from t in db.Tours
+                        where (t.Date > DateTime.Now)
+                        select t;
+            }
+            if (filtTour == "prev")
+            {
+                tours = from t in db.Tours
+                        where (t.Date < DateTime.Now)
+                        select t;
+            }
+
             ViewBag.TitleSortParm = sortOrder == "title" ? "title_desc" : "title";
             ViewBag.DistanceSortParm = sortOrder == "distance" ? "distance_desc" : "distance";
             ViewBag.ClimbSortParm = sortOrder == "climb" ? "climb_desc" : "climb";
             ViewBag.DateSortParm = string.IsNullOrEmpty(sortOrder) ? "" : "date";
-            var tours = from t in db.Tours
-                        select t;
             switch (sortOrder)
             {
                 case "title":
