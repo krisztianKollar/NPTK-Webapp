@@ -41,15 +41,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Túratársak", "Index", "ApplicationUsers")</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Túráink <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Aktuális túránk", "Details", "Tours", new { id = TempData["ActId"] }, null)</li>
-                            <li>@Html.ActionLink("Összes túránk", "Index", "Tours")</li>
-                            <li>@Html.ActionLink("Következő túráink", "Index", "Tours", new { filtTour = "next" }, null)</li>
-                            <li>@Html.ActionLink("Eddigi túráink", "Index", "Tours", new { filtTour = "prev" }, null)</li>
-                        </ul>
-                    </li>
+                    <li>@Html.ActionLink("Túráink", "Index", "Tours")</li>
 
                     <li>
                         @if (User.IsInRole("Admin"))

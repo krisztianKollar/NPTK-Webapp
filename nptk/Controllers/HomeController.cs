@@ -18,10 +18,6 @@ namespace nptk.Controllers
             GetActualTour();
             GetPreviousTour();
             ClearActiveBeforeActual();
-            actual = GetActualTour().TourId.ToString();
-            TempData["ActId"] = actual;
-            TempData.Keep();
-
             return View();
         }
 

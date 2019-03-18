@@ -22,6 +22,8 @@ namespace nptk.Controllers
         public ActionResult Index(string sortOrder, string filtTour)
         {
             var tours = from t in db.Tours select t;
+            if (filtTour == "all")
+                tours = from t in db.Tours select t;
             if (filtTour == "next")
             {
                 tours = from t in db.Tours

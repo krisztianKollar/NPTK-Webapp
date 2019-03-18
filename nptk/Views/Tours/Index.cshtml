@@ -13,7 +13,16 @@
     </p>
 }
 
-    <p><input id="searchInput" type="text" placeholder="Keresés" style="padding: 5px" data-toggle="tooltip" data-placement="right" title="Szűrhető a lista akár dátumra, akár helyre..."></p>
+<p>
+    <input id="searchInput" type="text" placeholder="Keresés"
+           style="padding: 5px" data-toggle="tooltip"
+           data-placement="right" title="Szűrhető a lista akár dátumra, akár helyre...">
+</p>
+<form>
+    @Html.RadioButton("filtTour", "all", new { @checked = true, onchange = "this.form.submit();" }) <span style="padding-right:10px">Összes túra </span>
+    @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit();" }) <span style="padding-right:10px">Következő túráink </span>
+    @Html.RadioButton("filtTour", "prev", new { onchange = "this.form.submit();" }) <span style="padding-right:10px">Korábbi túráink </span>
+</form>
 
 <table class="table" id="searchTable">
     <tr>
@@ -34,9 +43,16 @@
 
     @foreach (var item in Model)
     {
-        <tr colspan="2">
+        string actual = "";
+        string highlight = "";
+        if (item.IsActual == true)
+        {
+            actual = " – AKTUÁLIS TÚRÁNK";
+            highlight = "style='background-color:red'";
+        }
+        <tr colspan="2" @highlight>
             <td>
-                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:darkgreen; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -50,9 +66,9 @@
             </td>
             <td>
                 @if (User.IsInRole("Admin"))
-                {                    
-                        @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) <span> |</span>
-                        @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) <span> |</span>                
+                {
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) <span> |</span>
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) <span> |</span>
                 }
                 @Html.ActionLink("Részletek ", "Details", new { id = item.TourId })
             </td>
