@@ -47,7 +47,7 @@ namespace nptk.Controllers
                 {
                     db.SignUps.Add(signUp);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Create");
                 }
             }
             catch (DataException /* dex */)
@@ -57,6 +57,7 @@ namespace nptk.Controllers
             }
 
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", signUp.TourID);
+            //szűrni kell a listát: ki jelentkezett már a megadott túrára?
             ViewBag.UserID = new SelectList(db.Users, "Id", "FullName", signUp.UserID);
             return View(signUp);
         }

@@ -13,11 +13,15 @@ namespace nptk.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index()
+        public ActionResult Index(string actual)
         {
             GetActualTour();
             GetPreviousTour();
             ClearActiveBeforeActual();
+            actual = GetActualTour().TourId.ToString();
+            TempData["ActId"] = actual;
+            TempData.Keep();
+
             return View();
         }
 

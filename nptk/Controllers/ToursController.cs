@@ -21,20 +21,17 @@ namespace nptk.Controllers
         // GET: Tours
         public ActionResult Index(string sortOrder, string filtTour)
         {
-            ViewBag.Next = filtTour == "next";
-            ViewBag.Prev = filtTour == "prev";
-                
-                var tours = from t in db.Tours select t;
+            var tours = from t in db.Tours select t;
             if (filtTour == "next")
             {
                 tours = from t in db.Tours
-                        where (t.Date > DateTime.Now)
+                        where t.Date > DateTime.Now
                         select t;
             }
             if (filtTour == "prev")
             {
                 tours = from t in db.Tours
-                        where (t.Date < DateTime.Now)
+                        where t.Date < DateTime.Now
                         select t;
             }
 
@@ -231,7 +228,7 @@ namespace nptk.Controllers
                     if (db.SignUps.Include(x => x.TourID).Where(x => x.TourID == TourId && x.UserID == UserId).Count() == 0)
                     {
                         signUp.TourID = TourId;
-                        signUp.UserID = Convert.ToInt32(form["UserId"]);
+                        signUp.UserID = UserId;
                         db.SignUps.Add(signUp);
                         db.SaveChanges();
                         return Redirect(Request.UrlReferrer.PathAndQuery);

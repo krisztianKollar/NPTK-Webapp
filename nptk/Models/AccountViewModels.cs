@@ -93,7 +93,7 @@ namespace nptk.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Jelszó ismét")]
-        [Compare("Password", ErrorMessage = "Jajj, ezek nem egyeznek!")]
+        [Compare("Password", ErrorMessage = "Jajj, ezek a jelszavak nem egyeznek!")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -112,7 +112,7 @@ namespace nptk.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Jelszó ismét")]
-        [Compare("Password", ErrorMessage = "Jajj, ezek nem egyeznek!")]
+        [Compare("Password", ErrorMessage = "Jajj, ezek a jelszavak nem egyeznek!")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
