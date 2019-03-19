@@ -44,15 +44,15 @@
     @foreach (var item in Model)
     {
         string actual = "";
-        string highlight = "";
+        string highlight = "transparent";
         if (item.IsActual == true)
         {
             actual = " – AKTUÁLIS TÚRÁNK";
-            highlight = "style='background-color:red'";
+            highlight = "yellowgreen";
         }
-        <tr colspan="2" @highlight>
+        <tr colspan="2" style="background-color:@highlight">
             <td>
-                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:darkgreen; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:#cc6600; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
