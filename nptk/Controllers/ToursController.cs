@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using nptk.Models;
 using nptk.Helpers;
 using System.Diagnostics;
+using Microsoft.Ajax.Utilities;
 
 namespace nptk.Controllers
 {
@@ -21,6 +22,9 @@ namespace nptk.Controllers
         // GET: Tours
         public ActionResult Index(string sortOrder, string filtTour)
         {
+            GetActualTour();
+            ClearActiveBeforeActual();
+
             var tours = from t in db.Tours select t;
             if (filtTour == "all")
                 tours = from t in db.Tours select t;
@@ -114,7 +118,7 @@ namespace nptk.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Tours.Add(tour);
-                    db.SaveChanges();
+                    GetActualTour();
                     return RedirectToAction("Index");
                 }
             }
@@ -161,7 +165,7 @@ namespace nptk.Controllers
                 try
                 {
                     db.SaveChanges();
-
+                    GetActualTour();
                     return RedirectToAction("Index");
                 }
                 catch (DataException /* dex */)
@@ -204,6 +208,7 @@ namespace nptk.Controllers
             {
                 Tour tour = db.Tours.Find(id);
                 db.Tours.Remove(tour);
+                GetActualTour();
                 db.SaveChanges();
             }
             catch (DataException/* dex */)
@@ -252,6 +257,52 @@ namespace nptk.Controllers
             return View();
         }
 
+        public Tour GetActualTour()
+        {
+            if (db.Tours.Count() == 0)
+            {
+                ViewBag.TourTitle = "Nincs aktuális túra";
+                ViewBag.TourAbout = "Még nincs aktuális túra";
+            }
+            Tour ActualTour = db.Tours.OrderBy(t => t.Date).FirstOrDefault(x => x.Date >= DateTime.Now);
+            ActualTour.IsActual = true;
+            ActualTour.IsActive = true;
+
+            var toursToCheck = db.Tours.Where(t => t.TourId != ActualTour.TourId && t.IsActual == true).ToList();
+
+            if (toursToCheck.Count() != 0)
+            {
+                toursToCheck.ForEach(t => t.IsActual = false);
+            }
+
+            db.SaveChanges();
+
+            
+            return ActualTour;
+        }
+
+        public Tour GetPreviousTour()
+        {
+            Tour Actual = GetActualTour();
+            Tour PreviousTour = db.Tours.OrderByDescending(t => t.Date).FirstOrDefault(x => x.Date < Actual.Date);
+            if (db.Tours.Count() == 0 || PreviousTour == null)
+            {
+                ViewBag.TourTitle = "Nincs előző túra";
+                ViewBag.TourAbout = "Nincs előző túra";
+            }
+            return PreviousTour;
+
+
+        }
+
+        public void ClearActiveBeforeActual()
+        {
+            Tour Actual = GetActualTour();
+
+            var activeTours = db.Tours.Where(t => t.Date < Actual.Date && t.IsActive == true).ToList();
+            activeTours.ForEach(a => a.IsActive = false);
+            db.SaveChanges();
+        }
 
         protected override void Dispose(bool disposing)
         {
