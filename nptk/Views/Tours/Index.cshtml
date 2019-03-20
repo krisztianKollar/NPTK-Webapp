@@ -18,25 +18,29 @@
            style="padding: 5px" data-toggle="tooltip"
            data-placement="right" title="Szűrhető a lista akár dátumra, akár helyre...">
 </p>
-<form>
-    @Html.RadioButton("filtTour", "all", new { @checked = true, onchange = "this.form.submit();" }) <span style="padding-right:10px">Összes túra </span>
-    @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit();" }) <span style="padding-right:10px">Következő túráink </span>
-    @Html.RadioButton("filtTour", "prev", new { onchange = "this.form.submit();" }) <span style="padding-right:10px">Korábbi túráink </span>
-</form>
+@using (Html.BeginForm())
+{
+    @Html.RadioButton("filtTour", "all", new { @checked = true, onchange = "this.form.submit()", id = "rb_all" }) <span style="padding-right:10px">Összes túra </span>
+    @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit()", id = "rb_next"}) <span style="padding-right:10px">Következő túráink </span>
+    @Html.RadioButton("filtTour", "prev", new { onchange = "this.form.submit()", id = "rb_prev" }) <span style="padding-right:10px">Korábbi túráink </span>
+}
 
 <table class="table" id="searchTable">
+    @{
+        var rb = "";
+    }
     <tr>
         <th>
-            @Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
         </th>
         <th>
-            @Html.ActionLink("Dátum", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Dátum", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
         </th>
         <th>
-            @Html.ActionLink("\u2192 (km)", "Index", new { sortOrder = ViewBag.DistanceSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("\u2192 (km)", "Index", new { sortOrder = ViewBag.DistanceSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
         </th>
         <th>
-            @Html.ActionLink("\u2197 (m)", "Index", new { sortOrder = ViewBag.ClimbSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("\u2197 (m)", "Index", new { sortOrder = ViewBag.ClimbSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
         </th>
     </tr>
 
@@ -70,7 +74,7 @@
             <td>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }, new { @style = "color:" + linkColor}) <span> |</span>
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }, new { @style = "color:" + linkColor }) <span> |</span>
                     @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }, new { @style = "color:" + linkColor }) <span> |</span>
                 }
                 @Html.ActionLink("Részletek ", "Details", new { id = item.TourId }, new { @style = "color:" + linkColor })

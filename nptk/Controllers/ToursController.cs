@@ -22,6 +22,8 @@ namespace nptk.Controllers
         // GET: Tours
         public ActionResult Index(string sortOrder, string filtTour)
         {
+            ViewBag.Rb = filtTour;
+
             GetActualTour();
             ClearActiveBeforeActual();
 
