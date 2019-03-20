@@ -45,12 +45,15 @@
     {
         string actual = "";
         string highlight = "transparent";
+        string linkColor = "";
+
         if (item.IsActual == true)
         {
             actual = " – AKTUÁLIS TÚRÁNK";
             highlight = "yellowgreen";
+            linkColor = "#cc6600";
         }
-        <tr colspan="2" style="background-color:@highlight">
+        <tr colspan="2" style="background-color:@highlight; color:@linkColor">
             <td>
                 <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:#cc6600; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
@@ -67,10 +70,10 @@
             <td>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }) <span> |</span>
-                    @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }) <span> |</span>
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }, new { @style = "color:" + linkColor}) <span> |</span>
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }, new { @style = "color:" + linkColor }) <span> |</span>
                 }
-                @Html.ActionLink("Részletek ", "Details", new { id = item.TourId })
+                @Html.ActionLink("Részletek ", "Details", new { id = item.TourId }, new { @style = "color:" + linkColor })
             </td>
         </tr>
 
