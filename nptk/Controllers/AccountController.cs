@@ -155,15 +155,22 @@ namespace nptk.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Nagy Pele Túrakör – regisztráció megerősítése", callbackUrl);
 
-                    return RedirectToAction("Index", "Home");
+                    TempData["ViewBagLink"] = callbackUrl;
+
+                    ViewBag.Message = "Elküldtük a megerősítő linket a megadott e-mail címre. "
+                                    + "A bejelentkezés előtt szükség van a regisztráció aktiválására!";
+
+                    return View("Info");
+                    //return RedirectToAction("Index", "Home");
+
                 }
                 AddErrors(result);
             }

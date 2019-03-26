@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,6 +39,7 @@ namespace nptk
                 {
 
                     case 400:
+                        Debug.WriteLine("HIBA: " + httpException.GetHttpCode().ToString() + ", " + httpException.GetHtmlErrorMessage().ToString());
                         Response.Clear();
 
                         // bad request
@@ -49,6 +51,7 @@ namespace nptk
 
                         break;
                     case 404:
+                        Debug.WriteLine("HIBA: " + httpException.GetHttpCode().ToString() + ", " + httpException.GetHtmlErrorMessage().ToString());
                         Response.Clear();
 
                         // page not found
@@ -60,6 +63,7 @@ namespace nptk
 
                         break;
                     case 500:
+                        Debug.WriteLine("HIBA: " + httpException.GetHttpCode().ToString() + ", " + httpException.GetHtmlErrorMessage().ToString());
                         // server error
                         routeData.Values.Add("action", "ServerError");
 
@@ -68,6 +72,7 @@ namespace nptk
                         errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
                         break;
                     case 403:
+                        Debug.WriteLine("HIBA: " + httpException.GetHttpCode().ToString() + ", " + httpException.GetHtmlErrorMessage().ToString());
                         // server error
                         routeData.Values.Add("action", "UnauthorisedRequest");
 
@@ -77,6 +82,7 @@ namespace nptk
                         break;
                     //add cases for other http errors you want to handle, otherwise HTTP500 will be returned as the default.
                     default:
+                        Debug.WriteLine("HIBA: " + httpException.GetHttpCode().ToString() + ", " + httpException.GetHtmlErrorMessage().ToString());
                         // server error
                         routeData.Values.Add("action", "ServerError");
 
@@ -89,9 +95,11 @@ namespace nptk
             //All other exceptions should result in a 500 error as they are issues with unhandled exceptions in the code
             else
             {
+                Debug.WriteLine("HIBA: " + exception.Message.ToString() + ", " + exception.Source.ToString());
                 routeData.Values.Add("action", "ServerError");
                 Server.ClearError();
                 // Call the controller with the route
+
                 errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
             }
         }
