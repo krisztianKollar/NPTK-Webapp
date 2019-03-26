@@ -23,7 +23,8 @@ namespace nptk.Models
         public string Track { get; set; }
 
         [Display(Name = "Távolság")]
-        public decimal Distance { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#,##0.0#}", ApplyFormatInEditMode = true)]
+        public double Distance { get; set; }
 
         [Display(Name = "Szintemelkedés")]
         public int Climb { get; set; }

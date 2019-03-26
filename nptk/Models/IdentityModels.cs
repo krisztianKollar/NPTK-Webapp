@@ -122,9 +122,9 @@ namespace nptk.Models
             return "none";
         }
 
-        public decimal DistanceTotal()
+        public double DistanceTotal()
         {
-            decimal distanceTotal = (from t in Tours select t.Distance).Sum();
+            double distanceTotal = (from t in Tours select t.Distance).Sum();
             return distanceTotal;
         }
 
