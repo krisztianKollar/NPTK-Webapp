@@ -5,6 +5,7 @@
 <h2>@ViewBag.Title</h2>
 <div>
     <p>
-        Köszönjük a megerősítést! @Html.ActionLink("Ide kattintva juthatsz a belépéshez!", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        Köszönjük a megerősítést! <br/>
+        @Html.ActionLink("Bejelentkezés", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
     </p>
 </div>

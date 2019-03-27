@@ -17,15 +17,15 @@ namespace nptk.Models
 
         [Required]
         [Display(Name = "Megtett teljes táv")]
-        public decimal UserTotalDistance { get; set; }
+        public double UserTotalDistance { get; set; }
 
         [Required]
         [Display(Name = "Megtett teljes szint")]
-        public decimal UserTotalClimb { get; set; }
+        public int UserTotalClimb { get; set; }
 
         [Required]
         [Display(Name = "Teljesített túrák")]
-        public decimal UserTourCount { get; set; }
+        public int UserTourCount { get; set; }
 
         public override string ToString()
         {

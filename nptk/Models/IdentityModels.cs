@@ -81,12 +81,12 @@ namespace nptk.Models
 
         public DbSet<SignUp> SignUps { get; set; }
 
-        public decimal DistanceCount(int? Id)
+        public double DistanceCount(int? Id)
         {
-            decimal distanceCount = (from t in this.Tours
+            double distanceCount = (from t in this.Tours
                              from s in t.SignUps
                              where s.UserID == Id
-                             select (decimal?)t.Distance).Sum() ?? 0;
+                             select (double?)t.Distance).Sum() ?? 0;
             Debug.WriteLine("DistanceCount: " + distanceCount + " id: " + Id);
             return distanceCount;
         }

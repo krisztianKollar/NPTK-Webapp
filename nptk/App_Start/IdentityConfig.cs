@@ -33,9 +33,9 @@ namespace nptk
             #region formatter
             string text = string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body);
             string html = "Üdvözöl a Nagy Pele Túrakör weboldala! <br/><br/>" +
-                "Az alábbi linkre kattintva aktiválható a regisztráció: <a href=\"" + message.Body + "\">Megerősítés</a><br/><br/>";
+                "A linkre kattintva elvégezhető a kért művelet: <a href=\"" + message.Body + "\">Kattints ide!</a><br/><br/>";
 
-            html += HttpUtility.HtmlEncode(@"A művelet az alábbiakat a böngésző címsorába másolva is elvégezhető: " + message.Body);
+            html += HttpUtility.HtmlEncode(@"Az alábbiakat a böngésző címsorába másolva is megtehed ugyanezt: " + message.Body);
             #endregion
 
             MailMessage msg = new MailMessage();

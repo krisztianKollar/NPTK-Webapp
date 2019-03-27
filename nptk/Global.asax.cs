@@ -95,7 +95,7 @@ namespace nptk
             //All other exceptions should result in a 500 error as they are issues with unhandled exceptions in the code
             else
             {
-                Debug.WriteLine("HIBA: " + exception.Message.ToString() + ", " + exception.Source.ToString());
+                Debug.WriteLine("HIBA: " + exception.Message.ToString() + ", " + exception.Source.ToString() + exception.Data);
                 routeData.Values.Add("action", "ServerError");
                 Server.ClearError();
                 // Call the controller with the route
