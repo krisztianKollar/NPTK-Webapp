@@ -67,17 +67,17 @@
     <div class="col-md-4">
         <h3>Aktuális: @ViewBag.TourTitle</h3>
         <p>@ViewBag.TourAbout</p>
-        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.ActId }, new { @class = "btn btn-default" })</p>
+        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.ActId }, new { @class = "btn btn-default pull-right" })</p>
 
     </div>
     <div class="col-md-4">
         <h3>Előző túránkról: @ViewBag.PrevTourTitle</h3>
         <p>@ViewBag.PrevTourAbout</p>
-        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.PrevId }, new { @class = "btn btn-default" })</p>
+        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.PrevId }, new { @class = "btn btn-default pull-right" })</p>
     </div>
     <div class="col-md-4">
         <h3>Egyéb friss hír: @ViewBag.ActualNews</h3>
         <p>@ViewBag.NewsTitle</p>
-        <p>@Html.ActionLink("Megnézem ", "Details", "News", new { id = ViewBag.ActualNewsId }, new { @class = "btn btn-default" })</p>
+        <p>@Html.ActionLink("Megnézem ", "Details", "News", new { id = ViewBag.ActualNewsId }, new { @class = "btn btn-default pull-right" })</p>
     </div>
 </div>

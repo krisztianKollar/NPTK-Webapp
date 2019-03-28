@@ -3818,6 +3818,8 @@ fieldset[disabled] a.btn {
     color: #fff;
     background-color: green;
     border-color: green;
+    border-top-right-radius: 0.9em;
+    border-bottom-left-radius: 0.9em;
 }
 
     .btn-default:focus,
@@ -3883,6 +3885,8 @@ fieldset[disabled] a.btn {
     color: #fff;
     background-color: green;
     border-color: green;
+    border-top-right-radius: 0.9em;
+    border-bottom-left-radius: 0.9em;
 }
 
     .btn-primary:focus,
