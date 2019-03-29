@@ -2,7 +2,7 @@
     ViewBag.Title = "Nagy Pele Túrakör";
 }
 
-<div class="container" style="padding: 5px 5px 5px 5px">
+<div class="container text-center">
     <div class="jumbotron text-center">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -67,17 +67,17 @@
     <div class="col-md-4">
         <h3>Aktuális: @ViewBag.TourTitle</h3>
         <p>@ViewBag.TourAbout</p>
-        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.ActId }, new { @class = "btn btn-default pull-right" })</p>
+        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.ActId }, new { @class = "btn btn-default" })</p>
 
     </div>
     <div class="col-md-4">
         <h3>Előző túránkról: @ViewBag.PrevTourTitle</h3>
         <p>@ViewBag.PrevTourAbout</p>
-        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.PrevId }, new { @class = "btn btn-default pull-right" })</p>
+        <p>@Html.ActionLink("Megnézem ", "Details", "Tours", new { id = ViewBag.PrevId }, new { @class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h3>Egyéb friss hír: @ViewBag.ActualNews</h3>
         <p>@ViewBag.NewsTitle</p>
-        <p>@Html.ActionLink("Megnézem ", "Details", "News", new { id = ViewBag.ActualNewsId }, new { @class = "btn btn-default pull-right" })</p>
+        <p>@Html.ActionLink("Megnézem ", "Details", "News", new { id = ViewBag.ActualNewsId }, new { @class = "btn btn-default" })</p>
     </div>
 </div>

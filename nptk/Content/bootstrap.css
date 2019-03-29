@@ -1994,8 +1994,6 @@ pre {
 }
 
 .container {
-    padding-right: 15px;
-    padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -2019,8 +2017,6 @@ pre {
 }
 
 .container-fluid {
-    padding-right: 15px;
-    padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -3816,8 +3812,8 @@ fieldset[disabled] a.btn {
 
 .btn-default {
     color: #fff;
-    background-color: green;
-    border-color: green;
+    background-color: olivedrab;
+    border-color: olivedrab;
     border-top-right-radius: 0.9em;
     border-bottom-left-radius: 0.9em;
 }
@@ -3826,7 +3822,7 @@ fieldset[disabled] a.btn {
     .btn-default.focus {
         color: #fff;
         background-color: forestgreen;
-        border-color: green;
+        border-color: forestgreen;
     }
 
     .btn-default:hover {
@@ -3839,8 +3835,8 @@ fieldset[disabled] a.btn {
     .btn-default.active,
     .open > .dropdown-toggle.btn-default {
         color: #fff;
-        background-color: green;
-        border-color: green;
+        background-color: forestgreen;
+        border-color: forestgreen;
     }
 
         .btn-default:active:hover,
@@ -5631,7 +5627,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     }
 
 .navbar-inverse {
-    background-color: #035e02;
+    background-color: olivedrab;
     border-color: #080808;
 }
 
@@ -6095,8 +6091,6 @@ a.badge:focus {
 
 .container .jumbotron,
 .container-fluid .jumbotron {
-    padding-right: 5px;
-    padding-left: 5px;
     border-radius: 6px;
 }
 
@@ -6106,14 +6100,10 @@ a.badge:focus {
 
 @media screen and (min-width: 768px) {
     .jumbotron {
-        padding-top: 21px;
-        padding-bottom: 21px;
     }
 
     .container .jumbotron,
     .container-fluid .jumbotron {
-        padding-right: 21px;
-        padding-left: 21px;
     }
 
     .jumbotron h1,
@@ -7357,7 +7347,7 @@ button.close {
     padding: 3px 8px;
     color: #fff;
     text-align: center;
-    background-color: yellowgreen;
+    background-color: darkkhaki;
     border-radius: 4px;
 }
 
@@ -7398,7 +7388,7 @@ button.close {
     left: 0;
     margin-top: -5px;
     border-width: 5px 5px 5px 0;
-    border-right-color: yellowgreen;
+    border-right-color: darkkhaki;
 }
 
 .tooltip.left .tooltip-arrow {
@@ -7585,11 +7575,12 @@ button.close {
 
 .carousel {
     position: relative;
+    align-content:center;
     border-radius: 6px;
     border-bottom-left-radius: 2.5em;
     border-top-right-radius: 2.5em;
     border-style: solid;
-    border-width: 20px;
+    border-width: 1em;
     border-color: darkkhaki;
     overflow: hidden;
 }

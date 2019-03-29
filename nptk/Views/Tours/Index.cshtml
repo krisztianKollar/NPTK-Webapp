@@ -14,7 +14,7 @@
 }
 
 <p>
-    <input id="searchInput" type="text" placeholder="Keresés"
+    <input class="form-control" id="searchInput" type="text" placeholder="Keresés"
            style="padding: 5px" data-toggle="tooltip"
            data-placement="right" title="Szűrhető a lista akár dátumra, akár helyre...">
 </p>
@@ -55,11 +55,11 @@
         {
             actual = " – AKTUÁLIS TÚRÁNK";
             highlight = "darkkhaki";
-            linkColor = "#cc6600";
+            linkColor = "white";
         }
         <tr colspan="2" style="background-color:@highlight; color:@linkColor">
             <td>
-                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:#cc6600; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
