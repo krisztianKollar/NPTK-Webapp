@@ -16,12 +16,13 @@
 <p>
     <input class="form-control" id="searchInput" type="text" placeholder="Keresés"
            style="padding: 5px" data-toggle="tooltip"
-           data-placement="right" title="Szűrhető a lista akár dátumra, akár helyre...">
+           data-placement="right" title="Szűrhető a lista számra, betűre...">
 </p>
+
 @using (Html.BeginForm())
 {
     @Html.RadioButton("filtTour", "all", new { @checked = true, onchange = "this.form.submit()", id = "rb_all" }) <span style="padding-right:10px">Összes túra </span>
-    @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit()", id = "rb_next"}) <span style="padding-right:10px">Következő túráink </span>
+    @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit()", id = "rb_next" }) <span style="padding-right:10px">Következő túráink </span>
     @Html.RadioButton("filtTour", "prev", new { onchange = "this.form.submit()", id = "rb_prev" }) <span style="padding-right:10px">Korábbi túráink </span>
 }
 
@@ -59,7 +60,7 @@
         }
         <tr colspan="2" style="background-color:@highlight; color:@linkColor">
             <td>
-                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <span class="panel-heading" style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)

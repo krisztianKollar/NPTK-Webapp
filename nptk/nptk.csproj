@@ -258,10 +258,24 @@
     <Compile Include="Migrations\201903261037542_double.Designer.cs">
       <DependentUpon>201903261037542_double.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903291134394_news.cs" />
+    <Compile Include="Migrations\201903291134394_news.Designer.cs">
+      <DependentUpon>201903291134394_news.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903291136453_update news.cs" />
+    <Compile Include="Migrations\201903291136453_update news.Designer.cs">
+      <DependentUpon>201903291136453_update news.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903291142230_reupdate news.cs" />
+    <Compile Include="Migrations\201903291142230_reupdate news.Designer.cs">
+      <DependentUpon>201903291142230_reupdate news.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\News.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Models\SignUp.cs" />
     <Compile Include="Models\StatisticsViewModels.cs" />
     <Compile Include="Models\Tour.cs" />
@@ -350,6 +364,11 @@
     <Content Include="Views\Manage\ChangeEmail.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
+    <Content Include="Views\News\Create.cshtml" />
+    <Content Include="Views\News\Delete.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -412,6 +431,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903261037542_double.resx">
       <DependentUpon>201903261037542_double.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903291134394_news.resx">
+      <DependentUpon>201903291134394_news.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903291136453_update news.resx">
+      <DependentUpon>201903291136453_update news.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903291142230_reupdate news.resx">
+      <DependentUpon>201903291142230_reupdate news.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<nptk.Models.News>
+
+@{
+    ViewBag.Title = "Egyéb újdonságok";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Új hír létrehozása", "Create")
+    </p>
+}
+
+<table class="table" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NewsTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewsAbout)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewsDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr >
+            <td class="col-md-3" style="vertical-align:top">
+                @Html.DisplayFor(modelItem => item.NewsTitle)
+            </td>
+            <td class="col-md-5" style="vertical-align:top">
+                @Html.DisplayFor(modelItem => item.NewsAbout)
+            </td>
+            <td class="col-md-2" style="vertical-align:top">
+                @Html.DisplayFor(modelItem => item.NewsDate)
+            </td>
+            <td class="col-md-2" style="vertical-align:top">
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.NewsId }) <span> |</span>
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.NewsId }) <span> |</span>
+                }
+                @Html.ActionLink("Részletek ", "Details", new { id = item.NewsId })
+            </td>
+        </tr>
+    }
+
+</table>

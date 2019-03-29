@@ -137,6 +137,8 @@ namespace nptk.Models
         {
             return (from t in Tours select t).Count();
         }
+
+        public System.Data.Entity.DbSet<nptk.Models.News> News { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

@@ -1,0 +1,35 @@
+﻿@model nptk.Models.News
+
+@{
+    ViewBag.Title = "A hír részletei";
+}
+
+<h2>@Html.DisplayFor(model => model.NewsTitle)</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsAbout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsAbout)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Admin"))
+    {@Html.ActionLink("Szerkesztés", "Edit", new { id = Model.NewsId })<span> |</span>}
+    @Html.ActionLink("Vissza a hírekhez", "Index")
+</p>
