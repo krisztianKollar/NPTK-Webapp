@@ -5,6 +5,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<h4>Akik velünk túráznak</h4>
 
 @if (User.IsInRole("Admin"))
 {
@@ -12,7 +13,6 @@
         @Html.ActionLink("Új túratárs felvétele", "Create")
     </p>
 }
-<h4>Akik velünk túráznak</h4>
 
 <p><input class="form-control" id="searchInput" type="text" placeholder="Keresés"></p>
 

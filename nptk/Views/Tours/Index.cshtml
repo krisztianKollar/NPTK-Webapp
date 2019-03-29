@@ -5,6 +5,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<h4>Amerre eddig voltunk, amerre ezután indulunk</h4>
 
 @if (User.IsInRole("Admin"))
 {
@@ -60,7 +61,7 @@
         }
         <tr colspan="2" style="background-color:@highlight; color:@linkColor">
             <td>
-                <span class="panel-heading" style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)

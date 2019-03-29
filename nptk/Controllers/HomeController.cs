@@ -13,11 +13,13 @@ namespace nptk.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         ToursController ToursController = new ToursController();
+        private NewsController NewsController = new NewsController();
 
         public ActionResult Index()
         {
             Tour ActualTour = ToursController.GetActualTour();
             Tour PreviousTour = ToursController.GetPreviousTour();
+            News ActualNews = NewsController.GetActualNews();
             ToursController.ClearActiveBeforeActual();
             ViewBag.TourTitle = ActualTour.Title;
             ViewBag.TourAbout = ActualTour.About;
@@ -25,6 +27,10 @@ namespace nptk.Controllers
             ViewBag.PrevTourTitle = PreviousTour.Title;
             ViewBag.PrevTourAbout = PreviousTour.About;
             ViewBag.PrevId = PreviousTour.TourId;
+            ViewBag.ActualNewsId = ActualNews.NewsId;
+            ViewBag.NewsTitle = ActualNews.NewsTitle;
+            ViewBag.ActualNews = ActualNews.NewsAbout;
+
             return View();
         }
 

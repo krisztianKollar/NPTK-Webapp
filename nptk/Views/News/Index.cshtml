@@ -5,6 +5,8 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<h4>Hírek a túrakörrel és egyéb természetjárással kapcsolatosan</h4>
+
 
 @if (User.IsInRole("Admin"))
 {
@@ -13,7 +15,7 @@
     </p>
 }
 
-<table class="table" >
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.NewsTitle)
@@ -29,8 +31,8 @@
 
     @foreach (var item in Model)
     {
-        <tr >
-            <td class="col-md-3" style="vertical-align:top">
+        <tr>
+            <td class="col-md-3" style="vertical-align:top; font-weight:600">
                 @Html.DisplayFor(modelItem => item.NewsTitle)
             </td>
             <td class="col-md-5" style="vertical-align:top">

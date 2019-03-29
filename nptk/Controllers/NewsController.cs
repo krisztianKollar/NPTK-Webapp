@@ -16,7 +16,8 @@ namespace nptk.Models
         // GET: News
         public ActionResult Index()
         {
-            return View(db.News.ToList());
+            var news = db.News.OrderByDescending(n => n.NewsDate).ToList();
+            return View(news);
         }
 
         // GET: News/Details/5
@@ -35,6 +36,7 @@ namespace nptk.Models
         }
 
         // GET: News/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -44,20 +46,30 @@ namespace nptk.Models
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NewsTitle,NewsDate,NewsAbout")] News news)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.News.Add(news);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.News.Add(news);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
             }
 
             return View(news);
         }
 
         // GET: News/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,25 +87,45 @@ namespace nptk.Models
         // POST: News/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NewsTitle,NewsDate,NewsAbout")] News news)
+        public ActionResult EditPost(int? NewsId)
         {
-            if (ModelState.IsValid)
+
+            if (NewsId == null)
             {
-                db.Entry(news).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(news);
+            var newsToUpdate = db.News.Find(NewsId);
+            if (TryUpdateModel(newsToUpdate, "",
+               new string[] { "NewsTitle", "NewsDate", "NewsAbout" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Nem sikerült a mentés. Próbáld újra – ha úgy se működik, adminisztrátori segítség kell!");
+                }
+            }
+            return View(newsToUpdate);
         }
 
         // GET: News/Delete/5
-        public ActionResult Delete(int? id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Sikertelen a törlés! Próbáld újra, s ha továbbra is fennáll a probléma, keresd az adminisztrátort!";
             }
             News news = db.News.Find(id);
             if (news == null)
@@ -108,10 +140,29 @@ namespace nptk.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            News news = db.News.Find(id);
-            db.News.Remove(news);
-            db.SaveChanges();
+            try
+            {
+                News news = db.News.Find(id);
+                db.News.Remove(news);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
+        }
+
+        public News GetActualNews()
+        {
+            if (db.News.Count() == 0)
+            {
+                ViewBag.NewsTitle = "Nincs aktuális hír";
+                ViewBag.ActualNews = "Még nincs aktuális újdonság";
+            }
+            News ActualNews = db.News.OrderByDescending(n => n.NewsDate).FirstOrDefault();
+            return ActualNews;
         }
 
         protected override void Dispose(bool disposing)

@@ -13,7 +13,7 @@ namespace nptk.Models
         [Display(Name = "Hír")]
         public string NewsTitle { get; set; }
 
-        [Display(Name = "Dátum")]
+        [Display(Name = "Mikor?")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy. MM. dd.}", ApplyFormatInEditMode = true)]
         public DateTime NewsDate { get; set; }
