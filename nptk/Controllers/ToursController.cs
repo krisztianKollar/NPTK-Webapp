@@ -11,6 +11,7 @@ using nptk.Models;
 using nptk.Helpers;
 using System.Diagnostics;
 using Microsoft.Ajax.Utilities;
+using System.IO;
 
 namespace nptk.Controllers
 {
@@ -113,12 +114,29 @@ namespace nptk.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Title,Date,Track,Distance,Climb,About,IsActive,IsActual")] Tour tour)
+        public ActionResult Create(TourViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    Tour tour = new Tour
+                    {
+                        Title = model.Title,
+                        Date = model.Date,
+                        Track = model.Track,
+                        Distance = model.Distance,
+                        Climb = model.Climb,
+                        About = model.About,
+                        IsActive = model.IsActive
+                    };
+                    if (model.image != null)
+                    {
+                        string extension = Path.GetExtension(model.image.FileName);
+                        tour.PosterPath = "poster" + tour.Date.ToString().Substring(0, 4).ToLower() + tour.Date.ToString().Substring(6, 2).ToLower() + extension;
+                        var path = Path.Combine(Server.MapPath("/Content/Posters/" + tour.PosterPath));
+                        model.image.SaveAs(path);
+                    }
                     db.Tours.Add(tour);
                     GetActualTour();
                     return RedirectToAction("Index");
@@ -129,7 +147,7 @@ namespace nptk.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
             }
-            return View(tour);
+            return View();
         }
 
         // GET: Tours/Edit/5
@@ -279,7 +297,7 @@ namespace nptk.Controllers
 
             db.SaveChanges();
 
-            
+
             return ActualTour;
         }
 

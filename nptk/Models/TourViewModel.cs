@@ -6,11 +6,8 @@ using System.Web;
 
 namespace nptk.Models
 {
-    public class Tour
+    public class TourViewModel
     {
-
-        public int TourId { get; set; }
-
         [Display(Name = "Túra")]
         public string Title { get; set; }
 
@@ -42,12 +39,6 @@ namespace nptk.Models
         [Display(Name = "Plakát")]
         public string PosterPath { get; set; }
 
-        [Display(Name = "Jelentkezők")]
-        public virtual ICollection<SignUp> SignUps { get; set; }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+        public HttpPostedFileBase image { get; set; }
     }
 }

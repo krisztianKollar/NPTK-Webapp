@@ -104,6 +104,12 @@
                 }
             </ul>
         </dd>
+        <dd>
+            @if (Model.IsActive && Model.PosterPath != null)
+            {
+                <img class="img-responsive" src='@Url.Content("/Content/Posters/" + Model.PosterPath)' style="padding:20px" />
+            }
+        </dd>
 
     </dl>
 </div>
