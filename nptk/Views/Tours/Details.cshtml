@@ -85,13 +85,16 @@
         }
 
         <dt>
-            @if (Model.Date < DateTime.Now)
+            @if (Model.SignUps.Count() > 0)
             {
-                <span>Résztvevők</span>
-            }
-            else
-            {
-                @Html.DisplayNameFor(model => model.SignUps)
+                if (Model.Date < DateTime.Now)
+                {
+                    <span>Résztvevők</span>
+                }
+                else
+                {
+                    @Html.DisplayNameFor(model => model.SignUps)
+                }
             }
         </dt>
         <dd>
