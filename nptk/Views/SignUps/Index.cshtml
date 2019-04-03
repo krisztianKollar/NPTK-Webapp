@@ -9,27 +9,41 @@
 <p>
     @Html.ActionLink("Jelentkezés hozzáadása", "Create")
 </p>
-<table class="table">
 
-    @foreach (var group in Model.OrderByDescending(m => m.Tour.Date).GroupBy(m => m.Tour.Title))
+@{var count = 0;
+
+    foreach (var group in Model.OrderByDescending(m => m.Tour.Date).GroupBy(m => m.Tour.Title))
     {
-        <tr>
-            <td>
-                <span style="font-weight:600">@group.Key – @group.ElementAt(0).Tour.Date.ToString("yyyy. MM. dd.");</span> @group.ElementAt(0).Tour.Track
-            </td>
-        </tr>
-        foreach (var item in group)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FullName)
-                </td>
-                <td>
-                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.SignUpID }) <span> |</span>
-                    @Html.ActionLink("Törlés", "Delete", new { id = item.SignUpID })
-                </td>
-            </tr>
-        }
+        count += 1;
+        string collapseId = "collapse_" + count;
+        System.Diagnostics.Debug.WriteLine(collapseId);
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:darkkhaki; color:white">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#@collapseId">
+                            @group.Key – @group.ElementAt(0).Tour.Date.ToString("yyyy. MM. dd.") @group.ElementAt(0).Tour.Track
+                        </a>
+                    </h4>
+                </div>
+                <div id="@collapseId" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in group)
+                        {
+                            <p>
+                                @Html.DisplayFor(modelItem => item.User.FullName) 
+                                <span style="padding-left:20px">
+                                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.SignUpID }) <span> |</span>
+                                    @Html.ActionLink("Törlés", "Delete", new { id = item.SignUpID })
+                                </span>
+                            </p>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
     }
-</table>
+}
 
