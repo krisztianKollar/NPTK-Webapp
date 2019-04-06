@@ -36,9 +36,9 @@ namespace nptk.Models
         [Display(Name = "Aktuális túra?")]
         public bool IsActual { get; set; }
 
-        [Display(Name = "Plakát")]
-        public string PosterPath { get; set; }
+        [Display(Name = "Képek")]
+        public string[] PicPaths { get; set; }
 
-        public HttpPostedFileBase image { get; set; }
+        public HttpPostedFileBase[] Gallery { get; set; }
     }
 }

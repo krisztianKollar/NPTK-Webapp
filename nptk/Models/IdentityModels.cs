@@ -139,6 +139,8 @@ namespace nptk.Models
         }
 
         public System.Data.Entity.DbSet<nptk.Models.News> News { get; set; }
+
+        public System.Data.Entity.DbSet<nptk.Models.Picture> Pictures { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

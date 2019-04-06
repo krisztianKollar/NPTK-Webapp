@@ -62,15 +62,12 @@
             </div>
         </div>
 
-
         <div class="form-group">
-            @Html.LabelFor(model => model.PosterPath, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PicPaths, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*<label for="upload-poster" class="btn btn-default">Kép kiválasztása...</label>
-                    <input type="file" name="PosterPath" id="upload-poster" />*@
-                @Html.TextBoxFor(model => model.image, new { type = "file" })
-                @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
-                @Html.ValidationMessageFor(model => model.image)
+                @Html.TextBoxFor(model => model.Gallery, new { type = "file", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.Gallery, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Gallery)
             </div>
         </div>
 

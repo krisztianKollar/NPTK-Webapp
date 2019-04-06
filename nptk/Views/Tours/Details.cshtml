@@ -107,15 +107,29 @@
                 }
             </ul>
         </dd>
-        <dd>
-            @if (Model.IsActive && Model.PosterPath != null)
-            {
-                <img class="img-responsive" src='@Url.Content("/Content/Posters/" + Model.PosterPath)' style="padding:20px" />
-            }
-        </dd>
-
     </dl>
 </div>
+
+<div class="container">
+    <span class="col-md-3">
+        @if (Model.Date >= DateTime.Now)
+        {
+            var path = @Model.TourPics.First().Path;
+            <img class="img-responsive" src='@Url.Content("/Content/Posters/" + path)' style="padding:20px" />
+        }
+        @if (Model.Date < DateTime.Now)
+        {
+            foreach (var item in Model.TourPics.ToList())
+            {
+                var path = item.Path;
+                <span><img class="img-responsive" src='@Url.Content("/Content/TourGallery/" + path)' style="padding:20px" /></span>
+            }
+        }
+
+    </span>
+</div>
+
+
 <p>
     @if (User.IsInRole("Admin"))
     {@Html.ActionLink("Szerkesztés", "Edit", new { id = Model.TourId })<span> |</span>}

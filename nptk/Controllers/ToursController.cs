@@ -130,14 +130,57 @@ namespace nptk.Controllers
                         About = model.About,
                         IsActive = model.IsActive
                     };
-                    if (model.image != null)
+
+
+                    /*if (model.Image != null)
                     {
-                        string extension = Path.GetExtension(model.image.FileName);
-                        tour.PosterPath = "poster" + tour.Date.ToString().Substring(0, 4).ToLower() + tour.Date.ToString().Substring(6, 2).ToLower() + extension;
+                        string extension = Path.GetExtension(model.Image.FileName);
+                        tour.PosterPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower() + extension;
                         var path = Path.Combine(Server.MapPath("/Content/Posters/" + tour.PosterPath));
-                        model.image.SaveAs(path);
+                        model.Image.SaveAs(path);
+                    }*/
+
+                    if (model.Gallery.Count() == 1)
+                    {
+                        foreach (var pic in model.Gallery)
+                        {
+                            string extension = Path.GetExtension(pic.FileName);
+                            string PicPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower();
+                            var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
+                            pic.SaveAs(path);
+
+                            Picture picture = new Picture
+                            {
+                                Path = PicPath + extension,
+                                PicName = PicPath
+                            };
+
+                            db.Pictures.Add(picture);
+                        }
                     }
+
+                    if (model.Gallery.Count() > 1)
+                    {
+                        var picCount = 0;
+                        foreach (var pic in model.Gallery)
+                        {
+                            picCount += 1;
+                            string extension = Path.GetExtension(pic.FileName);
+                            string PicPath = "tour" + tour.Date.ToString("yyyyMMdd_").ToLower() + picCount;
+                            var path = Path.Combine(Server.MapPath("/Content/TourGallery/" + PicPath + extension));
+                            pic.SaveAs(path);
+                            Picture picture = new Picture
+                            {
+                                Path = PicPath + extension,
+                                PicName = PicPath
+                            };
+
+                            db.Pictures.Add(picture);
+                        }
+                    }
+
                     db.Tours.Add(tour);
+                    db.SaveChanges();
                     GetActualTour();
                     return RedirectToAction("Index");
                 }

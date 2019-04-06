@@ -1,0 +1,42 @@
+﻿@model nptk.Models.Picture
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Picture</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tour.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tour.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PicName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PicName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PicID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
