@@ -57,7 +57,8 @@ a {
 
     a:active,
     a:hover {
-        outline: 0;
+        color: darkgoldenrod;
+        text-decoration: none;
     }
 
 abbr[title] {
@@ -1428,12 +1429,16 @@ a {
     a:hover,
     a:focus {
         color: darkgreen;
-        text-decoration: underline;
     }
 
     a:focus {
         outline: 5px auto -webkit-focus-ring-color;
         outline-offset: -2px;
+    }
+
+    a:hover {
+        color: darkgoldenrod;
+        text-decoration: none;
     }
 
 figure {
