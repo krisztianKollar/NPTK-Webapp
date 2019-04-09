@@ -25,14 +25,14 @@
         </dd>
         <dt>Megtett távjuk alapján a legaktívabbak:</dt>
         <dd>
-            <table class="table">
+            <table class="table" style="width:50%">
                 <tr>
                     <th>
                     </th>
                     <th>
                         @Html.DisplayNameFor(Model => Model.FullName)
                     </th>
-                    <th>
+                    <th style="text-align: right; padding-right:10px">
                         @Html.DisplayNameFor(Model => Model.UserTotalDistance)
                     </th>
                 </tr>
@@ -46,7 +46,7 @@
                         <td>
                             @item.FullName
                         </td>
-                        <td>
+                        <td style="text-align: right; padding-right:30px">
                             @item.UserTotalDistance km
                         </td>
                     </tr>
@@ -55,14 +55,14 @@
         </dd>
         <dt>A legtöbb túrán részt vevők:</dt>
         <dd>
-            <table class="table">
+            <table class="table" style="width:50%">
                 <tr>
                     <th>
                     </th>
                     <th>
                         @Html.DisplayNameFor(Model => Model.FullName)
                     </th>
-                    <th>
+                    <th style="text-align: right; padding-right:10px">
                         @Html.DisplayNameFor(Model => Model.UserTourCount)
                     </th>
                 </tr>
@@ -76,7 +76,7 @@
                         <td>
                             @item.FullName
                         </td>
-                        <td>
+                        <td style="text-align: right; padding-right:30px">
                             @item.UserTourCount
                         </td>
                     </tr>
