@@ -26,14 +26,17 @@
         <th>
             @Html.DisplayNameFor(model => model.NewsDate)
         </th>
-        <th></th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th></th>
+        }
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td class="col-md-3" style="vertical-align:top; font-weight:600">
-                @Html.DisplayFor(modelItem => item.NewsTitle)
+                @Html.ActionLink(item.NewsTitle, "Details", new { id = item.NewsId })
             </td>
             <td class="col-md-5" style="vertical-align:top">
                 @Html.DisplayFor(modelItem => item.NewsAbout)
@@ -41,14 +44,13 @@
             <td class="col-md-2" style="vertical-align:top">
                 @Html.DisplayFor(modelItem => item.NewsDate)
             </td>
-            <td class="col-md-2" style="vertical-align:top">
-                @if (User.IsInRole("Admin"))
-                {
+            @if (User.IsInRole("Admin"))
+            {
+                <td class="col-md-2" style="vertical-align:top">
                     @Html.ActionLink("Szerkesztés", "Edit", new { id = item.NewsId }) <span> |</span>
-                    @Html.ActionLink("Törlés", "Delete", new { id = item.NewsId }) <span> |</span>
-                }
-                @Html.ActionLink("Részletek ", "Details", new { id = item.NewsId })
-            </td>
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.NewsId })
+                </td>
+            }
         </tr>
     }
 

@@ -47,7 +47,8 @@ namespace nptk.Controllers
             ViewBag.TitleSortParm = sortOrder == "title" ? "title_desc" : "title";
             ViewBag.DistanceSortParm = sortOrder == "distance" ? "distance_desc" : "distance";
             ViewBag.ClimbSortParm = sortOrder == "climb" ? "climb_desc" : "climb";
-            ViewBag.DateSortParm = string.IsNullOrEmpty(sortOrder) ? "" : "date";
+            //ViewBag.DateSortParm = string.IsNullOrEmpty(sortOrder) ? "" : "date";
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date"; 
             switch (sortOrder)
             {
                 case "title":
@@ -71,7 +72,10 @@ namespace nptk.Controllers
                 case "date":
                     tours = tours.OrderBy(t => t.Date);
                     break;
-                default:
+                case "date_desc":
+                    tours = tours.OrderByDescending(t => t.Date);
+                    break;
+                default :
                     tours = tours.OrderByDescending(t => t.Date);
                     break;
             }
@@ -139,43 +143,46 @@ namespace nptk.Controllers
                         var path = Path.Combine(Server.MapPath("/Content/Posters/" + tour.PosterPath));
                         model.Image.SaveAs(path);
                     }*/
-
-                    if (model.Gallery.Count() == 1)
+                    Debug.WriteLine(model.Gallery.Count());
+                    if (model.Gallery.Count() != 0)
                     {
-                        foreach (var pic in model.Gallery)
+                        if (model.Gallery.Count() == 1)
                         {
-                            string extension = Path.GetExtension(pic.FileName);
-                            string PicPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower();
-                            var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
-                            pic.SaveAs(path);
-
-                            Picture picture = new Picture
+                            foreach (var pic in model.Gallery)
                             {
-                                Path = PicPath + extension,
-                                PicName = PicPath
-                            };
+                                string extension = Path.GetExtension(pic.FileName);
+                                string PicPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower();
+                                var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
+                                pic.SaveAs(path);
 
-                            db.Pictures.Add(picture);
+                                Picture picture = new Picture
+                                {
+                                    Path = PicPath + extension,
+                                    PicName = PicPath
+                                };
+
+                                db.Pictures.Add(picture);
+                            }
                         }
-                    }
 
-                    if (model.Gallery.Count() > 1)
-                    {
-                        var picCount = 0;
-                        foreach (var pic in model.Gallery)
+                        if (model.Gallery.Count() > 1)
                         {
-                            picCount += 1;
-                            string extension = Path.GetExtension(pic.FileName);
-                            string PicPath = "tour" + tour.Date.ToString("yyyyMMdd_").ToLower() + picCount;
-                            var path = Path.Combine(Server.MapPath("/Content/TourGallery/" + PicPath + extension));
-                            pic.SaveAs(path);
-                            Picture picture = new Picture
+                            var picCount = 0;
+                            foreach (var pic in model.Gallery)
                             {
-                                Path = PicPath + extension,
-                                PicName = PicPath
-                            };
+                                picCount += 1;
+                                string extension = Path.GetExtension(pic.FileName);
+                                string PicPath = "tour" + tour.Date.ToString("yyyyMMdd_").ToLower() + picCount;
+                                var path = Path.Combine(Server.MapPath("/Content/TourGallery/" + PicPath + extension));
+                                pic.SaveAs(path);
+                                Picture picture = new Picture
+                                {
+                                    Path = PicPath + extension,
+                                    PicName = PicPath
+                                };
 
-                            db.Pictures.Add(picture);
+                                db.Pictures.Add(picture);
+                            }
                         }
                     }
 

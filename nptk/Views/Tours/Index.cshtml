@@ -28,9 +28,6 @@
 }
 
 <table class="table" id="searchTable">
-    @{
-        var rb = "";
-    }
     <tr>
         <th>
             @Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
@@ -61,7 +58,7 @@
         }
         <tr colspan="2" style="background-color:@highlight; color:@linkColor">
             <td>
-                <span style="font-weight:600">@Html.DisplayFor(modelItem => item.Title)</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <span style="font-weight:600">@Html.ActionLink(item.Title, "Details", new { id = item.TourId }, new { @style = "color:" + linkColor })</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -72,14 +69,13 @@
             <td style="text-align: right; padding-right:20px">
                 @Html.DisplayFor(modelItem => item.Climb)
             </td>
-            <td>
-                @if (User.IsInRole("Admin"))
-                {
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
                     @Html.ActionLink("Szerkesztés", "Edit", new { id = item.TourId }, new { @style = "color:" + linkColor }) <span> |</span>
-                    @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }, new { @style = "color:" + linkColor }) <span> |</span>
-                }
-                @Html.ActionLink("Részletek ", "Details", new { id = item.TourId }, new { @style = "color:" + linkColor })
-            </td>
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.TourId }, new { @style = "color:" + linkColor })
+                </td>
+            }
         </tr>
 
     }
