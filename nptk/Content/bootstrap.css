@@ -8,12 +8,13 @@ html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    overflow-y: scroll;
 }
 
 body {
     margin: 0;
     background-image: url('/Content/Images/back.jpg');
-    background-repeat: no-repeat;
+    background-repeat:repeat;
     background-attachment: fixed;
 }
 
@@ -6140,6 +6141,8 @@ a.badge:focus {
     .thumbnail a > img {
         margin-right: auto;
         margin-left: auto;
+        border-bottom-left-radius: 2em;
+        border-top-right-radius: 2em;
     }
 
 a.thumbnail:hover,
