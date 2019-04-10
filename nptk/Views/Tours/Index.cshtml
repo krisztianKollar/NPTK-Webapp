@@ -13,33 +13,41 @@
         @Html.ActionLink("Új túra", "Create")
     </p>
 }
+<div>
+    <ul class="list-inline">
+        <li>
+            @using (Html.BeginForm())
+            {
+                @Html.RadioButton("filtTour", "all", new { @checked = true, onchange = "this.form.submit()", id = "rb_all" }) <span style="padding-right:10px">Összes túra </span>
+                @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit()", id = "rb_next" }) <span style="padding-right:10px">Következő túráink </span>
+                @Html.RadioButton("filtTour", "prev", new { onchange = "this.form.submit()", id = "rb_prev" }) <span style="padding-right:10px">Korábbi túráink </span>
+            }
+        </li>
+        <li>
 
-<p>
-    <input class="form-control" id="searchInput" type="text" placeholder="Keresés"
-           style="padding: 5px" data-toggle="tooltip"
-           data-placement="right" title="Szűrhető a lista számra, betűre...">
-</p>
+            <p style="padding-top:10px; padding-bottom:10px;">
+                <input class="form-control" id="searchInput" type="text" placeholder="Keresés"
+                       style="padding: 5px" data-toggle="tooltip"
+                       data-placement="right" title="Szűrhető a lista számra, betűre...">
+            </p>
+        </li>
+    </ul>
+</div>
 
-@using (Html.BeginForm())
-{
-    @Html.RadioButton("filtTour", "all", new { @checked = true, onchange = "this.form.submit()", id = "rb_all" }) <span style="padding-right:10px">Összes túra </span>
-    @Html.RadioButton("filtTour", "next", new { onchange = "this.form.submit()", id = "rb_next" }) <span style="padding-right:10px">Következő túráink </span>
-    @Html.RadioButton("filtTour", "prev", new { onchange = "this.form.submit()", id = "rb_prev" }) <span style="padding-right:10px">Korábbi túráink </span>
-}
 
 <table class="table" id="searchTable">
-    <tr>
+    <tr class="text-uppercase">
         <th>
-            @Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
+            <strong>@Html.ActionLink("Túra", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })</strong>
         </th>
         <th>
-            @Html.ActionLink("Dátum", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
+            <strong>@Html.ActionLink("Dátum", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })</strong>
         </th>
         <th style="text-align: right; padding-right:10px">
-            @Html.ActionLink("\u2192 (km)", "Index", new { sortOrder = ViewBag.DistanceSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
+            <strong>@Html.ActionLink("\u2192 (km)", "Index", new { sortOrder = ViewBag.DistanceSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })</strong>
         </th>
         <th style="text-align: right; padding-right:10px">
-            @Html.ActionLink("\u2197 (m)", "Index", new { sortOrder = ViewBag.ClimbSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })
+            <strong>@Html.ActionLink("\u2197 (m)", "Index", new { sortOrder = ViewBag.ClimbSortParm, currentFilter = ViewBag.CurrentFilter, filtTour = ViewBag.Rb })</strong>
         </th>
     </tr>
 
@@ -58,7 +66,7 @@
         }
         <tr colspan="2" style="background-color:@highlight; color:@linkColor">
             <td>
-                <span style="font-weight:600">@Html.ActionLink(item.Title, "Details", new { id = item.TourId }, new { @style = "color:" + linkColor })</span><span style="color:white; font-weight:600">@actual</span> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
+                <strong>@Html.ActionLink(item.Title, "Details", new { id = item.TourId }, new { @style = "color:" + linkColor })</strong><strong style="color:white">@actual</strong> <br /> @Html.DisplayNameFor(model => model.Track): @Html.DisplayFor(modelItem => item.Track)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)

@@ -37,35 +37,6 @@
         <dd>
             @Html.ActionLink(Model.Email, "ChangeEmail")
         </dd>
-        <dt>Jelenlegi rangod:</dt>
-        <dd>
-            @{
-                var source = "none.png";
-                if (User.Identity.GetHikerRank() == "none")
-                {
-                    <span>Az első rang 12 túra teljesítése után jár! Hajrá!</span>
-                }
-                else
-                {
-                    if (User.Identity.GetHikerRank() == "golden")
-                    { source = "arany.png"; }
-                    if (User.Identity.GetHikerRank() == "silver")
-                    { source = "ezust.png"; }
-                    if (User.Identity.GetHikerRank() == "bronze")
-                    { source = "bronz.png"; }
-                    <span><img class="img-responsive" src="/Content/Images/@(source)" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
-                }
-            }
-        </dd>
-
-
-        <dt>Eddigi teljesítményed:</dt>
-        <dd>
-            <span style="font-weight:600">@ViewBag.Tours túrán </span>
-            jártál a túrakörrel, <span style="font-weight:600">@ViewBag.Distances km </span>
-            távolság és <span style="font-weight:600">@ViewBag.Climbs m </span>szintemelkedés van mögötted –
-            ezeken az értékeken a következő túrákon tudsz változtatni!
-        </dd>
 
 
         @*<dt>External Logins:</dt>

@@ -17,21 +17,21 @@
 <p><input class="form-control" id="searchInput" type="text" placeholder="Keresés"></p>
 
 <table class="table" id="searchTable">
-    <tr>
+    <tr class="text-uppercase">
         <th>
-            @Html.ActionLink("Név", "Index", new { sortOrder = ViewBag.FullNameSortParm, currentFilter = ViewBag.CurrentFilter })
+            <strong>@Html.ActionLink("Név", "Index", new { sortOrder = ViewBag.FullNameSortParm, currentFilter = ViewBag.CurrentFilter })</strong>
         </th>
         <th>
-            @Html.ActionLink("Felhasználónév", "Index", new { sortOrder = ViewBag.UserNameSortParm, currentFilter = ViewBag.CurrentFilter })
+            <strong>@Html.ActionLink("Felhasználónév", "Index", new { sortOrder = ViewBag.UserNameSortParm, currentFilter = ViewBag.CurrentFilter })</strong>
         </th>
         @if (User.IsInRole("Admin"))
         {
-            <th>
-                @Html.ActionLink("E-mail", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
-            </th>
-            <th>
-                @Html.ActionLink("Születési idő", "Index", new { sortOrder = ViewBag.BirthDateSortParm, currentFilter = ViewBag.CurrentFilter })
-            </th>
+        <th>
+            <strong>@Html.ActionLink("E-mail", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })</strong>
+        </th>
+        <th>
+            <strong>@Html.ActionLink("Születési idő", "Index", new { sortOrder = ViewBag.BirthDateSortParm, currentFilter = ViewBag.CurrentFilter })</strong>
+        </th>
         }
         <th></th>
     </tr>

@@ -1,4 +1,6 @@
 ﻿@model nptk.Models.StatisticViewModel
+@using nptk.Helpers
+
 
 @{
 
@@ -11,17 +13,41 @@
     <h4>Néhány adat az eddigiekből</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>Ami a túrakör mögött van:</dt>
+        <dt style="padding-bottom:10px">Ami eddig a túrakör mögött van:</dt>
         <dd>
             <p>
-                Összesen <span style="font-weight:600">@ViewBag.DistanceTotal km</span>-t tettünk meg eddigi
-                <span style="font-weight:600">@ViewBag.TourTotal</span> túráink során, ebből <span style="font-weight:600">@ViewBag.TourCount</span> alkalommal,
-                <span style="font-weight:600">@ViewBag.UserTotalDistance km</span>-en keresztül te is velünk tartottál.
+                Összesen <strong>@ViewBag.DistanceTotal km</strong>-t tettünk meg eddigi
+                <strong>@ViewBag.TourTotal</strong> túránk során, mögöttünk van <strong>@ViewBag.ClimbTotal m</strong> szintemelkedés.
             </p>
+        </dd>
+        <dt style="padding-bottom:10px">A te eddigi teljesítményed:</dt>
+        <dd>
             <p>
-                Mögöttünk van <span style="font-weight:600">@ViewBag.ClimbTotal m</span> szintemelkedés is,
-                amiből neked <span style="font-weight:600">@ViewBag.UserTotalClimb m</span> jutott.
+                <strong style="color:darkgoldenrod">@ViewBag.TourCount</strong> túrán jártál a túrakörrel,
+                <strong style="color:darkgoldenrod"> @ViewBag.UserTotalDistance km</strong> távolság és
+                <strong style="color:darkgoldenrod">@ViewBag.UserTotalClimb m</strong> szintemelkedés van mögötted –
+                ezeken az értékeken a következő túrákon tudsz változtatni!
             </p>
+        </dd>
+        <dt>Jelenlegi rangod:</dt>
+        <dd>
+            @{
+                var source = "none.png";
+                if (User.Identity.GetHikerRank() == "none")
+                {
+                    <span>Az első rang 12 túra teljesítése után jár! Hajrá!</span>
+                }
+                else
+                {
+                    if (User.Identity.GetHikerRank() == "golden")
+                    { source = "arany.png"; }
+                    if (User.Identity.GetHikerRank() == "silver")
+                    { source = "ezust.png"; }
+                    if (User.Identity.GetHikerRank() == "bronze")
+                    { source = "bronz.png"; }
+                    <span><img class="img-responsive" src="/Content/Images/@(source)" style="padding: 5px" width="100px" data-toggle="tooltip" data-placement="right" title="12 túra után bronz, 24 túra után ezüst, 36 túra után arany rang jár!"></span>
+                }
+            }
         </dd>
         <dt>Megtett távjuk alapján a legaktívabbak:</dt>
         <dd>
