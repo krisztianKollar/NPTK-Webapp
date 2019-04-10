@@ -1423,7 +1423,7 @@ textarea {
 }
 
 a {
-    color: green;
+    color: olivedrab;
     text-decoration: none;
 }
 
@@ -3760,6 +3760,18 @@ select[multiple].input-lg {
     }
 }
 
+a:hover,
+a:active,
+a:focus,
+input:hover,
+input:active,
+input:focus,
+button:hover,
+button:active,
+button:focus {
+    outline: none !important;
+}
+
 .btn {
     display: inline-block;
     padding: 6px 12px;
@@ -3833,8 +3845,8 @@ fieldset[disabled] a.btn {
     .btn-default:focus,
     .btn-default.focus {
         color: #fff;
-        background-color: forestgreen;
-        border-color: forestgreen;
+        background-color: darkkhaki;
+        border-color: darkkhaki;
     }
 
     .btn-default:hover {
@@ -3847,8 +3859,8 @@ fieldset[disabled] a.btn {
     .btn-default.active,
     .open > .dropdown-toggle.btn-default {
         color: #fff;
-        background-color: forestgreen;
-        border-color: forestgreen;
+        background-color: darkkhaki;
+        border-color: maroon;
     }
 
         .btn-default:active:hover,
