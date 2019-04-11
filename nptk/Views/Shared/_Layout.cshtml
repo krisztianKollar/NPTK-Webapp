@@ -35,7 +35,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/Home" class="navbar-brand"> <img class="img-responsive" src="~/Content/Images/logo.png" width="110" alt="Nagy Pele Túrakör"/> </a>
+                <a href="/Home" class="navbar-brand"> <img class="img-responsive" src="~/Content/Images/logo.png" width="110" alt="Nagy Pele Túrakör" /> </a>
                 @*<span>@Html.ActionLink("Nagy Pele Túrakör", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</span>*@
             </div>
             <div class="navbar-collapse collapse">
@@ -59,16 +59,36 @@
         </div>
     </div>
     <div class="container body-content" style="background-color:rgba(255, 255, 255, 0.8)">
+        <button onclick="topFunction()" id="topBtn" ><span class="glyphicon glyphicon-chevron-up pull-right"></span></button>
         @RenderBody()
         <hr />
         <footer style="padding-left:15px">
-            <p>&copy; @DateTime.Now.Year – Nagy Pele Túrakör<a class="up-arrow" href="#page">
-                <span class="glyphicon glyphicon-chevron-up pull-right" style="padding-right:15px"></span></a></p>
+            <p>
+                &copy; @DateTime.Now.Year – Nagy Pele Túrakör
+            </p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+                document.getElementById("topBtn").style.display = "block";
+            } else {
+                document.getElementById("topBtn").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 </body>
 </html>
