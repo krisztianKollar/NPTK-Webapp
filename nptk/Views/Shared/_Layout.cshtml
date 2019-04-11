@@ -26,7 +26,7 @@
     </script>
 
 </head>
-<body style="background-color:wheat">
+<body style="background-color:olivedrab" id="page">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -62,7 +62,8 @@
         @RenderBody()
         <hr />
         <footer style="padding-left:15px">
-            <p>&copy; @DateTime.Now.Year – Nagy Pele Túrakör</p>
+            <p>&copy; @DateTime.Now.Year – Nagy Pele Túrakör<a class="up-arrow" href="#page">
+                <span class="glyphicon glyphicon-chevron-up pull-right" style="padding-right:15px"></span></a></p>
         </footer>
     </div>
 
