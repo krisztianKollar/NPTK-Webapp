@@ -6680,22 +6680,25 @@ button.list-group-item-danger {
 
 .panel {
     margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    border-bottom-left-radius: 1.5em;
+    border-top-right-radius: 1.5em;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
 .panel-body {
+    color: olivedrab;
     padding: 15px;
+    border-radius: 6px;
+    border-right: 3px solid olivedrab;
+    border-bottom: 3px solid olivedrab;
 }
 
 .panel-heading {
     padding: 10px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-radius: 6px;
+    border-bottom-left-radius: 1.5em;
+    border-top-right-radius: 1.5em;
 }
 
     .panel-heading > .dropdown .dropdown-toggle {
