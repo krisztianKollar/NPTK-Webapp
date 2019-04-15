@@ -185,7 +185,6 @@ namespace nptk.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
-            Debug.WriteLine("UserId = " + userId + ", Code = " + code);
             if (userId == default(int) || code == null)
             {
                 return View("Error");
@@ -229,7 +228,6 @@ namespace nptk.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                Debug.WriteLine(callbackUrl.ToString());
                 await UserManager.SendEmailAsync(user.Id, "Nagy Pele Túrakör – jelszó helyreállítása", callbackUrl);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }

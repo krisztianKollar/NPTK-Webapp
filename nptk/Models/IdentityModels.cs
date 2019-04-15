@@ -87,7 +87,6 @@ namespace nptk.Models
                              from s in t.SignUps
                              where s.UserID == Id
                              select (double?)t.Distance).Sum() ?? 0;
-            Debug.WriteLine("DistanceCount: " + distanceCount + " id: " + Id);
             return distanceCount;
         }
 
@@ -97,7 +96,6 @@ namespace nptk.Models
                               from s in t.SignUps
                               where s.UserID == Id
                               select (int?)t.Climb).Sum() ?? 0;
-            Debug.WriteLine("ClimbCount: " + climbCount + " id: " + Id);
             return climbCount;
         }
 

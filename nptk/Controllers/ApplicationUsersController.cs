@@ -137,7 +137,6 @@ namespace nptk.Controllers
 
                     var password = user.LastName.Substring(0, 1).ToUpper() + user.FirstName.Substring(0, 1).ToLower() + "-" + user.BirthDate.ToString().Substring(0, 4);
                     var result = await UserManager.CreateAsync(user, password);
-                    Debug.WriteLine(password);
                     if (result.Succeeded)
                     {
                         //db.Users.Add(user);
