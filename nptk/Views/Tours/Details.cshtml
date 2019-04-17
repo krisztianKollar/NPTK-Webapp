@@ -110,25 +110,35 @@
     </dl>
 </div>
 
-<div class="container">
-    <span class="col-md-3">
-        @if (Model.Date >= DateTime.Now)
-        {
-            var path = @Model.TourPics.First().Path;
-            <img class="img-responsive" src='@Url.Content("/Content/Posters/" + path)' style="padding:20px" />
-        }
-        @if (Model.Date < DateTime.Now)
-        {
-            foreach (var item in Model.TourPics.ToList())
+@if (Model.Date >= DateTime.Now && Model.TourPics.Count() != 0)
+{
+    var path = @Model.TourPics.First().Path;
+    <div class="container" style="padding-bottom:27px">
+        <div class="row" style="width:99%">
+            <img class="img-responsive center-block" src='@Url.Content("/Content/Posters/" + path)' />
+        </div>
+    </div>
+}
+@if (Model.Date < DateTime.Now && Model.TourPics.Count() != 0)
+{
+    <div class="container" style="padding:20px">
+        <div class="row text-center" style="width:99%">
+            @foreach (var item in Model.TourPics.ToList())
             {
                 var path = item.Path;
-                <span><img class="img-responsive" src='@Url.Content("/Content/TourGallery/" + path)' style="padding:20px" /></span>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="forThumbnails">
+
+                        <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                        <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
+                            <p>@item.PicName</p>
+                        </div>
+                    </div>
+                </div>
             }
-        }
-
-    </span>
-</div>
-
+        </div>
+    </div>
+}
 
 <p>
     @if (User.IsInRole("Admin"))
