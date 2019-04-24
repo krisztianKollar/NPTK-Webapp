@@ -110,7 +110,7 @@
     </dl>
 </div>
 
-@if (Model.Date >= DateTime.Now && Model.TourPics.Count() != 0)
+@if (Model.Date >= DateTime.Now && Model.TourPics.Count() == 1)
 {
     var path = @Model.TourPics.First().Path;
     <div class="container" style="padding-bottom:27px">

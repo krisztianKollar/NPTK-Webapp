@@ -5700,12 +5700,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     }
 
     .navbar-inverse .navbar-toggle {
-        border-color: #333;
+        border-color: #fff;
     }
 
         .navbar-inverse .navbar-toggle:hover,
         .navbar-inverse .navbar-toggle:focus {
-            background-color: #333;
+            background-color: darkkhaki;
         }
 
         .navbar-inverse .navbar-toggle .icon-bar {
