@@ -9,10 +9,69 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@{var count = 0;
+
+    foreach (var group in Model.OrderByDescending(m => m.Gallery.Tour.Date).GroupBy(m => m.Gallery.Tour.Title))
+    {
+        count += 1;
+        string collapseId = "collapse_" + count;
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#@collapseId">
+                            @group.Key – @group.ElementAt(0).Gallery.Tour.Date.ToString("yyyy. MM. dd.") @group.ElementAt(0).Gallery.Tour.Track
+
+                        </a>
+                    </h4>
+                </div>
+                <div id="@collapseId" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="container" style="padding:20px">
+                            <div class="row text-center" style="width:97%">
+                                @foreach (var item in group)
+                    {
+                        var path = item.Path;
+                                    <div class="col-sm-6 col-md-4 col-lg-3">
+                                        <div class="forThumbnails">
+
+                                            <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                                            <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
+                                                <p>@item.PicName</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<p>
+                @Html.DisplayFor(modelItem => item.PicName)
+                <span style="padding-left:20px">
+                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.PicID }) <span> |</span>
+                    @Html.ActionLink("Törlés", "Delete", new { id = item.PicID })
+                </span>
+            </p>*@
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+}
+
+
+
+
+
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Tour.Title)
+            @Html.DisplayNameFor(model => model.Gallery.Tour.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Path)
@@ -23,23 +82,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tour.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Path)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PicName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PicID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PicID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PicID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gallery.Tour.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PicName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PicID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PicID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PicID })
+            </td>
+        </tr>
+    }
 
 </table>

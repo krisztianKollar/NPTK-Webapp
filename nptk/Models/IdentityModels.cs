@@ -139,6 +139,8 @@ namespace nptk.Models
         public System.Data.Entity.DbSet<nptk.Models.News> News { get; set; }
 
         public System.Data.Entity.DbSet<nptk.Models.Picture> Pictures { get; set; }
+
+        public System.Data.Entity.DbSet<nptk.Models.Gallery> Galleries { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }
@@ -149,6 +151,10 @@ namespace nptk.Models
     {
         public CustomRole() { }
         public CustomRole(string name) { Name = name; }
+        public override string ToString()
+        {
+            return "Role name = " + Name;
+        }
     }
 
     public class UserStore : UserStore<ApplicationUser, CustomRole, int,
@@ -168,7 +174,7 @@ namespace nptk.Models
         }
     }
 
-    /*public class ApplicationRoleManager : RoleManager<CustomRole, int>
+    public class ApplicationRoleManager : RoleManager<CustomRole, int>
     {
         public ApplicationRoleManager(IRoleStore<CustomRole, int> roleStore)
             : base(roleStore)
@@ -179,5 +185,5 @@ namespace nptk.Models
         {
             return new ApplicationRoleManager(new RoleStore<CustomRole, int, CustomUserRole>(context.Get<ApplicationDbContext>()));
         }
-    }*/
+    }
 }

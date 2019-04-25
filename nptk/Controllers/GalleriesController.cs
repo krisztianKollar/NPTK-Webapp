@@ -10,112 +10,112 @@ using nptk.Models;
 
 namespace nptk.Controllers
 {
-    public class PicturesController : Controller
+    public class GalleriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Pictures
+        // GET: Galleries
         public ActionResult Index()
         {
-            var pictures = db.Pictures.Include(p => p.Tour);
-            return View(pictures.ToList());
+            var galleries = db.Galleries.Include(g => g.Tour);
+            return View(galleries.ToList());
         }
 
-        // GET: Pictures/Details/5
+        // GET: Galleries/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Picture picture = db.Pictures.Find(id);
-            if (picture == null)
+            Gallery gallery = db.Galleries.Find(id);
+            if (gallery == null)
             {
                 return HttpNotFound();
             }
-            return View(picture);
+            return View(gallery);
         }
 
-        // GET: Pictures/Create
+        // GET: Galleries/Create
         public ActionResult Create()
         {
             ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title");
             return View();
         }
 
-        // POST: Pictures/Create
+        // POST: Galleries/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PicID,TourID,Path,PicName")] Picture picture)
+        public ActionResult Create([Bind(Include = "GalleryID,TourID")] Gallery gallery)
         {
             if (ModelState.IsValid)
             {
-                db.Pictures.Add(picture);
+                db.Galleries.Add(gallery);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", picture.TourID);
-            return View(picture);
+            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", gallery.Tour.TourId);
+            return View(gallery);
         }
 
-        // GET: Pictures/Edit/5
+        // GET: Galleries/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Picture picture = db.Pictures.Find(id);
-            if (picture == null)
+            Gallery gallery = db.Galleries.Find(id);
+            if (gallery == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", picture.TourID);
-            return View(picture);
+            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", gallery.Tour.TourId);
+            return View(gallery);
         }
 
-        // POST: Pictures/Edit/5
+        // POST: Galleries/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PicID,TourID,Path,PicName")] Picture picture)
+        public ActionResult Edit([Bind(Include = "GalleryID,TourID")] Gallery gallery)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(picture).State = EntityState.Modified;
+                db.Entry(gallery).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", picture.TourID);
-            return View(picture);
+            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title", gallery.Tour.TourId);
+            return View(gallery);
         }
 
-        // GET: Pictures/Delete/5
+        // GET: Galleries/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Picture picture = db.Pictures.Find(id);
-            if (picture == null)
+            Gallery gallery = db.Galleries.Find(id);
+            if (gallery == null)
             {
                 return HttpNotFound();
             }
-            return View(picture);
+            return View(gallery);
         }
 
-        // POST: Pictures/Delete/5
+        // POST: Galleries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Picture picture = db.Pictures.Find(id);
-            db.Pictures.Remove(picture);
+            Gallery gallery = db.Galleries.Find(id);
+            db.Galleries.Remove(gallery);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

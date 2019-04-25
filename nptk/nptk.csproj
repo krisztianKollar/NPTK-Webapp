@@ -189,9 +189,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\SignUpsController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\ToursController.cs" />
@@ -283,8 +283,22 @@
     <Compile Include="Migrations\201904051125095_updated picmodel.Designer.cs">
       <DependentUpon>201904051125095_updated picmodel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904171103307_roles.cs" />
+    <Compile Include="Migrations\201904171103307_roles.Designer.cs">
+      <DependentUpon>201904171103307_roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904250731289_PicGallery.cs" />
+    <Compile Include="Migrations\201904250731289_PicGallery.Designer.cs">
+      <DependentUpon>201904250731289_PicGallery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904250735095_Gallery.cs" />
+    <Compile Include="Migrations\201904250735095_Gallery.Designer.cs">
+      <DependentUpon>201904250735095_Gallery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactViewModel.cs" />
+    <Compile Include="Models\Gallery.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\News.cs" />
@@ -389,6 +403,11 @@
     <Content Include="Views\Pictures\Details.cshtml" />
     <Content Include="Views\Pictures\Edit.cshtml" />
     <Content Include="Views\Pictures\Index.cshtml" />
+    <Content Include="Views\Galleries\Create.cshtml" />
+    <Content Include="Views\Galleries\Delete.cshtml" />
+    <Content Include="Views\Galleries\Details.cshtml" />
+    <Content Include="Views\Galleries\Edit.cshtml" />
+    <Content Include="Views\Galleries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,6 +488,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904051125095_updated picmodel.resx">
       <DependentUpon>201904051125095_updated picmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171103307_roles.resx">
+      <DependentUpon>201904171103307_roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904250731289_PicGallery.resx">
+      <DependentUpon>201904250731289_PicGallery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904250735095_Gallery.resx">
+      <DependentUpon>201904250735095_Gallery.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

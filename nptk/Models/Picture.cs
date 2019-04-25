@@ -10,10 +10,10 @@ namespace nptk.Models
     {
         [Key]
         public int PicID { get; set; }
-        public int TourID { get; set; }
+        public int GalleryID { get; set; }
         public string Path { get; set; }
         public string PicName { get; set; }
 
-        public virtual Tour Tour { get; set; }
+        public virtual Gallery Gallery { get; set; }
     }
 }
