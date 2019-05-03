@@ -287,13 +287,21 @@
     <Compile Include="Migrations\201904171103307_roles.Designer.cs">
       <DependentUpon>201904171103307_roles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904250731289_PicGallery.cs" />
-    <Compile Include="Migrations\201904250731289_PicGallery.Designer.cs">
-      <DependentUpon>201904250731289_PicGallery.cs</DependentUpon>
+    <Compile Include="Migrations\201904251315502_Galleries.cs" />
+    <Compile Include="Migrations\201904251315502_Galleries.Designer.cs">
+      <DependentUpon>201904251315502_Galleries.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904250735095_Gallery.cs" />
-    <Compile Include="Migrations\201904250735095_Gallery.Designer.cs">
-      <DependentUpon>201904250735095_Gallery.cs</DependentUpon>
+    <Compile Include="Migrations\201904251331361_Galleries1.cs" />
+    <Compile Include="Migrations\201904251331361_Galleries1.Designer.cs">
+      <DependentUpon>201904251331361_Galleries1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904301210549_databasegenerated.cs" />
+    <Compile Include="Migrations\201904301210549_databasegenerated.Designer.cs">
+      <DependentUpon>201904301210549_databasegenerated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905020949057_g_t.cs" />
+    <Compile Include="Migrations\201905020949057_g_t.Designer.cs">
+      <DependentUpon>201905020949057_g_t.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -307,6 +315,7 @@
     <Compile Include="Models\SignUp.cs" />
     <Compile Include="Models\StatisticsViewModels.cs" />
     <Compile Include="Models\Tour.cs" />
+    <Compile Include="Models\GalleryViewModel.cs" />
     <Compile Include="Models\TourViewModel.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -492,11 +501,17 @@
     <EmbeddedResource Include="Migrations\201904171103307_roles.resx">
       <DependentUpon>201904171103307_roles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904250731289_PicGallery.resx">
-      <DependentUpon>201904250731289_PicGallery.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904251315502_Galleries.resx">
+      <DependentUpon>201904251315502_Galleries.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904250735095_Gallery.resx">
-      <DependentUpon>201904250735095_Gallery.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904251331361_Galleries1.resx">
+      <DependentUpon>201904251331361_Galleries1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904301210549_databasegenerated.resx">
+      <DependentUpon>201904301210549_databasegenerated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905020949057_g_t.resx">
+      <DependentUpon>201905020949057_g_t.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
