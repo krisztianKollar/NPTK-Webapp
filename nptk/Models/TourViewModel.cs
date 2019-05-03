@@ -39,6 +39,6 @@ namespace nptk.Models
         [Display(Name = "Képek")]
         public string[] PicPaths { get; set; }
 
-        public HttpPostedFileBase[] Gallery { get; set; }
+        public HttpPostedFileBase[] UploadedPics { get; set; }
     }
 }

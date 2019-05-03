@@ -65,9 +65,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PicPaths, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Gallery, new { type = "file", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.Gallery, "", new { @class = "text-danger" })
-                @Html.ValidationMessageFor(model => model.Gallery)
+                @Html.TextBoxFor(model => model.UploadedPics, new { type = "file", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.UploadedPics, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.UploadedPics)
             </div>
         </div>
 
