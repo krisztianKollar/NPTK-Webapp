@@ -10,8 +10,9 @@ namespace nptk.Models
     public class Gallery
     {
         [ForeignKey("Tour")]
-        [Key]
         public int GalleryID { get; set; }
+
+        public int TourID { get; set; }
 
         public virtual Tour Tour { get; set; }
 
