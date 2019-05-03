@@ -19,6 +19,7 @@ namespace nptk.Controllers
     public class ToursController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private GalleriesController galleriesController = new GalleriesController();
 
         // GET: Tours
         public ActionResult Index(string sortOrder, string filtTour)
@@ -277,6 +278,10 @@ namespace nptk.Controllers
             try
             {
                 Tour tour = db.Tours.Find(id);
+                if (tour.Gallery != null)
+                {
+                    galleriesController.DeletePicFiles(tour.Gallery.GalleryID);
+                }
                 db.Tours.Remove(tour);
                 GetActualTour();
                 db.SaveChanges();

@@ -60,11 +60,11 @@ namespace nptk.Controllers
             else
             {
                 Debug.WriteLine("VAN");
-                ModelState.AddModelError("", "Ennek a túrának már van galériája!");
+                ModelState.AddModelError("", "Ennek a túrának már van albuma!");
             }
             try
             {
-                ViewBag.TourId = new SelectList(db.Tours, "TourId", "Title");
+                ViewBag.TourId = new SelectList(db.Tours.Where(t => t.Gallery == null), "TourId", "Title");
                 //var errors = ModelState.Values.SelectMany(v => v.Errors);
                 if (ModelState.IsValid)
                 {
@@ -170,16 +170,11 @@ namespace nptk.Controllers
         {
             try
             {
-                List<Picture> picsToDelete = (from p in db.Pictures
-                                              where p.GalleryID == id
-                                              select p).ToList();
-                foreach (Picture pic in picsToDelete)
-                {
-                    var path = Path.Combine(Server.MapPath("/Content/TourGallery/" + pic.Path));
-                    System.IO.File.Delete(path);
-
-                }
                 Gallery gallery = db.Galleries.Find(id);
+                if (gallery.TourPics.Count() != 0)
+                {
+                    DeletePicFiles(id);
+                }
                 db.Galleries.Remove(gallery);
                 db.SaveChanges();
             }
@@ -189,6 +184,16 @@ namespace nptk.Controllers
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
             }
             return RedirectToAction("Index");
+        }
+
+        public void DeletePicFiles(int id)
+        {
+            IEnumerable<Picture> picsToDelete = db.Pictures.Where(p => p.GalleryID == id).ToList();
+            foreach (Picture pic in picsToDelete)
+            {
+                string path = Path.Combine(HttpRuntime.AppDomainAppPath, "Content/TourGallery/" + pic.Path);
+                System.IO.File.Delete(path);
+            }
         }
 
         protected override void Dispose(bool disposing)
