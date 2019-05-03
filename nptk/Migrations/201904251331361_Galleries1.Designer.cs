@@ -7,13 +7,13 @@ namespace nptk.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PicGallery : IMigrationMetadata
+    public sealed partial class Galleries1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PicGallery));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Galleries1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904250731289_PicGallery"; }
+            get { return "201904251331361_Galleries1"; }
         }
         
         string IMigrationMetadata.Source
