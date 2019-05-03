@@ -143,12 +143,12 @@ namespace nptk.Controllers
                         var path = Path.Combine(Server.MapPath("/Content/Posters/" + tour.PosterPath));
                         model.Image.SaveAs(path);
                     }*/
-                    Debug.WriteLine(model.Gallery.Count());
-                    if (model.Gallery.Count() != 0)
+                    Debug.WriteLine(model.UploadedPics.Count());
+                    if (model.UploadedPics.Count() != 0)
                     {
-                        if (model.Gallery.Count() == 1)
+                        if (model.UploadedPics.Count() == 1)
                         {
-                            foreach (var pic in model.Gallery)
+                            foreach (var pic in model.UploadedPics)
                             {
                                 string extension = Path.GetExtension(pic.FileName);
                                 string PicPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower();
@@ -165,10 +165,10 @@ namespace nptk.Controllers
                             }
                         }
 
-                        if (model.Gallery.Count() > 1)
+                        if (model.UploadedPics.Count() > 1)
                         {
                             var picCount = 0;
-                            foreach (var pic in model.Gallery)
+                            foreach (var pic in model.UploadedPics)
                             {
                                 picCount += 1;
                                 string extension = Path.GetExtension(pic.FileName);
