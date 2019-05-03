@@ -53,15 +53,6 @@ namespace nptk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(GalleryViewModel model)
         {
-            if (!db.Galleries.Any(g => g.TourID == model.TourId))
-            {
-                Debug.WriteLine("Nincs");
-            }
-            else
-            {
-                Debug.WriteLine("VAN");
-                ModelState.AddModelError("", "Ennek a túrának már van albuma!");
-            }
             try
             {
                 ViewBag.TourId = new SelectList(db.Tours.Where(t => t.Gallery == null), "TourId", "Title");
@@ -74,9 +65,7 @@ namespace nptk.Controllers
                         TourID = model.TourId
                     };
                     db.Galleries.Add(gallery);
-                    Debug.WriteLine("gallery.Id = " + gallery.GalleryID);
                     db.SaveChanges();
-                    Debug.WriteLine("model.tourId = " + model.TourId);
                     if (model.UploadedPics.Count() > 1)
                     {
                         var picCount = 0;
@@ -93,7 +82,6 @@ namespace nptk.Controllers
                                 PicName = PicPath,
                                 GalleryID = gallery.GalleryID
                             };
-                            Debug.WriteLine("picture.galleryID = " + picture.GalleryID);
                             db.Pictures.Add(picture);
                         }
                     }
