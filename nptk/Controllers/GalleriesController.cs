@@ -39,9 +39,10 @@ namespace nptk.Controllers
         }
 
         // GET: Galleries/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            ViewBag.TourId = new SelectList(db.Tours.Where(t => t.Gallery == null), "TourId", "Title");
+            ViewBag.TourId = new SelectList(db.Tours.Where(t => t.Gallery == null).OrderByDescending(t => t.Date), "TourId", "Title");
             return View();
         }
 
@@ -55,7 +56,7 @@ namespace nptk.Controllers
         {
             try
             {
-                ViewBag.TourId = new SelectList(db.Tours.Where(t => t.Gallery == null), "TourId", "Title");
+                ViewBag.TourId = new SelectList(db.Tours.Where(t => t.Gallery == null).OrderByDescending(t => t.Date), "TourId", "Title");
                 //var errors = ModelState.Values.SelectMany(v => v.Errors);
                 if (ModelState.IsValid)
                 {
@@ -66,6 +67,23 @@ namespace nptk.Controllers
                     };
                     db.Galleries.Add(gallery);
                     db.SaveChanges();
+                    Tour tour = db.Tours.Find(model.TourId);
+                    if (model.UploadedPics.Count() == 1 && tour.Date > DateTime.Now)
+                    {
+                        var pic = model.UploadedPics[0];
+                            string extension = Path.GetExtension(pic.FileName);
+                            string PicPath = "poster_" + model.TourId;
+                            var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
+                            pic.SaveAs(path);
+                            Picture picture = new Picture
+                            {
+                                Path = PicPath + extension,
+                                PicName = PicPath,
+                                GalleryID = gallery.GalleryID
+                            };
+
+                            db.Pictures.Add(picture);
+                    }
                     if (model.UploadedPics.Count() > 1)
                     {
                         var picCount = 0;
@@ -100,6 +118,7 @@ namespace nptk.Controllers
 
 
         // GET: Galleries/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -120,6 +139,7 @@ namespace nptk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "GalleryID,TourID")] Gallery gallery)
         {
             if (ModelState.IsValid)
@@ -133,6 +153,7 @@ namespace nptk.Controllers
         }
 
         // GET: Galleries/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -154,6 +175,7 @@ namespace nptk.Controllers
         // POST: Galleries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             try
