@@ -28,8 +28,8 @@ namespace nptk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            ViewBag.TourID = new SelectList(db.Tours, "TourId", "Title");
-            ViewBag.UserID = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.TourID = new SelectList(db.Tours.OrderByDescending(t => t.Date), "TourId", "Title");
+            ViewBag.UserID = new SelectList(db.Users.OrderBy(u => u.LastName).ThenBy(f => f.FirstName), "Id", "FullName");
             return View();
         }
 
