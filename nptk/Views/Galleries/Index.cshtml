@@ -13,53 +13,59 @@
     </p>
 }
 
-    @{var count = 0;
+@{var count = 0;
 
-        foreach (var item in Model.OrderByDescending(m => m.Tour.Date))
-        {
-            count += 1;
-            string collapseId = "collapse_" + count;
+    foreach (var item in Model.OrderByDescending(m => m.Tour.Date))
+    {
+        count += 1;
+        string collapseId = "collapse_" + count;
 
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="background-color:darkkhaki; color:white">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#@collapseId">
-                                @Html.DisplayFor(model => item.Tour.Title) – @item.Tour.Date.ToString("yyyy. MMMM dd.")
-                            </a>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <span class="pull-right">
-                                    @Html.ActionLink("Szerkesztés", "Edit", new { id = item.GalleryID }) <span> |</span>
-                                    @Html.ActionLink("Törlés", "Delete", new { id = item.GalleryID })
-                                </span>
-                            }
-                        </h4>
-                    </div>
-                    <div id="@collapseId" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="container" style="padding:20px">
-                                <div class="row text-center" style="width:95%">
-                                    @foreach (var pic in item.TourPics.ToList())
-                                    {
-                                        var path = pic.Path;
-                                        <div class="col-sm-6 col-md-4 col-lg-3">
-                                            <div class="forThumbnails">
-
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:darkkhaki; color:white">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#@collapseId">
+                            @Html.DisplayFor(model => item.Tour.Title) – @item.Tour.Date.ToString("yyyy. MMMM dd.")
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span class="pull-right">
+                                @Html.ActionLink("Szerkesztés", "Edit", new { id = item.GalleryID }) <span> |</span>
+                                @Html.ActionLink("Törlés", "Delete", new { id = item.GalleryID })
+                            </span>
+                        }
+                    </h4>
+                </div>
+                <div id="@collapseId" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="container" style="padding:20px">
+                            <div class="row text-center" style="width:95%">
+                                @foreach (var pic in item.TourPics.ToList())
+                                {
+                                    var path = pic.Path;
+                                    <div class="col-sm-6 col-md-4 col-lg-3">
+                                        <div class="forThumbnails">
+                                            @if (path.Contains("poster"))
+                                            {
+                                                <img src="@Url.Content("/Content/Posters/" + path)" class="img-thumbnail" alt="...">
+                                            }
+                                            else
+                                            {
                                                 <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
-                                                <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
-                                                    <p>@pic.PicName</p>
-                                                </div>
+                                            }
+                                            <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
+                                                <p>@pic.PicName</p>
                                             </div>
                                         </div>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
-        }
+        </div>
     }
+}
 
