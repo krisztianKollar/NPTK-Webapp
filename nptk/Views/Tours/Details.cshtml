@@ -84,7 +84,7 @@
             }
         }
 
-        <dt>
+        <dt style="padding-top: 15px">
             @if (Model.SignUps.Count() > 0)
             {
                 if (Model.Date < DateTime.Now)
@@ -97,7 +97,7 @@
                 }
             }
         </dt>
-        <dd>
+        <dd style="padding-top: 15px">
             <ul class="list-inline">
                 @foreach (var item in Model.SignUps)
                 {
@@ -109,36 +109,38 @@
         </dd>
     </dl>
 </div>
-
-@*@if (Model.Date >= DateTime.Now && Model.Gallery.TourPics.Count() == 1)
+@if (Model.Gallery != null)
 {
-    var path = @Model.Gallery.TourPics.First().Path;
-    <div class="container" style="padding-bottom:27px">
-        <div class="row" style="width:99%">
-            <img class="img-responsive center-block" src='@Url.Content("/Content/Posters/" + path)' />
+    if (Model.Date >= DateTime.Now && Model.Gallery.TourPics.Count() == 1)
+    {
+        var path = @Model.Gallery.TourPics.First().Path;
+        <div class="container" style="padding-bottom:27px">
+            <div class="row" style="width:99%">
+                <img class="img-responsive center-block" src='@Url.Content("/Content/Posters/" + path)' />
+            </div>
         </div>
-    </div>
-}
-@if (Model.Date < DateTime.Now && Model.Gallery.TourPics.Count() != 0)
-{
-    <div class="container" style="padding:20px">
-        <div class="row text-center" style="width:99%">
-            @foreach (var item in Model.Gallery.TourPics.ToList())
-            {
-                var path = item.Path;
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="forThumbnails">
+    }
+    if (Model.Date < DateTime.Now && Model.Gallery.TourPics.Count() != 0)
+    {
+        <div class="container" style="padding:20px">
+            <div class="row text-center" style="width:99%">
+                @foreach (var item in Model.Gallery.TourPics.ToList())
+                {
+                    var path = item.Path;
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="forThumbnails">
 
-                        <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
-                        <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
-                            <p>@item.PicName</p>
+                            <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                            <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
+                                <p>@item.PicName</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
-}*@
+    }
+}
 
 <p>
     @if (User.IsInRole("Admin"))
