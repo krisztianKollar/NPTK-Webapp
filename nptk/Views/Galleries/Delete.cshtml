@@ -1,32 +1,21 @@
 ﻿@model nptk.Models.Gallery
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Album törlése";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Biztosan törölni szeretnéd ezt az albumot: @Html.DisplayFor(model => model.Tour.Title) – @Model.Tour.Date.ToString("yyyy. MMMM dd.")?</h3>
 <div>
-    <h4>Gallery</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Tour.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tour.Title)
-        </dd>
-
-    </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Igen, törlöm!" class="btn btn-default" /> |
+            @Html.ActionLink("Vissza a galériába", "Index")
         </div>
     }
 </div>
