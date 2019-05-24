@@ -1,37 +1,62 @@
 ﻿@model nptk.Models.Gallery
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Album szerkesztése";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Gallery</h4>
+        <h4>@Html.DisplayFor(model => model.Tour.Title) – @Model.Tour.Date.ToString("yyyy. MMMM dd.")</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.GalleryID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TourID, "TourID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TourID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TourID, "", new { @class = "text-danger" })
+
+    </div>
+
+    if (Model.Tour.Date >= DateTime.Now && Model.TourPics.Count() == 1)
+    {
+        var path = @Model.TourPics.First().Path;
+        <div class="container" style="padding-bottom:27px">
+            <div class="row" style="width:99%">
+                <img class="img-responsive center-block" style="width:70%" src='@Url.Content("/Content/Posters/" + path)' />
             </div>
         </div>
+    }
+    if (Model.Tour.Date < DateTime.Now && Model.TourPics.Count() != 0)
+    {
+        <div class="container" style="padding:20px">
+            <div class="row text-center" style="width:99%">
+                @foreach (var item in Model.TourPics.ToList())
+                {
+                    var path = item.Path;
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="forThumbnails">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                            <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                            <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
+                                @Html.EditorFor(model => item.PicName, new { placeholder = item.PicName, htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => item.PicName, "", new { @class = "text-danger" })
+                                <p>@item.PicName</p>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+        </div>
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Album módosításainak mentése" class="btn btn-default pull-right" />
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Vissza a galériába", "Index")
 </div>

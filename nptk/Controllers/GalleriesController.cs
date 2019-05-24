@@ -71,18 +71,18 @@ namespace nptk.Controllers
                     if (model.UploadedPics.Count() == 1 && tour.Date > DateTime.Now)
                     {
                         var pic = model.UploadedPics[0];
-                            string extension = Path.GetExtension(pic.FileName);
-                            string PicPath = "poster_" + model.TourId;
-                            var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
-                            pic.SaveAs(path);
-                            Picture picture = new Picture
-                            {
-                                Path = PicPath + extension,
-                                PicName = PicPath,
-                                GalleryID = gallery.GalleryID
-                            };
+                        string extension = Path.GetExtension(pic.FileName);
+                        string PicPath = "poster_" + model.TourId;
+                        var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
+                        pic.SaveAs(path);
+                        Picture picture = new Picture
+                        {
+                            Path = PicPath + extension,
+                            PicName = PicPath,
+                            GalleryID = gallery.GalleryID
+                        };
 
-                            db.Pictures.Add(picture);
+                        db.Pictures.Add(picture);
                     }
                     if (model.UploadedPics.Count() > 1)
                     {
@@ -199,9 +199,11 @@ namespace nptk.Controllers
         public void DeletePicFiles(int id)
         {
             IEnumerable<Picture> picsToDelete = db.Pictures.Where(p => p.GalleryID == id).ToList();
+            string path = "";
             foreach (Picture pic in picsToDelete)
             {
-                string path = Path.Combine(HttpRuntime.AppDomainAppPath, "Content/TourGallery/" + pic.Path);
+                path = pic.Path.Contains("poster") ? 
+                    Path.Combine(HttpRuntime.AppDomainAppPath, "Content/Posters/" + pic.Path) : Path.Combine(HttpRuntime.AppDomainAppPath, "Content/TourGallery/" + pic.Path);
                 System.IO.File.Delete(path);
             }
         }
