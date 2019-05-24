@@ -33,12 +33,7 @@ namespace nptk.Models
         [Display(Name = "Aktív túra?")]
         public bool IsActive { get; set; }
 
-        [Display(Name = "Aktuális túra?")]
-        public bool IsActual { get; set; }
-
-        [Display(Name = "Képek")]
-        public string[] PicPaths { get; set; }
-
-        public HttpPostedFileBase[] UploadedPics { get; set; }
+        [Display(Name = "Album létrehozása")]
+        public bool NeedGallery { get; set; }
     }
 }

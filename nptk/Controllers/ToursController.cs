@@ -49,7 +49,7 @@ namespace nptk.Controllers
             ViewBag.DistanceSortParm = sortOrder == "distance" ? "distance_desc" : "distance";
             ViewBag.ClimbSortParm = sortOrder == "climb" ? "climb_desc" : "climb";
             //ViewBag.DateSortParm = string.IsNullOrEmpty(sortOrder) ? "" : "date";
-            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date"; 
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
             switch (sortOrder)
             {
                 case "title":
@@ -76,7 +76,7 @@ namespace nptk.Controllers
                 case "date_desc":
                     tours = tours.OrderByDescending(t => t.Date);
                     break;
-                default :
+                default:
                     tours = tours.OrderByDescending(t => t.Date);
                     break;
             }
@@ -136,61 +136,9 @@ namespace nptk.Controllers
                         IsActive = model.IsActive
                     };
 
-
-                    /*if (model.Image != null)
-                    {
-                        string extension = Path.GetExtension(model.Image.FileName);
-                        tour.PosterPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower() + extension;
-                        var path = Path.Combine(Server.MapPath("/Content/Posters/" + tour.PosterPath));
-                        model.Image.SaveAs(path);
-                    }*/
-                    Debug.WriteLine(model.UploadedPics.Count());
-                    if (model.UploadedPics.Count() != 0)
-                    {
-                        if (model.UploadedPics.Count() == 1)
-                        {
-                            foreach (var pic in model.UploadedPics)
-                            {
-                                string extension = Path.GetExtension(pic.FileName);
-                                string PicPath = "poster" + tour.Date.ToString("yyyyMMdd").ToLower();
-                                var path = Path.Combine(Server.MapPath("/Content/Posters/" + PicPath + extension));
-                                pic.SaveAs(path);
-
-                                Picture picture = new Picture
-                                {
-                                    Path = PicPath + extension,
-                                    PicName = PicPath
-                                };
-
-                                db.Pictures.Add(picture);
-                            }
-                        }
-
-                        if (model.UploadedPics.Count() > 1)
-                        {
-                            var picCount = 0;
-                            foreach (var pic in model.UploadedPics)
-                            {
-                                picCount += 1;
-                                string extension = Path.GetExtension(pic.FileName);
-                                string PicPath = "tour" + tour.Date.ToString("yyyyMMdd_").ToLower() + picCount;
-                                var path = Path.Combine(Server.MapPath("/Content/TourGallery/" + PicPath + extension));
-                                pic.SaveAs(path);
-                                Picture picture = new Picture
-                                {
-                                    Path = PicPath + extension,
-                                    PicName = PicPath
-                                };
-
-                                db.Pictures.Add(picture);
-                            }
-                        }
-                    }
-
                     db.Tours.Add(tour);
                     db.SaveChanges();
                     GetActualTour();
-                    return RedirectToAction("Index");
                 }
             }
             catch (DataException /* dex */)
@@ -198,7 +146,14 @@ namespace nptk.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Nem sikerült a létrehozás. Próbáld újra, s ha nem megy, keresd az adminisztrátort!");
             }
-            return View();
+            if (model.NeedGallery)
+            {
+                return RedirectToAction("Index", "Galleries");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // GET: Tours/Edit/5
