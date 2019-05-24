@@ -44,28 +44,30 @@
                                 {
                                     var path = pic.Path;
                                     <div class="col-sm-6 col-md-4 col-lg-3">
-                                        <div class="forThumbnails">
-                                            @if (path.Contains("poster"))
-                                            {
-                                                <img src="@Url.Content("/Content/Posters/" + path)" class="img-thumbnail" alt="...">
-                                            }
-                                            else
-                                            {
-                                                <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
-                                            }
-                                            <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
-                                                <p>@pic.PicName</p>
+                                        @if (path.Contains("poster"))
+                                        {
+                                            <div >
+                                                <img style="max-width:200px" src="@Url.Content("/Content/Posters/" + path)" class="img-responsive">
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="forThumbnails">
+                                                <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                                                <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
+                                                    <p>@pic.PicName</p>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-    }
-}
+        }
+                                }
 
