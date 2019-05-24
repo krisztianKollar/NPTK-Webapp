@@ -199,10 +199,9 @@ namespace nptk.Controllers
         public void DeletePicFiles(int id)
         {
             IEnumerable<Picture> picsToDelete = db.Pictures.Where(p => p.GalleryID == id).ToList();
-            string path = "";
             foreach (Picture pic in picsToDelete)
             {
-                path = pic.Path.Contains("poster") ? 
+                string path = pic.Path.Contains("poster") ? 
                     Path.Combine(HttpRuntime.AppDomainAppPath, "Content/Posters/" + pic.Path) : Path.Combine(HttpRuntime.AppDomainAppPath, "Content/TourGallery/" + pic.Path);
                 System.IO.File.Delete(path);
             }
