@@ -6,57 +6,67 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>@Html.DisplayFor(model => model.Tour.Title) – @Model.Tour.Date.ToString("yyyy. MMMM dd.")</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.GalleryID)
+
+
+</div>
+
+@if (Model.Tour.Date >= DateTime.Now && Model.TourPics.Count() == 1)
 {
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>@Html.DisplayFor(model => model.Tour.Title) – @Model.Tour.Date.ToString("yyyy. MMMM dd.")</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.GalleryID)
-
-
+    var path = @Model.TourPics.First().Path;
+    <div class="container" style="padding-bottom:27px">
+        <div class="row" style="width:99%">
+            <img class="img-responsive center-block" style="width:70%" src='@Url.Content("/Content/Posters/" + path)' />
+        </div>
     </div>
+}
+@if (Model.Tour.Date < DateTime.Now && Model.TourPics.Count() != 0)
+{
+    <div class="container" style="padding:20px">
+        <div class="row text-center" style="width:99%">
+            @foreach (var item in Model.TourPics.ToList())
+            {
+            var path = item.Path;
+            <div class="col-sm-6 col-md-4 col-lg-3" style="padding-bottom:100px">
+                <div class="forThumbnails" style="padding-bottom:20px">
 
-    if (Model.Tour.Date >= DateTime.Now && Model.TourPics.Count() == 1)
-    {
-        var path = @Model.TourPics.First().Path;
-        <div class="container" style="padding-bottom:27px">
-            <div class="row" style="width:99%">
-                <img class="img-responsive center-block" style="width:70%" src='@Url.Content("/Content/Posters/" + path)' />
-            </div>
-        </div>
-    }
-    if (Model.Tour.Date < DateTime.Now && Model.TourPics.Count() != 0)
-    {
-        <div class="container" style="padding:20px">
-            <div class="row text-center" style="width:99%">
-                @foreach (var item in Model.TourPics.ToList())
-                {
-                    var path = item.Path;
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="forThumbnails">
-
-                            <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
-                            <div class="caption" style="text-align:center; padding-top:10px; padding-bottom:15px">
-                                @Html.EditorFor(model => item.PicName, new { placeholder = item.PicName, htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => item.PicName, "", new { @class = "text-danger" })
-                                <p>@item.PicName</p>
-                            </div>
-                        </div>
+                    <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                    <button type="submit" class="btn btn-default pull-right" onclick="return DelPic(@item.PicID);">X</button>
+                    @Html.EditorFor(model => item.PicName, new { placeholder = item.PicName, htmlAttributes = new { @class = "form-control" } })
+                    <div class="caption" style="text-align:center; padding-top:20px; padding-bottom:35px">
+                        @Html.DisplayFor(model => item.PicID)
+                        @Html.ValidationMessageFor(model => item.PicName, "", new { @class = "text-danger" })
                     </div>
-                }
+                </div>
             </div>
-        </div>
-    }
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Album módosításainak mentése" class="btn btn-default pull-right" />
+            }
         </div>
     </div>
 }
 
+<div class="form-group" style="padding-top:20px">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Album módosításainak mentése" class="btn btn-default pull-right" />
+    </div>
+</div>
+
+
 <div>
     @Html.ActionLink("Vissza a galériába", "Index")
 </div>
+
+<script>
+    function DelPic(picId) {
+        $.ajax({
+            data: "picId=" + picId,
+            url: "/Galleries/DeletePic", success: function () { alert("Törölted"); }
+        }); return false;
+    }
+</script>
