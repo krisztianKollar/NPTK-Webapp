@@ -201,10 +201,24 @@ namespace nptk.Controllers
             IEnumerable<Picture> picsToDelete = db.Pictures.Where(p => p.GalleryID == id).ToList();
             foreach (Picture pic in picsToDelete)
             {
-                string path = pic.Path.Contains("poster") ? 
+                string path = pic.Path.Contains("poster") ?
                     Path.Combine(HttpRuntime.AppDomainAppPath, "Content/Posters/" + pic.Path) : Path.Combine(HttpRuntime.AppDomainAppPath, "Content/TourGallery/" + pic.Path);
                 System.IO.File.Delete(path);
             }
+        }
+        public void DeletePic(int picId)
+        {
+            try
+            {
+                var pic = db.Pictures.Find(picId);
+                db.Pictures.Remove(pic);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                //return RedirectToAction("Delete", new { id = picId, saveChangesError = true });
+            }      
         }
 
         protected override void Dispose(bool disposing)
