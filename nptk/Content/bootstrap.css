@@ -8265,4 +8265,22 @@ button.close {
     transition: border .2s ease-in-out;
 }
 
+.containerDel {
+    position: relative;
+}
+
+.containerDel .delbtn {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    font-weight: bold;
+}
+
+.containerDel .btn:hover {
+    background-color: red;
+    border-color: red;
+}
+
+    
+
 /*# sourceMappingURL=bootstrap.css.map */
