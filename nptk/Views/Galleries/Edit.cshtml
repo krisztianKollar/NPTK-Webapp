@@ -14,9 +14,11 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.GalleryID)
-
-
 </div>
+
+<p>
+    @Html.ActionLink("További képek hozzáadása", "AddPic")
+</p>
 
 @if (Model.Tour.Date >= DateTime.Now && Model.TourPics.Count() == 1)
 {
@@ -33,30 +35,23 @@
         <div class="row text-center" style="width:99%">
             @foreach (var item in Model.TourPics.ToList())
             {
-            var path = item.Path;
-            <div class="col-sm-6 col-md-4 col-lg-3" style="padding-bottom:100px">
-                <div class="forThumbnails" style="padding-bottom:20px">
+                var path = item.Path;
+                <div class="col-sm-6 col-md-4 col-lg-3" style="padding-bottom:100px">
+                    <div class="containerDel forThumbnails" style="padding-bottom:20px">
 
-                    <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
-                    <button type="submit" class="btn btn-default pull-right" onclick="return DelPic(@item.PicID);">X</button>
-                    @Html.EditorFor(model => item.PicName, new { placeholder = item.PicName, htmlAttributes = new { @class = "form-control" } })
-                    <div class="caption" style="text-align:center; padding-top:20px; padding-bottom:35px">
-                        @Html.DisplayFor(model => item.PicID)
-                        @Html.ValidationMessageFor(model => item.PicName, "", new { @class = "text-danger" })
+                        <img src="@Url.Content("/Content/TourGallery/" + path)" class="img-thumbnail" alt="...">
+                        <button type="submit" class="delbtn btn btn-default pull-right" onclick="return DelPic(@item.PicID)">X</button>
+                        @Html.EditorFor(model => item.PicName, new { placeholder = item.PicName, htmlAttributes = new { @class = "form-control" } })
+                        <div class="caption" style="text-align:center; padding-top:20px; padding-bottom:35px">
+                            @Html.DisplayFor(model => item.PicID)
+                            @Html.ValidationMessageFor(model => item.PicName, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-            </div>
             }
         </div>
     </div>
 }
-
-<div class="form-group" style="padding-top:20px">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Album módosításainak mentése" class="btn btn-default pull-right" />
-    </div>
-</div>
-
 
 <div>
     @Html.ActionLink("Vissza a galériába", "Index")
@@ -66,7 +61,10 @@
     function DelPic(picId) {
         $.ajax({
             data: "picId=" + picId,
-            url: "/Galleries/DeletePic", success: function () { alert("Törölted"); }
+            url: "/Galleries/DeletePic", success: function () {
+            alert("Törölted"),
+                location.reload()
+            }
         }); return false;
     }
 </script>
